@@ -1,0 +1,125 @@
+@model HomeownersAssociation.Models.ViewModels.AnnouncementViewModel
+
+@{
+    ViewData["Title"] = "Edit Announcement";
+}
+
+<div class="container">
+    <h1 class="mb-4">@ViewData["Title"]</h1>
+
+    <div class="mb-3">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Announcements
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Announcement Details</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="ExistingAttachmentUrl" />
+                        
+                        <div class="mb-3">
+                            <label asp-for="Title" class="form-label"></label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Content" class="form-label"></label>
+                            <textarea asp-for="Content" class="form-control" rows="10"></textarea>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                            <small class="form-text text-muted">You can use HTML formatting in the content.</small>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Priority" class="form-label"></label>
+                                    <select asp-for="Priority" class="form-select" asp-items="Html.GetEnumSelectList<HomeownersAssociation.Models.AnnouncementPriority>()"></select>
+                                    <span asp-validation-for="Priority" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="ExpiryDate" class="form-label"></label>
+                                    <input asp-for="ExpiryDate" class="form-control" type="date" />
+                                    <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+                                    <small class="form-text text-muted">Leave blank if the announcement doesn't expire.</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Attachment" class="form-label"></label>
+                            <input asp-for="Attachment" class="form-control" type="file" />
+                            <span asp-validation-for="Attachment" class="text-danger"></span>
+                            
+                            @if (!string.IsNullOrEmpty(Model.ExistingAttachmentUrl))
+                            {
+                                    <div class="mt-2">
+                                        <p>Current attachment: <a href="@Model.ExistingAttachmentUrl" target="_blank">View</a></p>
+                                        <small class="form-text text-muted">Upload a new file to replace the current attachment.</small>
+                                    </div>
+                            }
+                            else
+                            {
+                                    <small class="form-text text-muted">Optional. Upload a file to attach to this announcement.</small>
+                            }
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input asp-for="IsActive" class="form-check-input" />
+                            <label asp-for="IsActive" class="form-check-label"></label>
+                            <span asp-validation-for="IsActive" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Tips</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Priority Levels</h6>
+                    <ul>
+                        <li><strong>Urgent</strong> - Critical announcements requiring immediate attention</li>
+                        <li><strong>High</strong> - Important announcements</li>
+                        <li><strong>Normal</strong> - Regular announcements</li>
+                        <li><strong>Low</strong> - Informational announcements</li>
+                    </ul>
+                    
+                    <h6>HTML Formatting</h6>
+                    <p>You can use basic HTML tags in the content:</p>
+                    <ul>
+                        <li><code>&lt;b&gt;Bold text&lt;/b&gt;</code></li>
+                        <li><code>&lt;i&gt;Italic text&lt;/i&gt;</code></li>
+                        <li><code>&lt;u&gt;Underlined text&lt;/u&gt;</code></li>
+                        <li><code>&lt;ul&gt;&lt;li&gt;List item&lt;/li&gt;&lt;/ul&gt;</code></li>
+                        <li><code>&lt;a href="..."&gt;Link&lt;/a&gt;</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

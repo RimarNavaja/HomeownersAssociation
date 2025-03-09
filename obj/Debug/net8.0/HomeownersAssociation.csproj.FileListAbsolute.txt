@@ -265,3 +265,4 @@ C:\Users\Clyd Pardillo\Documents\Kapoy nga Iskol\3rd year\Homeowners\HomeownersA
 C:\Users\Clyd Pardillo\Documents\Kapoy nga Iskol\3rd year\Homeowners\HomeownersAssociation\obj\Debug\net8.0\HomeownersAssociation.pdb
 C:\Users\Clyd Pardillo\Documents\Kapoy nga Iskol\3rd year\Homeowners\HomeownersAssociation\obj\Debug\net8.0\HomeownersAssociation.genruntimeconfig.cache
 C:\Users\Clyd Pardillo\Documents\Kapoy nga Iskol\3rd year\Homeowners\HomeownersAssociation\obj\Debug\net8.0\ref\HomeownersAssociation.dll
+C:\Users\Clyd Pardillo\Documents\Kapoy nga Iskol\3rd year\Homeowners\HomeownersAssociation\obj\Debug\net8.0\HomeownersAssociation.sourcelink.json

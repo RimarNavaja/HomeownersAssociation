@@ -4,7 +4,7 @@
 
 <div class="container">
     <h1 class="mb-4">@ViewData["Title"]</h1>
-    
+
     <div class="row">
         <div class="col-md-4 mb-4">
             <div class="card h-100">
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-header bg-success text-white">
@@ -29,12 +29,15 @@
                 <div class="card-body">
                     <p>Manage announcements and notifications for the community.</p>
                     <div class="d-grid">
-                        <a href="#" class="btn btn-outline-success">Manage Announcements</a>
+                        <a asp-controller="Announcements" asp-action="Index" class="btn btn-outline-success">Manage
+                            Announcements</a>
+                        <a asp-controller="Announcements" asp-action="Create"
+                            class="btn btn-outline-success mt-2">Create New Announcement</a>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-header bg-info text-white">
@@ -49,7 +52,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-md-4 mb-4">
             <div class="card h-100">
@@ -64,7 +67,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-header bg-danger text-white">
@@ -78,7 +81,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-header bg-secondary text-white">
@@ -93,4 +96,4 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
