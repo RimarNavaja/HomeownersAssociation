@@ -1,0 +1,96 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container">
+    <h1 class="mb-4">@ViewData["Title"]</h1>
+    
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">User Management</h5>
+                </div>
+                <div class="card-body">
+                    <p>Manage user accounts, approve new registrations, and view all users.</p>
+                    <div class="d-grid gap-2">
+                        <a asp-action="PendingApprovals" class="btn btn-outline-primary">Pending Approvals</a>
+                        <a asp-action="AllUsers" class="btn btn-outline-secondary">All Users</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Announcements</h5>
+                </div>
+                <div class="card-body">
+                    <p>Manage announcements and notifications for the community.</p>
+                    <div class="d-grid">
+                        <a href="#" class="btn btn-outline-success">Manage Announcements</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Billing</h5>
+                </div>
+                <div class="card-body">
+                    <p>Manage billing and payments for homeowners.</p>
+                    <div class="d-grid">
+                        <a href="#" class="btn btn-outline-info">Manage Billing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">Facilities</h5>
+                </div>
+                <div class="card-body">
+                    <p>Manage facility reservations and maintenance.</p>
+                    <div class="d-grid">
+                        <a href="#" class="btn btn-outline-warning">Manage Facilities</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Service Requests</h5>
+                </div>
+                <div class="card-body">
+                    <p>Manage service requests and maintenance tickets.</p>
+                    <div class="d-grid">
+                        <a href="#" class="btn btn-outline-danger">Manage Requests</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">Reports</h5>
+                </div>
+                <div class="card-body">
+                    <p>View and generate reports for the association.</p>
+                    <div class="d-grid">
+                        <a href="#" class="btn btn-outline-secondary">View Reports</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
