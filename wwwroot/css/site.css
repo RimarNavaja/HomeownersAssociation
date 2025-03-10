@@ -8,7 +8,11 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -19,4 +23,112 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+/* Custom Gray Color Variables */
+:root {
+  --custom-gray: #4a5568;
+  --custom-gray-light: #a0aec0;
+  --custom-gray-lighter: #e2e8f0;
+  --custom-gray-dark: #2d3748;
+  --custom-gray-darker: #1a202c;
+}
+
+/* Gray Color Utilities */
+.text-gray {
+  color: var(--custom-gray) !important;
+}
+
+.text-gray-light {
+  color: var(--custom-gray-light) !important;
+}
+
+.text-gray-dark {
+  color: var(--custom-gray-dark) !important;
+}
+
+.bg-gray {
+  background-color: var(--custom-gray) !important;
+  color: white !important;
+}
+
+.bg-gray-light {
+  background-color: var(--custom-gray-light) !important;
+}
+
+.bg-gray-lighter {
+  background-color: var(--custom-gray-lighter) !important;
+}
+
+.bg-gray-dark {
+  background-color: var(--custom-gray-dark) !important;
+  color: white !important;
+}
+
+.border-gray {
+  border-color: var(--custom-gray) !important;
+}
+
+/* Gray Alert Styles */
+.alert-gray {
+  background-color: var(--custom-gray-lighter);
+  border-color: var(--custom-gray-light);
+  color: var(--custom-gray-dark);
+}
+
+/* Gray Button Styles */
+.btn-gray {
+  color: #fff;
+  background-color: var(--custom-gray);
+  border-color: var(--custom-gray-dark);
+}
+
+.btn-gray:hover {
+  color: #fff;
+  background-color: var(--custom-gray-dark);
+  border-color: var(--custom-gray-darker);
+}
+
+/* Oswald font classes */
+.oswald-heading {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.oswald-subheading {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.oswald-light {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Lora font classes */
+.lora-body {
+  font-family: "Lora", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.lora-bold {
+  font-family: "Lora", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.lora-italic {
+  font-family: "Lora", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: italic;
 }

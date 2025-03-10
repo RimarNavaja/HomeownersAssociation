@@ -4,18 +4,20 @@
     ViewData["Title"] = "Log in";
 }
 
+
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h2 class="text-center">@ViewData["Title"]</h2>
+            <div class="card-header bg-dark text-light">
+                <h2 class="text-center oswald-heading">@ViewData["Title"]</h2>
+                <p class="text-center mb-0 oswald-light">Access your Homeowners Association account</p>
             </div>
-            <div class="card-body">
+            <div class="card-body lora-body">
                 @if (TempData["SuccessMessage"] != null)
                 {
-                        <div class="alert alert-success">
-                            @TempData["SuccessMessage"]
-                        </div>
+                    <div class="alert alert-success">
+                        @TempData["SuccessMessage"]
+                    </div>
                 }
                 <form id="account" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -25,7 +27,7 @@
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                        <input asp-for="Password" class="form-control form-control-sm" autocomplete="current-password" aria-required="true" />
                         <label asp-for="Password"></label>
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
@@ -35,12 +37,13 @@
                             @Html.DisplayNameFor(m => m.RememberMe)
                         </label>
                     </div>
-                    <div class="d-grid gap-2">
-                        <button id="login-submit" type="submit" class="btn btn-lg btn-primary">Log in</button>
+
+                    <div class="d-grid col-6 offset-3 gap-2 mt-4">
+                        <button id="login-submit" type="submit" class="btn btn-md bg-dark text-white oswald-subheading">Log in</button>
                     </div>
                     <div class="mt-3 text-center">
                         <p>
-                            Don't have an account? <a asp-action="Register">Register</a>
+                            Don't have an account? <a asp-action="Register" class="lora-italic text-gray">Register</a>
                         </p>
                     </div>
                 </form>
@@ -50,5 +53,5 @@
 </div>
 
 @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
