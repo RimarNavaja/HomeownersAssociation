@@ -1,0 +1,256 @@
+Functional definitions for a homeowner's subdivision website:
+
+User Management
+Manage user accounts and profiles for homeowners, administrators, and subdivision staff.
+
+Announcements and Notifications
+Post and disseminate news, events, and urgent notices to the community. Provide automated notifications via email or SMS.
+
+Billing and Payment Portal
+Allow homeowners to view and pay association dues, maintenance fees, and other bills securely online.
+
+Facility Reservation
+Enable residents to book amenities such as function halls, sports courts, and swimming pools.
+
+Service Request Management
+Facilitate online submission and tracking of maintenance, security, or other service requests.
+
+Document Management
+Provide access to downloadable forms, community guidelines, financial reports, and meeting minutes.
+
+Community Forum
+Allow homeowners to engage in discussions, share ideas, and raise concerns through a secure communication platform.
+
+Security Features
+Offer visitor pass requests, vehicle registration, and emergency contact directories.
+
+Event Calendar
+Display a centralized calendar of subdivision events, maintenance schedules, and other community activities.
+
+Feedback and Complaints System
+Provide a platform for homeowners to submit feedback and complaints, with status tracking.
+
+Contact Directory
+List important subdivision contacts such as the homeowners' association, security office, and maintenance team.
+
+Mobile-Friendly Design
+Ensure the website is accessible and optimized for mobile devices.
+
+Reports and Analytics
+Provide administrators with data on service requests, payments, and community engagement for better management.
+
+Polls and Surveys
+Allow administrators to gather homeowner opinions on various community matters.
+
+Security and Privacy
+Implement secure user authentication, data encryption, and adherence to data privacy laws.
+
+
+-- Already implemented tables
+CREATE TABLE AspNetUsers (
+    Id NVARCHAR(450) PRIMARY KEY,
+    FirstName NVARCHAR(100),
+    LastName NVARCHAR(100),
+    Email NVARCHAR(256),
+    PhoneNumber NVARCHAR(MAX),
+    IsApproved BIT DEFAULT 0,
+    -- Other Identity fields
+);
+
+CREATE TABLE Announcements (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Title NVARCHAR(100) NOT NULL,
+    Content NTEXT NOT NULL,
+    DatePosted DATETIME NOT NULL,
+    ExpiryDate DATETIME,
+    Priority INTEGER NOT NULL,
+    IsActive BIT NOT NULL,
+    AuthorId NVARCHAR(450),
+    AttachmentUrl NVARCHAR(MAX),
+    FOREIGN KEY (AuthorId) REFERENCES AspNetUsers(Id)
+);
+
+-- New tables to be implemented
+
+-- Property Management
+CREATE TABLE Properties (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    BlockNumber NVARCHAR(20) NOT NULL,
+    LotNumber NVARCHAR(20) NOT NULL,
+    Address NVARCHAR(200) NOT NULL,
+    SquareMeters DECIMAL(10,2) NOT NULL,
+    OwnerId NVARCHAR(450),
+    FOREIGN KEY (OwnerId) REFERENCES AspNetUsers(Id)
+);
+
+-- Billing System
+CREATE TABLE Bills (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    PropertyId INTEGER NOT NULL,
+    BillType NVARCHAR(50) NOT NULL, -- Association dues, Maintenance, etc.
+    Amount DECIMAL(10,2) NOT NULL,
+    DueDate DATE NOT NULL,
+    BillingPeriod NVARCHAR(50) NOT NULL,
+    IsPaid BIT DEFAULT 0,
+    CreatedAt DATETIME NOT NULL,
+    FOREIGN KEY (PropertyId) REFERENCES Properties(Id)
+);
+
+CREATE TABLE Payments (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    BillId INTEGER NOT NULL,
+    Amount DECIMAL(10,2) NOT NULL,
+    PaymentDate DATETIME NOT NULL,
+    PaymentMethod NVARCHAR(50) NOT NULL,
+    TransactionReference NVARCHAR(100),
+    Status NVARCHAR(20) NOT NULL,
+    FOREIGN KEY (BillId) REFERENCES Bills(Id)
+);
+
+-- Facility Management
+CREATE TABLE Facilities (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name NVARCHAR(100) NOT NULL,
+    Description NTEXT,
+    Capacity INTEGER,
+    RatePerHour DECIMAL(10,2),
+    IsActive BIT DEFAULT 1,
+    MaintenanceSchedule NTEXT
+);
+
+CREATE TABLE FacilityReservations (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    FacilityId INTEGER NOT NULL,
+    UserId NVARCHAR(450) NOT NULL,
+    ReservationDate DATE NOT NULL,
+    StartTime TIME NOT NULL,
+    EndTime TIME NOT NULL,
+    Purpose NVARCHAR(200),
+    Status NVARCHAR(20) NOT NULL, -- Pending, Approved, Rejected, Cancelled
+    CreatedAt DATETIME NOT NULL,
+    FOREIGN KEY (FacilityId) REFERENCES Facilities(Id),
+    FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id)
+);
+
+-- Service Requests
+CREATE TABLE ServiceCategories (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name NVARCHAR(100) NOT NULL,
+    Description NTEXT,
+    IsActive BIT DEFAULT 1
+);
+
+CREATE TABLE ServiceRequests (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId NVARCHAR(450) NOT NULL,
+    CategoryId INTEGER NOT NULL,
+    Title NVARCHAR(100) NOT NULL,
+    Description NTEXT NOT NULL,
+    Priority INTEGER NOT NULL,
+    Status NVARCHAR(20) NOT NULL, -- New, InProgress, Completed, Cancelled
+    CreatedAt DATETIME NOT NULL,
+    CompletedAt DATETIME,
+    FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id),
+    FOREIGN KEY (CategoryId) REFERENCES ServiceCategories(Id)
+);
+
+-- Document Management
+CREATE TABLE Documents (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Title NVARCHAR(100) NOT NULL,
+    Description NTEXT,
+    Category NVARCHAR(50) NOT NULL,
+    FileUrl NVARCHAR(MAX) NOT NULL,
+    UploadedBy NVARCHAR(450) NOT NULL,
+    UploadedAt DATETIME NOT NULL,
+    IsPublic BIT DEFAULT 0,
+    FOREIGN KEY (UploadedBy) REFERENCES AspNetUsers(Id)
+);
+
+-- Community Forum
+CREATE TABLE ForumCategories (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name NVARCHAR(100) NOT NULL,
+    Description NTEXT,
+    IsActive BIT DEFAULT 1
+);
+
+CREATE TABLE ForumThreads (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    CategoryId INTEGER NOT NULL,
+    UserId NVARCHAR(450) NOT NULL,
+    Title NVARCHAR(200) NOT NULL,
+    Content NTEXT NOT NULL,
+    CreatedAt DATETIME NOT NULL,
+    IsLocked BIT DEFAULT 0,
+    FOREIGN KEY (CategoryId) REFERENCES ForumCategories(Id),
+    FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id)
+);
+
+CREATE TABLE ForumReplies (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ThreadId INTEGER NOT NULL,
+    UserId NVARCHAR(450) NOT NULL,
+    Content NTEXT NOT NULL,
+    CreatedAt DATETIME NOT NULL,
+    FOREIGN KEY (ThreadId) REFERENCES ForumThreads(Id),
+    FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id)
+);
+
+-- Visitor Management
+CREATE TABLE VisitorPasses (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    RequestedBy NVARCHAR(450) NOT NULL,
+    VisitorName NVARCHAR(100) NOT NULL,
+    Purpose NVARCHAR(200) NOT NULL,
+    VisitDate DATE NOT NULL,
+    ExpectedTimeIn TIME NOT NULL,
+    ExpectedTimeOut TIME NOT NULL,
+    VehicleDetails NVARCHAR(200),
+    Status NVARCHAR(20) NOT NULL, -- Pending, Approved, Rejected
+    ActualTimeIn DATETIME,
+    ActualTimeOut DATETIME,
+    FOREIGN KEY (RequestedBy) REFERENCES AspNetUsers(Id)
+);
+
+-- Polls and Surveys
+CREATE TABLE Polls (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Title NVARCHAR(200) NOT NULL,
+    Description NTEXT,
+    StartDate DATETIME NOT NULL,
+    EndDate DATETIME NOT NULL,
+    CreatedBy NVARCHAR(450) NOT NULL,
+    IsActive BIT DEFAULT 1,
+    FOREIGN KEY (CreatedBy) REFERENCES AspNetUsers(Id)
+);
+
+CREATE TABLE PollOptions (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    PollId INTEGER NOT NULL,
+    OptionText NVARCHAR(200) NOT NULL,
+    FOREIGN KEY (PollId) REFERENCES Polls(Id)
+);
+
+CREATE TABLE PollVotes (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    PollId INTEGER NOT NULL,
+    OptionId INTEGER NOT NULL,
+    UserId NVARCHAR(450) NOT NULL,
+    VotedAt DATETIME NOT NULL,
+    FOREIGN KEY (PollId) REFERENCES Polls(Id),
+    FOREIGN KEY (OptionId) REFERENCES PollOptions(Id),
+    FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id)
+);
+
+-- Notifications
+CREATE TABLE Notifications (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId NVARCHAR(450) NOT NULL,
+    Title NVARCHAR(100) NOT NULL,
+    Message NTEXT NOT NULL,
+    Type NVARCHAR(50) NOT NULL,
+    IsRead BIT DEFAULT 0,
+    CreatedAt DATETIME NOT NULL,
+    FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id)
+);
