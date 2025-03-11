@@ -1,16 +1,16 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/css/site.c9pwkv7fdi.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"c9pwkv7fdi"},{"Name":"integrity","Value":"sha256-IBhqbGuKhD6Qjh0ZEwDErbdF8Ek\u002BArEULJX6YLhMWcE="},{"Name":"label","Value":"_content/HomeownersAssociation/css/site.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3798"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022IBhqbGuKhD6Qjh0ZEwDErbdF8Ek\u002BArEULJX6YLhMWcE=\u0022"},{"Name":"Last-Modified","Value":"Tue, 11 Mar 2025 15:39:55 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-dnCe4df1UKx5adEoUrl6NY7P5iNR2XZnZHSc8auHS7k="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2527"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022dnCe4df1UKx5adEoUrl6NY7P5iNR2XZnZHSc8auHS7k=\u0022"},{"Name":"Last-Modified","Value":"Mon, 10 Mar 2025 15:28:26 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/css/site.uee2b4se79.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"uee2b4se79"},{"Name":"integrity","Value":"sha256-dnCe4df1UKx5adEoUrl6NY7P5iNR2XZnZHSc8auHS7k="},{"Name":"label","Value":"_content/HomeownersAssociation/css/site.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2527"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022dnCe4df1UKx5adEoUrl6NY7P5iNR2XZnZHSc8auHS7k=\u0022"},{"Name":"Last-Modified","Value":"Mon, 10 Mar 2025 15:28:26 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-IBhqbGuKhD6Qjh0ZEwDErbdF8Ek\u002BArEULJX6YLhMWcE="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"3798"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022IBhqbGuKhD6Qjh0ZEwDErbdF8Ek\u002BArEULJX6YLhMWcE=\u0022"},{"Name":"Last-Modified","Value":"Tue, 11 Mar 2025 15:39:55 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>
@@ -35,6 +35,54 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-9OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg=\u0022"},{"Name":"Last-Modified","Value":"Sun, 09 Mar 2025 17:10:18 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/images/0311.dgla08krpj.mp4">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\0311.mp4'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"dgla08krpj"},{"Name":"integrity","Value":"sha256-HatfCw8\u002BI/prXk\u002BMBWNMdSGc4d8DgsJGvWWyqkpGf4M="},{"Name":"label","Value":"_content/HomeownersAssociation/images/0311.mp4"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"34969658"},{"Name":"Content-Type","Value":"video/mp4"},{"Name":"ETag","Value":"\u0022HatfCw8\u002BI/prXk\u002BMBWNMdSGc4d8DgsJGvWWyqkpGf4M=\u0022"},{"Name":"Last-Modified","Value":"Tue, 11 Mar 2025 15:10:57 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/images/0311.mp4">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\0311.mp4'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-HatfCw8\u002BI/prXk\u002BMBWNMdSGc4d8DgsJGvWWyqkpGf4M="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"34969658"},{"Name":"Content-Type","Value":"video/mp4"},{"Name":"ETag","Value":"\u0022HatfCw8\u002BI/prXk\u002BMBWNMdSGc4d8DgsJGvWWyqkpGf4M=\u0022"},{"Name":"Last-Modified","Value":"Tue, 11 Mar 2025 15:10:57 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/images/wallpaperflare.com_wallpaper-2.cnyefeeel2.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\wallpaperflare.com_wallpaper-2.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"cnyefeeel2"},{"Name":"integrity","Value":"sha256-GJLIGEMCGPGnjc61dysVViSx9ueG00RinjepkEgwAVk="},{"Name":"label","Value":"_content/HomeownersAssociation/images/wallpaperflare.com_wallpaper-2.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2092711"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022GJLIGEMCGPGnjc61dysVViSx9ueG00RinjepkEgwAVk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 11 Mar 2025 15:01:38 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/images/wallpaperflare.com_wallpaper-2.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\wallpaperflare.com_wallpaper-2.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-GJLIGEMCGPGnjc61dysVViSx9ueG00RinjepkEgwAVk="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"2092711"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022GJLIGEMCGPGnjc61dysVViSx9ueG00RinjepkEgwAVk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 11 Mar 2025 15:01:38 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/images/wallpaperflare.com_wallpaper-2v.465xe5jqdo.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\wallpaperflare.com_wallpaper-2v.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"465xe5jqdo"},{"Name":"integrity","Value":"sha256-bEpBBHuNRZIzZX0oRLRmcjoQDv\u002BFEJ14mJ9cUWO282c="},{"Name":"label","Value":"_content/HomeownersAssociation/images/wallpaperflare.com_wallpaper-2v.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3626267"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022bEpBBHuNRZIzZX0oRLRmcjoQDv\u002BFEJ14mJ9cUWO282c=\u0022"},{"Name":"Last-Modified","Value":"Tue, 11 Mar 2025 15:49:02 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/images/wallpaperflare.com_wallpaper-2v.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\wallpaperflare.com_wallpaper-2v.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-bEpBBHuNRZIzZX0oRLRmcjoQDv\u002BFEJ14mJ9cUWO282c="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"3626267"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022bEpBBHuNRZIzZX0oRLRmcjoQDv\u002BFEJ14mJ9cUWO282c=\u0022"},{"Name":"Last-Modified","Value":"Tue, 11 Mar 2025 15:49:02 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/images/wallpaperflare.com_wallpaper-3.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\wallpaperflare.com_wallpaper-3.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-fdPiz3uB\u002BcdgguQ9ekuJuj6C83saR5Wu85LeQ9Qo3O0="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"5489474"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022fdPiz3uB\u002BcdgguQ9ekuJuj6C83saR5Wu85LeQ9Qo3O0=\u0022"},{"Name":"Last-Modified","Value":"Tue, 11 Mar 2025 15:50:34 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/images/wallpaperflare.com_wallpaper-3.tk9s09bxbm.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\wallpaperflare.com_wallpaper-3.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"tk9s09bxbm"},{"Name":"integrity","Value":"sha256-fdPiz3uB\u002BcdgguQ9ekuJuj6C83saR5Wu85LeQ9Qo3O0="},{"Name":"label","Value":"_content/HomeownersAssociation/images/wallpaperflare.com_wallpaper-3.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5489474"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022fdPiz3uB\u002BcdgguQ9ekuJuj6C83saR5Wu85LeQ9Qo3O0=\u0022"},{"Name":"Last-Modified","Value":"Tue, 11 Mar 2025 15:50:34 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/images/wallpaperflare.com_wallpaper.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\wallpaperflare.com_wallpaper.jpg'))</AssetFile>

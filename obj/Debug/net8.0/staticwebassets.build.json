@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4ODYuCibMtdl/fzYSV80pRnbkzWVKg1BjvG+OAhO/9I=",
+  "Hash": "/yyFAoi7FCTes1GjpE9/ZFLejFzg3K52LiKg6zRq358=",
   "Source": "HomeownersAssociation",
   "BasePath": "_content/HomeownersAssociation",
   "Mode": "Default",
@@ -1333,8 +1333,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "uee2b4se79",
-      "Integrity": "dnCe4df1UKx5adEoUrl6NY7P5iNR2XZnZHSc8auHS7k=",
+      "Fingerprint": "c9pwkv7fdi",
+      "Integrity": "IBhqbGuKhD6Qjh0ZEwDErbdF8Ek+ArEULJX6YLhMWcE=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -1359,6 +1359,90 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\0311.mp4",
+      "SourceId": "HomeownersAssociation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\",
+      "BasePath": "_content/HomeownersAssociation",
+      "RelativePath": "images/0311#[.{fingerprint}]?.mp4",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "dgla08krpj",
+      "Integrity": "HatfCw8+I/prXk+MBWNMdSGc4d8DgsJGvWWyqkpGf4M=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\0311.mp4"
+    },
+    {
+      "Identity": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\wallpaperflare.com_wallpaper-2.jpg",
+      "SourceId": "HomeownersAssociation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\",
+      "BasePath": "_content/HomeownersAssociation",
+      "RelativePath": "images/wallpaperflare.com_wallpaper-2#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "cnyefeeel2",
+      "Integrity": "GJLIGEMCGPGnjc61dysVViSx9ueG00RinjepkEgwAVk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\wallpaperflare.com_wallpaper-2.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\wallpaperflare.com_wallpaper-2v.jpg",
+      "SourceId": "HomeownersAssociation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\",
+      "BasePath": "_content/HomeownersAssociation",
+      "RelativePath": "images/wallpaperflare.com_wallpaper-2v#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "465xe5jqdo",
+      "Integrity": "bEpBBHuNRZIzZX0oRLRmcjoQDv+FEJ14mJ9cUWO282c=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\wallpaperflare.com_wallpaper-2v.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\wallpaperflare.com_wallpaper-3.png",
+      "SourceId": "HomeownersAssociation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\",
+      "BasePath": "_content/HomeownersAssociation",
+      "RelativePath": "images/wallpaperflare.com_wallpaper-3#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "tk9s09bxbm",
+      "Integrity": "fdPiz3uB+cdgguQ9ekuJuj6C83saR5Wu85LeQ9Qo3O0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\wallpaperflare.com_wallpaper-3.png"
     },
     {
       "Identity": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\wallpaperflare.com_wallpaper.jpg",
@@ -2644,6 +2728,51 @@
   ],
   "Endpoints": [
     {
+      "Route": "css/site.c9pwkv7fdi.css",
+      "AssetFile": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3798"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IBhqbGuKhD6Qjh0ZEwDErbdF8Ek+ArEULJX6YLhMWcE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Mar 2025 15:39:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "c9pwkv7fdi"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-IBhqbGuKhD6Qjh0ZEwDErbdF8Ek+ArEULJX6YLhMWcE="
+        }
+      ]
+    },
+    {
       "Route": "css/site.css",
       "AssetFile": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\css\\site.css",
       "Selectors": [],
@@ -2654,7 +2783,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2527"
+          "Value": "3798"
         },
         {
           "Name": "Content-Type",
@@ -2662,11 +2791,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"dnCe4df1UKx5adEoUrl6NY7P5iNR2XZnZHSc8auHS7k=\""
+          "Value": "\"IBhqbGuKhD6Qjh0ZEwDErbdF8Ek+ArEULJX6YLhMWcE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 10 Mar 2025 15:28:26 GMT"
+          "Value": "Tue, 11 Mar 2025 15:39:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2676,52 +2805,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-dnCe4df1UKx5adEoUrl6NY7P5iNR2XZnZHSc8auHS7k="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.uee2b4se79.css",
-      "AssetFile": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2527"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"dnCe4df1UKx5adEoUrl6NY7P5iNR2XZnZHSc8auHS7k=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 10 Mar 2025 15:28:26 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "uee2b4se79"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-dnCe4df1UKx5adEoUrl6NY7P5iNR2XZnZHSc8auHS7k="
+          "Value": "sha256-IBhqbGuKhD6Qjh0ZEwDErbdF8Ek+ArEULJX6YLhMWcE="
         }
       ]
     },
@@ -5188,6 +5272,334 @@
         {
           "Name": "integrity",
           "Value": "sha256-hjIBkvmgxQXbNXK3B9YQ3t06RwLuQSQzC/dpvuB/lMk="
+        }
+      ]
+    },
+    {
+      "Route": "images/0311.dgla08krpj.mp4",
+      "AssetFile": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\0311.mp4",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "34969658"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "video/mp4"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HatfCw8+I/prXk+MBWNMdSGc4d8DgsJGvWWyqkpGf4M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Mar 2025 15:10:57 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dgla08krpj"
+        },
+        {
+          "Name": "label",
+          "Value": "images/0311.mp4"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-HatfCw8+I/prXk+MBWNMdSGc4d8DgsJGvWWyqkpGf4M="
+        }
+      ]
+    },
+    {
+      "Route": "images/0311.mp4",
+      "AssetFile": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\0311.mp4",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "34969658"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "video/mp4"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HatfCw8+I/prXk+MBWNMdSGc4d8DgsJGvWWyqkpGf4M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Mar 2025 15:10:57 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-HatfCw8+I/prXk+MBWNMdSGc4d8DgsJGvWWyqkpGf4M="
+        }
+      ]
+    },
+    {
+      "Route": "images/wallpaperflare.com_wallpaper-2.cnyefeeel2.jpg",
+      "AssetFile": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\wallpaperflare.com_wallpaper-2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2092711"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GJLIGEMCGPGnjc61dysVViSx9ueG00RinjepkEgwAVk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Mar 2025 15:01:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "cnyefeeel2"
+        },
+        {
+          "Name": "label",
+          "Value": "images/wallpaperflare.com_wallpaper-2.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-GJLIGEMCGPGnjc61dysVViSx9ueG00RinjepkEgwAVk="
+        }
+      ]
+    },
+    {
+      "Route": "images/wallpaperflare.com_wallpaper-2.jpg",
+      "AssetFile": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\wallpaperflare.com_wallpaper-2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2092711"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GJLIGEMCGPGnjc61dysVViSx9ueG00RinjepkEgwAVk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Mar 2025 15:01:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-GJLIGEMCGPGnjc61dysVViSx9ueG00RinjepkEgwAVk="
+        }
+      ]
+    },
+    {
+      "Route": "images/wallpaperflare.com_wallpaper-2v.465xe5jqdo.jpg",
+      "AssetFile": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\wallpaperflare.com_wallpaper-2v.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3626267"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"bEpBBHuNRZIzZX0oRLRmcjoQDv+FEJ14mJ9cUWO282c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Mar 2025 15:49:02 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "465xe5jqdo"
+        },
+        {
+          "Name": "label",
+          "Value": "images/wallpaperflare.com_wallpaper-2v.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-bEpBBHuNRZIzZX0oRLRmcjoQDv+FEJ14mJ9cUWO282c="
+        }
+      ]
+    },
+    {
+      "Route": "images/wallpaperflare.com_wallpaper-2v.jpg",
+      "AssetFile": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\wallpaperflare.com_wallpaper-2v.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3626267"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"bEpBBHuNRZIzZX0oRLRmcjoQDv+FEJ14mJ9cUWO282c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Mar 2025 15:49:02 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-bEpBBHuNRZIzZX0oRLRmcjoQDv+FEJ14mJ9cUWO282c="
+        }
+      ]
+    },
+    {
+      "Route": "images/wallpaperflare.com_wallpaper-3.png",
+      "AssetFile": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\wallpaperflare.com_wallpaper-3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5489474"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"fdPiz3uB+cdgguQ9ekuJuj6C83saR5Wu85LeQ9Qo3O0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Mar 2025 15:50:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-fdPiz3uB+cdgguQ9ekuJuj6C83saR5Wu85LeQ9Qo3O0="
+        }
+      ]
+    },
+    {
+      "Route": "images/wallpaperflare.com_wallpaper-3.tk9s09bxbm.png",
+      "AssetFile": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\wwwroot\\images\\wallpaperflare.com_wallpaper-3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5489474"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"fdPiz3uB+cdgguQ9ekuJuj6C83saR5Wu85LeQ9Qo3O0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Mar 2025 15:50:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "tk9s09bxbm"
+        },
+        {
+          "Name": "label",
+          "Value": "images/wallpaperflare.com_wallpaper-3.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-fdPiz3uB+cdgguQ9ekuJuj6C83saR5Wu85LeQ9Qo3O0="
         }
       ]
     },

@@ -25,6 +25,15 @@ body {
   margin-bottom: 60px;
 }
 
+/* Override Bootstrap's dark theme to pure black */
+:root {
+  --bs-dark: #000000;
+  --bs-dark-rgb: 0, 0, 0;
+  --bs-dark-text-emphasis: #000000;
+  --bs-dark-bg-subtle: #000000;
+  --bs-dark-border-subtle: #000000;
+}
+
 /* Custom Gray Color Variables */
 :root {
   --custom-gray: #4a5568;
@@ -32,6 +41,26 @@ body {
   --custom-gray-lighter: #e2e8f0;
   --custom-gray-dark: #2d3748;
   --custom-gray-darker: #1a202c;
+}
+
+/* Black color utilities */
+.bg-black {
+  background-color: #000000 !important;
+  color: white !important;
+}
+
+.text-black {
+  color: #000000 !important;
+}
+
+.border-black {
+  border-color: #000000 !important;
+}
+
+.btn-dark,
+.bg-dark {
+  background-color: #000000 !important;
+  border-color: #000000 !important;
 }
 
 /* Gray Color Utilities */
@@ -131,4 +160,51 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: italic;
+}
+
+/* Video Background Styles */
+.hero-section {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+}
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: -1;
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(
+    0,
+    0,
+    0,
+    0.4
+  ); /* Darkens the video for better text visibility */
+  z-index: -1;
+}
+
+.hero-content {
+  z-index: 1;
 }
