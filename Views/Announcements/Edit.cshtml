@@ -4,9 +4,18 @@
     ViewData["Title"] = "Edit Announcement";
 }
 
-<div class="container">
-    <h1 class="mb-4">@ViewData["Title"]</h1>
+<div class="container-fluid p-0">
+    <!-- Hero Section -->
+    <div class="hero-section text-white text-center d-flex align-items-center justify-content-center" 
+         style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/edit-announcement.jpg'); background-size: cover; height: 30vh;">
+        <div>
+            <h1 class="display-4 fw-bold oswald-heading">@ViewData["Title"]</h1>
+            <p class="lead lora-body">Update announcement information</p>
+        </div>
+    </div>
+</div>
 
+<div class="container py-5 lora-body">
     <div class="mb-3">
         <a asp-action="Index" class="btn btn-secondary">
             <i class="bi bi-arrow-left"></i> Back to Announcements
@@ -15,8 +24,8 @@
 
     <div class="row">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white oswald-heading">
                     <h5 class="mb-0">Announcement Details</h5>
                 </div>
                 <div class="card-body">
@@ -63,14 +72,14 @@
                             
                             @if (!string.IsNullOrEmpty(Model.ExistingAttachmentUrl))
                             {
-                                    <div class="mt-2">
-                                        <p>Current attachment: <a href="@Model.ExistingAttachmentUrl" target="_blank">View</a></p>
-                                        <small class="form-text text-muted">Upload a new file to replace the current attachment.</small>
-                                    </div>
+                                <div class="mt-2 p-2 bg-light rounded">
+                                    <p><i class="bi bi-paperclip"></i> Current attachment: <a href="@Model.ExistingAttachmentUrl" target="_blank">View</a></p>
+                                    <small class="form-text text-muted">Upload a new file to replace the current attachment.</small>
+                                </div>
                             }
                             else
                             {
-                                    <small class="form-text text-muted">Optional. Upload a file to attach to this announcement.</small>
+                                <small class="form-text text-muted">Optional. Upload a file to attach to this announcement.</small>
                             }
                         </div>
                         
@@ -90,8 +99,8 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
-                <div class="card-header bg-info text-white">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white oswald-heading">
                     <h5 class="mb-0">Tips</h5>
                 </div>
                 <div class="card-body">

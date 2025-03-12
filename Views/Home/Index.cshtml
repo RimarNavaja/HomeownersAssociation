@@ -5,10 +5,9 @@
 <!-- Hero Section with Video Background -->
 <div class="hero-section position-relative mb-5 w-100">
     <div class="video-background">
-        <!-- Using the video file that you already have in your project -->
         <video autoplay muted loop playsinline class="video-bg">
             <source src="/images/0311.mp4" type="video/mp4">
-            <!-- Fallback to image if video doesn't load or is not supported -->
+            <!-- Fallback to image -->
             <div class="hero-image" style="background-image: url('/images/wallpaperflare.com_wallpaper.jpg'); height: 600px; background-size: cover; background-position: center;"></div>
         </video>
         <!-- Overlay to make text more visible on video -->
@@ -39,26 +38,26 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div id="carouselExample" class="carousel slide">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                    <img src="/images/wallpaperflare.com_wallpaper.jpg" class="d-block  w-100" alt="...">
+                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                        <img src="/images/wallpaperflare.com_wallpaper.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                        <img src="/images/wallpaperflare.com_wallpaper-5.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                        <img src="/images/wallpaperflare.com_wallpaper-6.jpg" class="d-block w-100" alt="...">
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                    <img src="/images/wallpaperflare.com_wallpaper-5.jpg" class="d-block  w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                    <img src="/images/wallpaperflare.com_wallpaper-6.jpg" class="d-block  w-100" alt="...">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
         </div>

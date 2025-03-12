@@ -4,27 +4,28 @@
     ViewData["Title"] = "Announcement Details";
 }
 
-<div class="container">
-    <div class="mb-3">
-        <a asp-action="Index" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Back to Announcements
-        </a>
-    </div>
 
-    <div class="card mb-4 @GetPriorityClass(Model.Priority)">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h2 class="mb-0">@Model.Title</h2>
-            <span class="badge @GetPriorityBadgeClass(Model.Priority)">@Model.Priority</span>
+
+<div class="container py-5 lora-body">
+    <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="display-4 text-dark fw-bold oswald-heading">@Model.Title</h1>
+            <span class="badge @GetPriorityBadgeClass(Model.Priority) p-2" style="letter-spacing: 2px;">@Model.Priority</span>
         </div>
+    </div>
+    
+
+    <div class="card mb-4 shadow @GetPriorityClass(Model.Priority)" style="border-width: 2px;">
         <div class="card-body">
-            <div class="mb-4">
+            <div class="d-flex justify-content-between mb-4 oswald-heading ">
                 @Html.Raw(Model.Content)
+                
             </div>
 
             @if (!string.IsNullOrEmpty(Model.AttachmentUrl))
             {
-                <div class="mb-3">
-                    <h5>Attachment</h5>
+                <div class="mb-3 p-3 bg-light rounded">
+                    <h5><i class="bi bi-paperclip"></i> Attachment</h5>
                     <a href="@Model.AttachmentUrl" class="btn btn-outline-primary" target="_blank">
                         <i class="bi bi-download"></i> Download Attachment
                     </a>
@@ -32,16 +33,15 @@
             }
 
             <div class="row mt-4">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
+                <div class="col-md-6    ">
+                    <div class="card shadow-sm">
+                        <div class="card-header oswald-heading">
                             <h5 class="mb-0">Announcement Information</h5>
                         </div>
                         <div class="card-body">
-                            <dl class="row">
+                            <dl class="row" style="font-size: 0.8rem;">
                                 <dt class="col-sm-4">Posted By</dt>
-                                <dd class="col-sm-8">@(Model.Author?.FirstName + " " + Model.Author?.LastName ??
-                                    "Unknown")</ dd >
+                                <dd class="col-sm-8">@(Model.Author?.FirstName + " " + Model.Author?.LastName ?? "Unknown")</dd>
 
                                 <dt class="col-sm-4">Date Posted</dt>
                                 <dd class="col-sm-8">@Model.DatePosted.ToString("MMMM dd, yyyy hh:mm tt")</dd>
@@ -83,6 +83,11 @@
             </div>
         }
     </div>
+    <div class="mb-3">
+        <a asp-action="Index" class="btn btn-dark">
+            <i class="bi bi-arrow-left"></i> Back to Announcements
+        </a>
+    </div>
 </div>
 
 @functions {
@@ -90,11 +95,11 @@
     {
         return priority switch
         {
-            AnnouncementPriority.Urgent => "border-danger",
-            AnnouncementPriority.High => "border-warning",
-            AnnouncementPriority.Normal => "border-primary",
-            AnnouncementPriority.Low => "border-secondary",
-            _ => "border-primary"
+            AnnouncementPriority.Urgent => "border-dark",
+            AnnouncementPriority.High => "border-dark",
+            AnnouncementPriority.Normal => "border-dark",
+            AnnouncementPriority.Low => "border-dark",
+            _ => "border-dark"
         };
     }
 

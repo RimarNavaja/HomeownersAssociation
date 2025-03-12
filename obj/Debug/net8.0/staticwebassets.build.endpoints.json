@@ -8045,6 +8045,88 @@
       ]
     },
     {
+      "Route": "uploads/announcements/9287608f-462f-4604-8616-befd89de1735_Acer_Wallpaper_01_3840x2400.jpg",
+      "AssetFile": "uploads/announcements/9287608f-462f-4604-8616-befd89de1735_Acer_Wallpaper_01_3840x2400.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13530225"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PibEFe9lyAoKb0VUY9W9hDtnBOn6mb8+AL5U4maTF54=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Mar 2025 03:51:32 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-PibEFe9lyAoKb0VUY9W9hDtnBOn6mb8+AL5U4maTF54="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/announcements/9287608f-462f-4604-8616-befd89de1735_Acer_Wallpaper_01_3840x2400.yfww6dasre.jpg",
+      "AssetFile": "uploads/announcements/9287608f-462f-4604-8616-befd89de1735_Acer_Wallpaper_01_3840x2400.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13530225"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PibEFe9lyAoKb0VUY9W9hDtnBOn6mb8+AL5U4maTF54=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Mar 2025 03:51:32 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yfww6dasre"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-PibEFe9lyAoKb0VUY9W9hDtnBOn6mb8+AL5U4maTF54="
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/announcements/9287608f-462f-4604-8616-befd89de1735_Acer_Wallpaper_01_3840x2400.jpg"
+        }
+      ]
+    },
+    {
       "Route": "uploads/profiles/052916da-64c4-4d97-8f4d-8c00416a5501_photo_2024-04-18_20-14-23.jpg",
       "AssetFile": "uploads/profiles/052916da-64c4-4d97-8f4d-8c00416a5501_photo_2024-04-18_20-14-23.jpg",
       "Selectors": [],
