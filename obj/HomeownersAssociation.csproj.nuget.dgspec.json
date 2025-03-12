@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ff633\\Desktop\\elnet\\HomeownersAssociation\\HomeownersAssociation.csproj": {}
+    "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\HomeownersAssociation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ff633\\Desktop\\elnet\\HomeownersAssociation\\HomeownersAssociation.csproj": {
+    "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\HomeownersAssociation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ff633\\Desktop\\elnet\\HomeownersAssociation\\HomeownersAssociation.csproj",
+        "projectUniqueName": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\HomeownersAssociation.csproj",
         "projectName": "HomeownersAssociation",
-        "projectPath": "C:\\Users\\ff633\\Desktop\\elnet\\HomeownersAssociation\\HomeownersAssociation.csproj",
-        "packagesPath": "C:\\Users\\ff633\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ff633\\Desktop\\elnet\\HomeownersAssociation\\obj\\",
+        "projectPath": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\HomeownersAssociation.csproj",
+        "packagesPath": "C:\\Users\\ricar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ff633\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ricar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

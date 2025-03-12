@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using HomeownersAssociation.Models
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+    
+<!DOCTYPE html>
 <html lang="en" class="h-100">
 
 <head>
@@ -19,12 +24,26 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+    
     <header class="sticky-top">
         <nav class="navbar navbar-expand-sm  navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow oswald-subheading " >
             <div class="container-fluid mx-3 mx-lg-5 mx-md-4" >
                 <!--Project Brand/Logo-->
-                <a class="navbar-brand oswald-heading fs-1" style="letter-spacing: 5px;" asp-area="" asp-controller="Home" asp-action="Index">747HOA</a>
+                <a class="navbar-brand oswald-heading fs-1" style="letter-spacing: 5px;" asp-area="" 
+                   asp-controller="@(User.IsInRole("Admin") ? "Admin" : "Home")" 
+                   asp-action="Index">747HOA</a>
                 <!--End of Project Brand/Logo-->
+
+                <!-- User greeting beside logo -->
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    var user = await UserManager.GetUserAsync(User);
+                    var displayName = user?.FirstName ?? User.Identity?.Name ?? "User";
+                    
+                    <div class="ms-3 d-none d-sm-inline">
+                        <span class="nav-link text-dark">Hello @displayName!</span>
+                    </div>
+                }
 
                 <!--Hamburger Icon-->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -38,19 +57,29 @@
                         <!-- Left side empty for brand -->
                     </div>
                     <ul class="navbar-nav">
-                        <!--function for Navigation links to check the current controller and add a text-primary 
-                        class when the link matches the current page.-->
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold @(Context.Request.Path.StartsWithSegments("/Home") || Context.Request.Path == "/" ? "text-primary border-bottom border-primary" : "text-dark")" 
-                               asp-area="" asp-controller="Home" asp-action="Index">Home Page</a>
-                        </li>
+                        <!--Navigation links with updated active classes-->
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold @(Context.Request.Path.StartsWithSegments("/Admin") ? "text-primary border-bottom border-primary" : "text-dark")" 
+                                   asp-area="" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold @(Context.Request.Path.StartsWithSegments("/Home") || Context.Request.Path == "/" ? "text-primary border-bottom border-primary" : "text-dark")" 
+                                   asp-area="" asp-controller="Home" asp-action="Index">Home Page</a>
+                            </li>
+                        }
+                        
                         <li class="nav-item mx-2">
                             <a class="nav-link fw-bold @(Context.Request.Path.StartsWithSegments("/Announcements") ? "text-primary border-bottom border-primary" : "text-dark")" 
                                asp-area="" asp-controller="Announcements" asp-action="Index">Announcements</a>
                         </li>
                        
                        
-                        
+                        <!-- Hidden when the user logged in-->
                         @if (User.Identity != null && !User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item mx-2">
@@ -63,7 +92,7 @@
                                     asp-action="">Contact Us</a>
                             </li>
                         }
-                       
+                        
 
                         <partial name="_LoginPartial" />
                     </ul>
@@ -82,94 +111,98 @@
         </main>
     </div>
 
-    <!-- Footer -->
-    <footer class="text-center text-lg-start bg-body-tertiary text-muted">
-        <!-- Section: Links  -->
-        <section class="bg-dark text-light py-1 oswald-subheading">
-            <div class="container text-center text-md-start mt-5">
-                <!-- Grid row -->
-                <div class="row mt-3">
-                    <!-- Grid column -->
-                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                        <!-- Content -->
-                        <p class="text-white oswald-heading fs-3">
-                            <a class="" style="text-decoration: none; letter-spacing: 1px;" asp-area="" asp-controller="Home" asp-action="Index"> 747 Homeowners Association</a>
-                        </p>
-                        <p>Sanciangko St,</p>
-                        <p>Cebu City,</p>
-                        <p>6000 Cebu</p>
-                    </div>
-                    <!-- Grid column -->
-                    
-                    <!-- Grid column -->
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <!-- Links -->
-                        <h6 class="  mb-4 oswald-heading" style="letter-spacing: 1px;">
-                            Community Links
-                        </h6>
-                        <p>
-                            <a href="#!" class="text-reset" style="text-decoration: none;">Home Page</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset text-capitalize" style="text-decoration: none;">discussions</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset text-capitalize" style="text-decoration: none;"> events</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset text-capitalize" style="text-decoration: none;">community guidelines</a>
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <!-- Links -->
-                        <h6 class="text-capitalize mb-4 oswald-heading" style="letter-spacing: 1px;">
-                            My Account
-                        </h6>
-                        <!--If logged in this <a> should be remove -->
-                        @if (User.Identity != null && !User.Identity.IsAuthenticated)
-                        {
-                            <p>
-                                <a class="text-reset" style="text-decoration: none;" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+    <!-- Footer - hidden for Admin users -->
+    @if (!User.IsInRole("Admin"))
+    {
+        <footer class="sticky-bottom text-center text-lg-start bg-body-tertiary text-muted">
+            <!-- Section: Links  -->
+            <section class="bg-dark text-light py-1 oswald-subheading">
+                <div class="container text-center text-md-start mt-5">
+                    <!-- Grid row -->
+                    <div class="row mt-3">
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                            <!-- Content -->
+                            <p class=" oswald-heading fs-4">
+                                <a class="text-white" style="text-decoration: none; letter-spacing: 1px;" asp-area="" asp-controller="Home" asp-action="Index"> 747 Homeowners Association</a>
                             </p>
-                        }
-                        <p>
-                            <a href="#!" class="text-reset"style="text-decoration: none;">My Profile</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset"style="text-decoration: none;">Forgot Password?</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset"style="text-decoration: none;">Help</a>
-                        </p>
+                            <p>Sanciangko St,</p>
+                            <p>Cebu City,</p>
+                            <p>6000 Cebu</p>
+                        </div>
+                        <!-- Grid column -->
+                        
+                        <!-- Grid column -->
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="  mb-4 oswald-heading" style="letter-spacing: 1px;">
+                                Community Links
+                            </h6>
+                            <p>
+                                <a href="#!" class="text-reset" style="text-decoration: none;">Home Page</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset text-capitalize" style="text-decoration: none;">discussions</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset text-capitalize" style="text-decoration: none;"> events</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset text-capitalize" style="text-decoration: none;">community guidelines</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-capitalize mb-4 oswald-heading" style="letter-spacing: 1px;">
+                                My Account
+                            </h6>
+                            <!--If logged in this <a> should be remove -->
+                            @if (User.Identity != null && !User.Identity.IsAuthenticated)
+                            {
+                                <p>
+                                    <a class="text-reset" style="text-decoration: none;" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                </p>
+                            }
+                            <p>
+                                <a href="#!" class="text-reset"style="text-decoration: none;">My Profile</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset"style="text-decoration: none;">Forgot Password?</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset"style="text-decoration: none;">Help</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-md-0 mb-4 oswald-light" style="font-size: 0.8rem;">
+                            <!-- Links -->
+                            <p><a class="text-white link-underline-dark " style="text-decoration: none;" asp-area="" asp-controller="Home" asp-action="Privacy"> Privacy Policy</a></p>
+
+                            <p><a class=" text-white link-underline-dark" style="text-decoration: none;"  asp-area="" asp-controller="Home" asp-action="TermsAndConditions">Terms & Conditions</a></p>
+                        </div>
+
+                        <!-- Grid column -->
                     </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-md-0 mb-4 oswald-light" style="font-size: 0.8rem;">
-                        <!-- Links -->
-                        <p><a class="text-white link-underline-dark " style="text-decoration: none;" asp-area="" asp-controller="Home" asp-action="Privacy"> Privacy Policy</a></p>
-
-                        <p><a class=" text-white link-underline-dark" style="text-decoration: none;"  asp-area="" asp-controller="Home" asp-action="TermsAndConditions">Terms & Conditions</a></p>
-                    </div>
-
-                    <!-- Grid column -->
+                    <!-- Grid row -->
                 </div>
-                <!-- Grid row -->
-            </div>
-        </section>
-        <!-- Section: Links  -->
+            </section>
+            <!-- Section: Links  -->
 
-        <!-- Copyright -->
-        <div class="text-center p-2 lora-body " style="background-color: rgba(0, 0, 0, 0.05); font-size: 0.8rem;">
-            © 2025 Copyright:
-            <a class="text-reset fw-bold" href="https://mdbootstrap.com/">747 Group</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
+            <!-- Copyright -->
+            <div class="text-center p-2 lora-body " style="background-color: rgba(0, 0, 0, 0.05); font-size: 0.8rem;">
+                © 2025 Copyright:
+                <a class="text-reset fw-bold" href="https://mdbootstrap.com/">747 Group</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+    }
+    <!-- End Footer -->
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

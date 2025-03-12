@@ -15,6 +15,13 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        // Redirect admin users to Admin Dashboard
+        if (User.IsInRole("Admin"))
+        {
+            return RedirectToAction("Index", "Admin");
+        }
+
+        // Regular users see the normal homepage
         return View();
     }
 

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HomeownersAssociation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17c17a6d856cff6977bda11caa809408d5f31d36")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bec144729484d0790661f29814fcfeb2404891db")]
 [assembly: System.Reflection.AssemblyProductAttribute("HomeownersAssociation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HomeownersAssociation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
