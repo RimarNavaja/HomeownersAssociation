@@ -6907,23 +6907,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ricar\\.nuget\\packages\\": {},
+    "C:\\Users\\tt227\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\HomeownersAssociation.csproj",
+      "projectUniqueName": "C:\\Users\\tt227\\Desktop\\elnet\\HomeownersAssociation\\HomeownersAssociation.csproj",
       "projectName": "HomeownersAssociation",
-      "projectPath": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\HomeownersAssociation.csproj",
-      "packagesPath": "C:\\Users\\ricar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ricar\\OneDrive\\Desktop\\BSIT-3B-2ndSem\\ELNET\\project\\HomeownersAssociation\\obj\\",
+      "projectPath": "C:\\Users\\tt227\\Desktop\\elnet\\HomeownersAssociation\\HomeownersAssociation.csproj",
+      "packagesPath": "C:\\Users\\tt227\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\tt227\\Desktop\\elnet\\HomeownersAssociation\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ricar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tt227\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -6932,6 +6932,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
