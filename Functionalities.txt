@@ -46,6 +46,12 @@ Security and Privacy
 Implement secure user authentication, data encryption, and adherence to data privacy laws.
 
 
+
+https://penthousetowershighlandbeach.com/
+
+
+
+
 -- Already implemented tables
 CREATE TABLE AspNetUsers (
     Id NVARCHAR(450) PRIMARY KEY,
@@ -254,3 +260,7 @@ CREATE TABLE Notifications (
     CreatedAt DATETIME NOT NULL,
     FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id)
 );
+
+
+
+

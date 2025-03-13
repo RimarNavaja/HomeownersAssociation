@@ -17,93 +17,93 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = HomeownersAssociation
 build_property.RootNamespace = HomeownersAssociation
-build_property.ProjectDir = C:\Users\ricar\OneDrive\Desktop\BSIT-3B-2ndSem\ELNET\project\HomeownersAssociation\
+build_property.ProjectDir = Z:\XX429\homeowner\HomeownersAssociation\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\ricar\OneDrive\Desktop\BSIT-3B-2ndSem\ELNET\project\HomeownersAssociation
+build_property.MSBuildProjectDirectory = Z:\XX429\homeowner\HomeownersAssociation
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Areas/Identity/Pages/_ViewStart.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Account/Login.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Account/Register.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Admin/AllUsers.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Admin/AllUsers.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWxsVXNlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Admin/Index.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Admin/PendingApprovals.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Admin/PendingApprovals.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGVuZGluZ0FwcHJvdmFscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Announcements/Create.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Announcements/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5ub3VuY2VtZW50c1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Announcements/Delete.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Announcements/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5ub3VuY2VtZW50c1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Announcements/Details.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Announcements/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5ub3VuY2VtZW50c1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Announcements/Edit.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Announcements/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5ub3VuY2VtZW50c1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Announcements/Index.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Announcements/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5ub3VuY2VtZW50c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Home/Index.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Home/Privacy.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Home/TermsAndConditions.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Home/TermsAndConditions.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUZXJtc0FuZENvbmRpdGlvbnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Shared/Error.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Shared/_LoginPartial.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Shared/_ValidationScriptsPartial.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/_ViewImports.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/_ViewStart.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ricar/OneDrive/Desktop/BSIT-3B-2ndSem/ELNET/project/HomeownersAssociation/Views/Shared/_Layout.cshtml]
+[Z:/XX429/homeowner/HomeownersAssociation/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-pzzvze0q1c
