@@ -25,6 +25,9 @@ namespace HomeownersAssociation.Models.ViewModels
         [Display(Name = "Is Active")]
         public bool IsActive { get; set; } = true;
 
+        [Display(Name = "Is Public", Description = "If checked, this announcement will be visible to the public. Otherwise, only logged-in residents will see it.")]
+        public bool IsPublic { get; set; } = false;
+
         [Display(Name = "Attachment")]
         public IFormFile? Attachment { get; set; }
 

@@ -22,25 +22,27 @@
                 <div class="card-body">
                     <form asp-action="Create" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        
+
                         <div class="mb-3">
                             <label asp-for="Title" class="form-label"></label>
                             <input asp-for="Title" class="form-control" placeholder="Enter announcement title" />
                             <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label asp-for="Content" class="form-label"></label>
-                            <textarea asp-for="Content" class="form-control" rows="10" placeholder="Enter announcement content"></textarea>
+                            <textarea asp-for="Content" class="form-control" rows="10"
+                                placeholder="Enter announcement content"></textarea>
                             <span asp-validation-for="Content" class="text-danger"></span>
                             <small class="form-text text-muted">You can use HTML formatting in the content.</small>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label asp-for="Priority" class="form-label"></label>
-                                    <select asp-for="Priority" class="form-select" asp-items="Html.GetEnumSelectList<HomeownersAssociation.Models.AnnouncementPriority>()"></select>
+                                    <select asp-for="Priority" class="form-select"
+                                        asp-items="Html.GetEnumSelectList<HomeownersAssociation.Models.AnnouncementPriority>()"></select>
                                     <span asp-validation-for="Priority" class="text-danger"></span>
                                 </div>
                             </div>
@@ -49,24 +51,34 @@
                                     <label asp-for="ExpiryDate" class="form-label"></label>
                                     <input asp-for="ExpiryDate" class="form-control" type="date" />
                                     <span asp-validation-for="ExpiryDate" class="text-danger"></span>
-                                    <small class="form-text text-muted">Leave blank if the announcement doesn't expire.</small>
+                                    <small class="form-text text-muted">Leave blank if the announcement doesn't
+                                        expire.</small>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label asp-for="Attachment" class="form-label"></label>
                             <input asp-for="Attachment" class="form-control" type="file" />
                             <span asp-validation-for="Attachment" class="text-danger"></span>
-                            <small class="form-text text-muted">Optional. Upload a file to attach to this announcement.</small>
+                            <small class="form-text text-muted">Optional. Upload a file to attach to this
+                                announcement.</small>
                         </div>
-                        
+
                         <div class="mb-3 form-check">
                             <input asp-for="IsActive" class="form-check-input" checked />
                             <label asp-for="IsActive" class="form-check-label"></label>
                             <span asp-validation-for="IsActive" class="text-danger"></span>
                         </div>
-                        
+
+                        <div class="mb-3 form-check">
+                            <input asp-for="IsPublic" class="form-check-input" />
+                            <label asp-for="IsPublic" class="form-check-label"></label>
+                            <span asp-validation-for="IsPublic" class="text-danger"></span>
+                            <div class="form-text">If checked, this announcement will be visible to non-residents and
+                                the public.</div>
+                        </div>
+
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="submit" class="btn btn-dark">
                                 <i class="bi bi-save"></i> Create Announcement
@@ -89,7 +101,7 @@
                         <li><strong>Normal</strong> - Regular announcements</li>
                         <li><strong>Low</strong> - Informational announcements</li>
                     </ul>
-                    
+
                     <h6>HTML Formatting</h6>
                     <p>You can use basic HTML tags in the content:</p>
                     <ul>

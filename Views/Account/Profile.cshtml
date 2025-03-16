@@ -1,0 +1,110 @@
+@model HomeownersAssociation.Models.ViewModels.ProfileViewModel
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container py-5 lora-body">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white oswald-heading">
+                    <h5 class="mb-0">@ViewData["Title"]</h5>
+                </div>
+                <div class="card-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <form asp-action="Profile" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-3 text-center mb-4 mb-md-0">
+                                @if (string.IsNullOrEmpty(Model.ProfilePictureUrl))
+                                {
+                                    <div class="bg-light rounded-circle d-flex justify-content-center align-items-center mx-auto"
+                                        style="width: 150px; height: 150px;">
+                                        <i class="bi bi-person-fill" style="font-size: 5rem;"></i>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <img src="@Model.ProfilePictureUrl" alt="Profile Picture"
+                                        class="rounded-circle img-thumbnail"
+                                        style="width: 150px; height: 150px; object-fit: cover;" />
+                                }
+                                <div class="mt-3">
+                                    <label asp-for="ProfilePicture" class="form-label d-block">Change Profile
+                                        Picture</label>
+                                    <input asp-for="ProfilePicture" type="file" class="form-control" accept="image/*" />
+                                    <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="FirstName" class="form-label"></label>
+                                        <input asp-for="FirstName" class="form-control" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="LastName" class="form-label"></label>
+                                        <input asp-for="LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Email" class="form-label"></label>
+                                    <input asp-for="Email" class="form-control" readonly />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Address" class="form-label"></label>
+                                    <input asp-for="Address" class="form-control" />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="BlockNumber" class="form-label"></label>
+                                        <input asp-for="BlockNumber" class="form-control" />
+                                        <span asp-validation-for="BlockNumber" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="LotNumber" class="form-label"></label>
+                                        <input asp-for="LotNumber" class="form-control" />
+                                        <span asp-validation-for="LotNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-dark">
+                                <i class="bi bi-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer bg-light">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Account Management</small>
+                        <a href="#" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-lock"></i> Change Password
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

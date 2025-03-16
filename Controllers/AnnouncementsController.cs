@@ -25,7 +25,8 @@ namespace HomeownersAssociation.Controllers
             _environment = environment;
         }
 
-        // GET: Announcements
+        // GET: Announcements (for logged-in users)
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var announcements = await _context.Announcements
@@ -43,7 +44,23 @@ namespace HomeownersAssociation.Controllers
                     .ToList();
             }
 
+            ViewData["Title"] = "Community Announcements";
             return View(announcements);
+        }
+
+        // GET: Announcements/Public (for public users)
+        public async Task<IActionResult> Public()
+        {
+            var announcements = await _context.Announcements
+                .Include(a => a.Author)
+                .Where(a => a.IsPublic && a.IsActive &&
+                          (a.ExpiryDate == null || a.ExpiryDate >= DateTime.Now))
+                .OrderByDescending(a => a.Priority)
+                .ThenByDescending(a => a.DatePosted)
+                .ToListAsync();
+
+            ViewData["Title"] = "Public Announcements";
+            return View("Index", announcements);
         }
 
         // GET: Announcements/Details/5
@@ -61,6 +78,12 @@ namespace HomeownersAssociation.Controllers
             if (announcement == null)
             {
                 return NotFound();
+            }
+
+            // Only allow public access if the announcement is public
+            if (!User.Identity.IsAuthenticated && !announcement.IsPublic)
+            {
+                return RedirectToAction("Login", "Account");
             }
 
             // Check if announcement is active or user is admin
@@ -103,6 +126,7 @@ namespace HomeownersAssociation.Controllers
                     ExpiryDate = viewModel.ExpiryDate,
                     Priority = viewModel.Priority,
                     IsActive = viewModel.IsActive,
+                    IsPublic = viewModel.IsPublic,
                     AuthorId = _userManager.GetUserId(User)
                 };
 
@@ -158,6 +182,7 @@ namespace HomeownersAssociation.Controllers
                 ExpiryDate = announcement.ExpiryDate,
                 Priority = announcement.Priority,
                 IsActive = announcement.IsActive,
+                IsPublic = announcement.IsPublic,
                 ExistingAttachmentUrl = announcement.AttachmentUrl
             };
 
@@ -190,6 +215,7 @@ namespace HomeownersAssociation.Controllers
                     announcement.ExpiryDate = viewModel.ExpiryDate;
                     announcement.Priority = viewModel.Priority;
                     announcement.IsActive = viewModel.IsActive;
+                    announcement.IsPublic = viewModel.IsPublic;
 
                     // Handle file upload
                     if (viewModel.Attachment != null && viewModel.Attachment.Length > 0)

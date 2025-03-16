@@ -28,6 +28,9 @@ namespace HomeownersAssociation.Models
         [Display(Name = "Is Active")]
         public bool IsActive { get; set; } = true;
 
+        [Display(Name = "Is Public")]
+        public bool IsPublic { get; set; } = false;
+
         [Display(Name = "Posted By")]
         public string? AuthorId { get; set; }
 
