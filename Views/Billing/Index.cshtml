@@ -1,0 +1,246 @@
+@model IEnumerable<HomeownersAssociation.Models.Bill>
+@{
+    ViewData["Title"] = "Billing Management";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h1 class="display-4 text-primary">Billing Management</h1>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary me-2">
+                <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </a>
+            <a asp-action="Create" class="btn btn-primary me-2">
+                <i class="bi bi-plus-circle"></i> Create New Bill
+            </a>
+            <a asp-action="GenerateMonthlyBills" class="btn btn-success me-2">
+                <i class="bi bi-calendar-check"></i> Generate Monthly Bills
+            </a>
+            <a asp-action="Payments" class="btn btn-info">
+                <i class="bi bi-credit-card"></i> View All Payments
+            </a>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+    }
+
+    @if (TempData["InfoMessage"] != null)
+    {
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                @TempData["InfoMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+    }
+
+    <!-- Dashboard Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Bills</h5>
+                    <h2 class="card-text">@ViewBag.Stats.TotalBills</h2>
+                    <p class="card-text">Total Amount: ₱@ViewBag.Stats.TotalAmount.ToString("N2")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Paid Bills</h5>
+                    <h2 class="card-text">@ViewBag.Stats.PaidBills</h2>
+                    <p class="card-text">Paid Amount: ₱@ViewBag.Stats.PaidAmount.ToString("N2")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark">
+                <div class="card-body">
+                    <h5 class="card-title">Unpaid Bills</h5>
+                    <h2 class="card-text">@ViewBag.Stats.UnpaidBills</h2>
+                    <p class="card-text">Unpaid Amount: ₱@ViewBag.Stats.UnpaidAmount.ToString("N2")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-danger text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Overdue Bills</h5>
+                    <h2 class="card-text">@ViewBag.Stats.OverdueBills</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Controls -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="statusFilter">Filter by Status</label>
+                        <select id="statusFilter" class="form-select">
+                            <option value="">All Statuses</option>
+                            <option value="Unpaid">Unpaid</option>
+                            <option value="PartiallyPaid">Partially Paid</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Overdue">Overdue</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="typeFilter">Filter by Type</label>
+                        <select id="typeFilter" class="form-select">
+                            <option value="">All Types</option>
+                            <option value="MonthlyDues">Monthly Dues</option>
+                            <option value="Utility">Utility</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Special">Special Assessment</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="month">Month</label>
+                        <input type="month" id="monthFilter" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="searchFilter">Search</label>
+                        <input type="text" id="searchFilter" class="form-control" placeholder="Bill #, Homeowner, Description...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> No bills have been created yet. Use the "Create New Bill" button to add a bill.
+            </div>
+    }
+    else
+    {
+            <div class="table-responsive">
+                <table class="table table-striped table-hover" id="billsTable">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Bill #</th>
+                            <th>Homeowner</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Issue Date</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var bill in Model)
+                        {
+                                string statusClass = bill.Status switch
+                                {
+                                        BillStatus.Paid => "bg-success text-white",
+                                        BillStatus.Unpaid => "bg-warning",
+                                        BillStatus.PartiallyPaid => "bg-info text-white",
+                                        BillStatus.Overdue => "bg-danger text-white",
+                                        BillStatus.Cancelled => "bg-secondary text-white",
+                                        _ => ""
+                                };
+                        
+                                <tr class="bill-row" 
+                                    data-status="@bill.Status" 
+                                    data-type="@bill.Type" 
+                                    data-month="@bill.IssueDate.ToString("yyyy-MM")"
+                                    data-search="@(bill.BillNumber.ToLower()) @(bill.Homeowner?.FirstName.ToLower()) @(bill.Homeowner?.LastName.ToLower()) @(bill.Description.ToLower())">
+                                    <td>@bill.BillNumber</td>
+                                    <td>@(bill.Homeowner != null ? $"{bill.Homeowner.FirstName} {bill.Homeowner.LastName}" : "Unknown")</td>
+                                    <td>@bill.Description</td>
+                                    <td>₱@bill.Amount.ToString("N2")</td>
+                                    <td>@bill.IssueDate.ToShortDateString()</td>
+                                    <td>@bill.DueDate.ToShortDateString()</td>
+                                    <td>
+                                        <span class="badge @statusClass">@bill.Status</span>
+                                    </td>
+                                    <td>@bill.Type</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a asp-action="Details" asp-route-id="@bill.Id" class="btn btn-sm btn-info">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a asp-action="Edit" asp-route-id="@bill.Id" class="btn btn-sm btn-primary">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-action="PayBill" asp-route-id="@bill.Id" class="btn btn-sm btn-success">
+                                                <i class="bi bi-cash-coin"></i>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@bill.Id" class="btn btn-sm btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+    }
+</div>
+
+@section Scripts {
+        <script>
+            $(document).ready(function() {
+                // Filter functions
+                function applyFilters() {
+                    var statusFilter = $("#statusFilter").val().toLowerCase();
+                    var typeFilter = $("#typeFilter").val().toLowerCase();
+                    var monthFilter = $("#monthFilter").val();
+                    var searchFilter = $("#searchFilter").val().toLowerCase();
+                
+                    $(".bill-row").each(function() {
+                        var row = $(this);
+                        var status = row.data("status").toLowerCase();
+                        var type = row.data("type").toLowerCase();
+                        var month = row.data("month");
+                        var searchText = row.data("search");
+                    
+                        var statusMatch = statusFilter === "" || status === statusFilter;
+                        var typeMatch = typeFilter === "" || type === typeFilter;
+                        var monthMatch = monthFilter === "" || month === monthFilter;
+                        var searchMatch = searchFilter === "" || searchText.includes(searchFilter);
+                    
+                        if (statusMatch && typeMatch && monthMatch && searchMatch) {
+                            row.show();
+                        } else {
+                            row.hide();
+                        }
+                    });
+                }
+            
+                // Attach event handlers
+                $("#statusFilter, #typeFilter, #monthFilter").on("change", applyFilters);
+                $("#searchFilter").on("keyup", applyFilters);
+            });
+        </script>
+}

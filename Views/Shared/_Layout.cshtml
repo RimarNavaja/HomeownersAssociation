@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using HomeownersAssociation.Models
-@inject UserManager<ApplicationUser> UserManager
-@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<HomeownersAssociation.Models.ApplicationUser> UserManager
+@inject SignInManager<HomeownersAssociation.Models.ApplicationUser> SignInManager
 
 <!DOCTYPE html>
 <html lang="en" class="h-100">
@@ -78,7 +78,7 @@
                         <li class="nav-item mx-2">
                             <a class="nav-link fw-bold @(Context.Request.Path.StartsWithSegments("/Announcements") ? "text-primary border-bottom border-primary" : "text-dark")"
                                 asp-area="" asp-controller="Announcements"
-                                asp-action="@(User.Identity.IsAuthenticated ? "Index" : "Public")">Announcements</a>
+                                asp-action="@(User.Identity != null && User.Identity.IsAuthenticated ? "Index" : "Public")">Announcements</a>
                         </li>
 
 

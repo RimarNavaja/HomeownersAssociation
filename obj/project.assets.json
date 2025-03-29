@@ -6907,23 +6907,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tt227\\.nuget\\packages\\": {},
+    "C:\\Users\\Clyd Pardillo\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tt227\\Desktop\\elnet\\HomeownersAssociation\\HomeownersAssociation.csproj",
+      "projectUniqueName": "C:\\Users\\Clyd Pardillo\\Documents\\Kapoy nga Iskol\\3rd year\\Homeowners\\HomeownersAssociation\\HomeownersAssociation.csproj",
       "projectName": "HomeownersAssociation",
-      "projectPath": "C:\\Users\\tt227\\Desktop\\elnet\\HomeownersAssociation\\HomeownersAssociation.csproj",
-      "packagesPath": "C:\\Users\\tt227\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tt227\\Desktop\\elnet\\HomeownersAssociation\\obj\\",
+      "projectPath": "C:\\Users\\Clyd Pardillo\\Documents\\Kapoy nga Iskol\\3rd year\\Homeowners\\HomeownersAssociation\\HomeownersAssociation.csproj",
+      "packagesPath": "C:\\Users\\Clyd Pardillo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Clyd Pardillo\\Documents\\Kapoy nga Iskol\\3rd year\\Homeowners\\HomeownersAssociation\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\tt227\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Clyd Pardillo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -6932,7 +6932,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -6950,8 +6949,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -7001,7 +6999,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.309/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

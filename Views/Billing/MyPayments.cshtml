@@ -1,0 +1,294 @@
+@model IEnumerable<HomeownersAssociation.Models.Payment>
+@{
+    ViewData["Title"] = "My Payment History";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h1 class="display-4 text-primary">My Payment History</h1>
+            <p class="lead">View your payment records and receipts</p>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-action="MyBills" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to My Bills
+            </a>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> You don't have any payment records yet.
+        </div>
+    }
+    else
+    {
+        <!-- Summary Card -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center border-end">
+                        <h5>Total Payments</h5>
+                        <h2 class="text-primary">@Model.Count()</h2>
+                    </div>
+                    <div class="col-md-4 text-center border-end">
+                        <h5>Total Amount Paid</h5>
+                        <h2 class="text-success">₱@Model.Sum(p => p.AmountPaid).ToString("N2")</h2>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h5>Last Payment</h5>
+                        <h2 class="text-info">@Model.OrderByDescending(p =>
+                                                    p.PaymentDate).First().PaymentDate.ToString("MM/dd/yyyy")</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Filter Controls -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="yearFilter">Year</label>
+                            <select id="yearFilter" class="form-select">
+                                <option value="">All Years</option>
+                            @{
+                                    var years = Model.Select(p => p.PaymentDate.Year).Distinct().OrderByDescending(y => y);
+                                    foreach (var year in years)
+                                    {
+                                        <option value="@year">@year</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="methodFilter">Payment Method</label>
+                            <select id="methodFilter" class="form-select">
+                                <option value="">All Methods</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Check">Check</option>
+                                <option value="BankTransfer">Bank Transfer</option>
+                                <option value="CreditCard">Credit Card</option>
+                                <option value="OnlinePayment">Online Payment</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="searchFilter">Search</label>
+                            <input type="text" id="searchFilter" class="form-control" placeholder="Payment #, Bill #...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payments List -->
+        <div class="row" id="paymentsContainer">
+            @foreach (var payment in Model.OrderByDescending(p => p.PaymentDate))
+            {
+                <div class="col-md-6 mb-4 payment-card" data-year="@payment.PaymentDate.Year"
+                    data-method="@payment.PaymentMethod"
+                    data-search="@payment.PaymentNumber.ToLower() @payment.Bill?.BillNumber.ToLower() @payment.ReferenceNumber?.ToLower()">
+                    <div class="card h-100">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Receipt #@payment.PaymentNumber</h5>
+                            <span class="badge bg-success">₱@payment.AmountPaid.ToString("N2")</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <p class="text-muted mb-1">Payment Date:</p>
+                                    <p class="fw-bold">@payment.PaymentDate.ToString("MMMM dd, yyyy")</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="text-muted mb-1">Payment Method:</p>
+                                    <p class="fw-bold">@payment.PaymentMethod</p>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-muted mb-1">Bill Information:</p>
+                                <p class="fw-bold">
+                                    @if (payment.Bill != null)
+                                    {
+                                        <a asp-action="Details" asp-route-id="@payment.BillId">@payment.Bill.BillNumber -
+                                            @payment.Bill.Description</a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">N/A</span>
+                                    }
+                                </p>
+                            </div>
+                            @if (!string.IsNullOrEmpty(payment.ReferenceNumber))
+                            {
+                                <div class="mb-3">
+                                    <p class="text-muted mb-1">Reference Number:</p>
+                                    <p class="fw-bold">@payment.ReferenceNumber</p>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(payment.Notes))
+                            {
+                                <div class="mb-3">
+                                    <p class="text-muted mb-1">Notes:</p>
+                                    <p>@payment.Notes</p>
+                                </div>
+                            }
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                @if (payment.ProcessedBy != null)
+                                {
+                                    <span>Processed by: @payment.ProcessedBy.FirstName @payment.ProcessedBy.LastName</span>
+                                }
+                                else
+                                {
+                                    <span>Self-payment</span>
+                                }
+                            </small>
+                            <button class="btn btn-sm btn-outline-primary"
+                                onclick="printReceipt('@payment.PaymentNumber', '@payment.PaymentDate.ToString("MM/dd/yyyy")', '@payment.AmountPaid.ToString("N2")', '@payment.Bill?.BillNumber')">
+                                <i class="bi bi-printer"></i> Print
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- Print Receipt Modal -->
+<div class="modal fade" id="receiptModal" tabindex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title" id="receiptModalLabel">Payment Receipt</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="receiptContent">
+                <div class="text-center mb-4">
+                    <h4>Homeowners Association</h4>
+                    <p>123 Main Street, Cityville, State 12345</p>
+                    <h5 class="mt-4">PAYMENT RECEIPT</h5>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6 fw-bold">Receipt Number:</div>
+                    <div class="col-md-6" id="receiptNumber"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6 fw-bold">Date:</div>
+                    <div class="col-md-6" id="receiptDate"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6 fw-bold">Bill Number:</div>
+                    <div class="col-md-6" id="receiptBillNumber"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6 fw-bold">Amount Paid:</div>
+                    <div class="col-md-6" id="receiptAmount"></div>
+                </div>
+                <div class="mt-5 text-center">
+                    <p>Thank you for your payment!</p>
+                    <p class="text-muted small">This is a computer-generated receipt and does not require a signature.
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="window.print()">Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Filter functions
+            function applyFilters() {
+                const yearFilter = $("#yearFilter").val();
+                const methodFilter = $("#methodFilter").val().toLowerCase();
+                const searchFilter = $("#searchFilter").val().toLowerCase();
+
+                $(".payment-card").each(function () {
+                    const card = $(this);
+                    const year = card.data("year").toString();
+                    const method = card.data("method").toLowerCase();
+                    const searchText = card.data("search");
+
+                    const yearMatch = yearFilter === "" || year === yearFilter;
+                    const methodMatch = methodFilter === "" || method === methodFilter;
+                    const searchMatch = searchFilter === "" || searchText.includes(searchFilter);
+
+                    if (yearMatch && methodMatch && searchMatch) {
+                        card.show();
+                    } else {
+                        card.hide();
+                    }
+                });
+            }
+
+            // Attach event handlers
+            $("#yearFilter, #methodFilter").on("change", applyFilters);
+            $("#searchFilter").on("keyup", applyFilters);
+        });
+
+        // Print receipt functionality
+        function printReceipt(number, date, amount, billNumber) {
+            $("#receiptNumber").text(number);
+            $("#receiptDate").text(date);
+            $("#receiptBillNumber").text(billNumber || "N/A");
+            $("#receiptAmount").text("₱" + amount);
+
+            // Show modal
+            $("#receiptModal").modal("show");
+        }
+    </script>
+
+    <style type="text/css" media="print">
+        @@media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #receiptContent,
+            #receiptContent * {
+                visibility: visible;
+            }
+
+            #receiptContent {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+
+            .modal-footer,
+            .modal-header {
+                display: none;
+            }
+        }
+    </style>
+}

@@ -1,0 +1,139 @@
+@model HomeownersAssociation.Models.ViewModels.BillPaymentViewModel
+@{
+    ViewData["Title"] = "Pay Bill";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h1 class="display-4 text-primary">Pay Bill</h1>
+        </div>
+        <div class="col-md-6 text-end">
+            @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+            {
+                <a asp-action="Details" asp-route-id="@Model.BillId" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to Bill Details
+                </a>
+            }
+            else
+            {
+                <a asp-action="MyBills" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to My Bills
+                </a>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Payment Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info mb-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="mb-1"><strong>Bill Number:</strong> @Model.BillNumber</p>
+                                <p class="mb-1"><strong>Description:</strong> @Model.Description</p>
+                            </div>
+                            <div class="col-md-6 text-md-end">
+                                <p class="mb-1"><strong>Total Amount:</strong> ₱@Model.TotalAmount.ToString("N2")</p>
+                                <p class="mb-1"><strong>Amount Due:</strong> ₱@Model.AmountDue.ToString("N2")</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-action="PayBill" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="BillId" />
+                        <input type="hidden" asp-for="BillNumber" />
+                        <input type="hidden" asp-for="Description" />
+                        <input type="hidden" asp-for="TotalAmount" />
+                        <input type="hidden" asp-for="AmountDue" />
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="AmountToPay" class="control-label">Amount to Pay</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">₱</span>
+                                        <input asp-for="AmountToPay" class="form-control" />
+                                    </div>
+                                    <span asp-validation-for="AmountToPay" class="text-danger"></span>
+                                    <small class="form-text text-muted">You can make a partial payment if
+                                        needed.</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="PaymentMethod" class="control-label">Payment Method</label>
+                                    <select asp-for="PaymentMethod" class="form-select"
+                                        asp-items="Html.GetEnumSelectList<PaymentMethod>()">
+                                    </select>
+                                    <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="ReferenceNumber" class="control-label">Reference Number</label>
+                                    <input asp-for="ReferenceNumber" class="form-control" />
+                                    <span asp-validation-for="ReferenceNumber" class="text-danger"></span>
+                                    <small class="form-text text-muted">Transaction reference, check number, or other
+                                        payment identifier.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="Notes" class="control-label">Additional Notes</label>
+                                    <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                                    <span asp-validation-for="Notes" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Payment Instructions</h5>
+                                        <p>Please make your payment using one of the following methods:</p>
+                                        <ol>
+                                            <li><strong>Cash:</strong> Pay directly at the association office during
+                                                business hours.</li>
+                                            <li><strong>Check:</strong> Make checks payable to "Homeowners Association".
+                                            </li>
+                                            <li><strong>Bank Transfer:</strong> Transfer to our account [BANK ACCOUNT
+                                                DETAILS].</li>
+                                            <li><strong>Online Payment:</strong> Use our online payment gateway.</li>
+                                        </ol>
+                                        <p class="mb-0 text-muted"><small>* For electronic payments, please include your
+                                                bill number in the reference.</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-end mt-4">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-cash-coin"></i> Submit Payment
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

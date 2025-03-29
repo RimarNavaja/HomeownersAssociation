@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using HomeownersAssociation.Models;
 
 namespace HomeownersAssociation.Controllers;
@@ -21,8 +22,26 @@ public class HomeController : Controller
             return RedirectToAction("Index", "Admin");
         }
 
+        // Redirect staff users to Admin Dashboard as well
+        if (User.IsInRole("Staff"))
+        {
+            return RedirectToAction("Index", "Admin");
+        }
+
         // Regular users see the normal homepage
         return View();
+    }
+
+    [Authorize]
+    public IActionResult MyBills()
+    {
+        return RedirectToAction("MyBills", "Billing");
+    }
+
+    [Authorize]
+    public IActionResult MyPayments()
+    {
+        return RedirectToAction("MyPayments", "Billing");
     }
 
     public IActionResult Privacy()
@@ -30,7 +49,7 @@ public class HomeController : Controller
         return View();
     }
 
-     public IActionResult TermsAndConditions()
+    public IActionResult TermsAndConditions()
     {
         return View();
     }

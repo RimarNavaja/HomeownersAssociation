@@ -1,0 +1,136 @@
+@{
+    ViewData["Title"] = "Generate Monthly Bills";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h1 class="display-4 text-primary">Generate Monthly Bills</h1>
+            <p class="lead">Create monthly dues bills for all homeowners</p>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Bills
+            </a>
+        </div>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Monthly Dues Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info mb-4">
+                        <div class="d-flex">
+                            <div class="me-3">
+                                <i class="bi bi-info-circle fs-3"></i>
+                            </div>
+                            <div>
+                                <p class="mb-1">You are about to generate monthly dues bills for all homeowners.</p>
+                                <p class="mb-1">This operation will create a new bill for each homeowner who doesn't
+                                    already have a monthly bill for the current month.</p>
+                                <p class="mb-0">Current homeowner count: <strong>@ViewBag.HomeownerCount</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-action="GenerateMonthlyBills" method="post">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="amount" class="form-label">Amount per Homeowner</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">₱</span>
+                                        <input type="number" id="amount" name="amount" class="form-control"
+                                            value="500.00" step="0.01" min="0.01" required />
+                                    </div>
+                                    <div class="form-text">Standard dues amount charged to each homeowner.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="dueDate" class="form-label">Due Date</label>
+                                    <input type="date" id="dueDate" name="dueDate" class="form-control" required
+                                        value="@DateTime.Now.AddDays(30).ToString("yyyy-MM-dd")" />
+                                    <div class="form-text">Date by which homeowners must pay their dues.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description" class="form-label">Description (Optional)</label>
+                                    <input type="text" id="description" name="description" class="form-control"
+                                        placeholder="Monthly Dues - @DateTime.Now.ToString("MMMM yyyy")" />
+                                    <div class="form-text">Leave blank to use the default description format.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <strong>Note:</strong> This action will not create duplicate bills for homeowners who
+                            already have a monthly bill for the current month.
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Preview</h5>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p><strong>Bill Type:</strong> Monthly Dues</p>
+                                                <p><strong>Issue Date:</strong> @DateTime.Now.ToShortDateString()</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><strong>Status:</strong> Unpaid</p>
+                                                <p><strong>Potential Total:</strong> ₱<span id="totalAmount">0.00</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-end">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-lightning-charge"></i> Generate Bills
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            function updateTotal() {
+                var amount = parseFloat($("#amount").val()) || 0;
+                var homeownerCount = @ViewBag.HomeownerCount;
+                var total = (amount * homeownerCount).toFixed(2);
+                $("#totalAmount").text(total);
+            }
+
+            $("#amount").on("input", updateTotal);
+
+            // Initialize
+            updateTotal();
+        });
+    </script>
+}

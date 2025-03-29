@@ -9,17 +9,32 @@
 <div class="container py-5 lora-body">
     <div class="mb-3">
         <div class="d-flex justify-content-between align-items-center">
-            <h1 class="display-4 text-dark fw-bold oswald-heading">@Model.Title</h1>
-            <span class="badge @GetPriorityBadgeClass(Model.Priority) p-2" style="letter-spacing: 2px;">@Model.Priority</span>
+            <div class="d-flex align-items-center">
+                <h1 class="display-4 text-dark fw-bold oswald-heading me-2">@Model.Title</h1>
+                @if (Model.IsPublic)
+                {
+                    <span class="badge bg-info" style="font-size: 0.9rem;">
+                        <i class="bi bi-globe me-1"></i> Public
+                    </span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary" style="font-size: 0.9rem;">
+                        <i class="bi bi-lock me-1"></i> Private
+                    </span>
+                }
+            </div>
+            <span class="badge @GetPriorityBadgeClass(Model.Priority) p-2"
+                style="letter-spacing: 2px;">@Model.Priority</span>
         </div>
     </div>
-    
+
 
     <div class="card mb-4 shadow @GetPriorityClass(Model.Priority)" style="border-width: 2px;">
         <div class="card-body">
             <div class="d-flex justify-content-between mb-4 oswald-heading ">
                 @Html.Raw(Model.Content)
-                
+
             </div>
 
             @if (!string.IsNullOrEmpty(Model.AttachmentUrl))
@@ -41,7 +56,8 @@
                         <div class="card-body">
                             <dl class="row" style="font-size: 0.8rem;">
                                 <dt class="col-sm-4">Posted By</dt>
-                                <dd class="col-sm-8">@(Model.Author?.FirstName + " " + Model.Author?.LastName ?? "Unknown")</dd>
+                                <dd class="col-sm-8">@(Model.Author?.FirstName + " " + Model.Author?.LastName ??
+                                                                        "Unknown")</dd>
 
                                 <dt class="col-sm-4">Date Posted</dt>
                                 <dd class="col-sm-8">@Model.DatePosted.ToString("MMMM dd, yyyy hh:mm tt")</dd>
@@ -61,6 +77,22 @@
                                     else
                                     {
                                         <span class="badge bg-secondary">Inactive</span>
+                                    }
+                                </dd>
+
+                                <dt class="col-sm-4">Visibility</dt>
+                                <dd class="col-sm-8">
+                                    @if (Model.IsPublic)
+                                    {
+                                        <span class="badge bg-info">
+                                            <i class="bi bi-globe me-1"></i> Public
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            <i class="bi bi-lock me-1"></i> Private
+                                        </span>
                                     }
                                 </dd>
                             </dl>

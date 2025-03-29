@@ -40,13 +40,16 @@
 
         <div class="col-md-4 mb-4">
             <div class="card h-100">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Billing</h5>
+                <div class="card-header bg-purple text-white" style="background-color: #6f42c1;">
+                    <h5 class="mb-0">Staff Management</h5>
                 </div>
                 <div class="card-body">
-                    <p>Manage billing and payments for homeowners.</p>
+                    <p>Manage subdivision staff members and their accounts.</p>
                     <div class="d-grid">
-                        <a href="#" class="btn btn-outline-info">Manage Billing</a>
+                        <a asp-action="StaffMembers" class="btn btn-outline-purple"
+                            style="color: #6f42c1; border-color: #6f42c1;">Manage Staff</a>
+                        <a asp-action="CreateStaff" class="btn btn-outline-purple mt-2"
+                            style="color: #6f42c1; border-color: #6f42c1;">Add New Staff</a>
                     </div>
                 </div>
             </div>
@@ -54,6 +57,24 @@
     </div>
 
     <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Billing</h5>
+                </div>
+                <div class="card-body">
+                    <p>Manage billing and payments for homeowners.</p>
+                    <div class="d-grid">
+                        <a asp-controller="Billing" asp-action="Index" class="btn btn-outline-info">Manage Billing</a>
+                        <a asp-controller="Billing" asp-action="Payments" class="btn btn-outline-info mt-2">View
+                            Payments</a>
+                        <a asp-controller="Billing" asp-action="GenerateMonthlyBills"
+                            class="btn btn-outline-info mt-2">Generate Monthly Bills</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-header bg-warning text-dark">
@@ -81,7 +102,9 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="row">
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-header bg-secondary text-white">

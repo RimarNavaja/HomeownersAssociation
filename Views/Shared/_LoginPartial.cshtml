@@ -5,13 +5,25 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        var user = await UserManager.GetUserAsync(User);
-        var isAdmin = user != null && await UserManager.IsInRoleAsync(user, "Admin");
-
+        @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="Billing" asp-action="Index">Billing</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="Billing" asp-action="MyBills">My Bills</a>
+            </li>
+        }
         <li class="nav-item">
-            <form class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout"
-                asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" id="logoutForm"
-                onsubmit="return confirmLogout()">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Profile" title="Manage">Hello
+                @User.Identity?.Name!</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="Account" asp-action="Logout"
+                asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" onsubmit="return confirmLogout()">
                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
         </li>
