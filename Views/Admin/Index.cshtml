@@ -2,121 +2,107 @@
     ViewData["Title"] = "Admin Dashboard";
 }
 
-<div class="container mt-5" style="height: 70vh;">
-    <h1 class="mb-4">@ViewData["Title"]</h1>
+<div class="d-flex">
+    <!-- Sidebar Toggle Button -->
+    <button class="btn btn-dark d-md-none" id="sidebarToggle" type="button">
+        <i class="bi bi-list"></i>
+    </button>
 
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">User Management</h5>
+    <!-- Sidebar -->
+    <div class="sidebar oswald-subheading bg-dark text-white" id="sidebar" style="min-width: 250px; min-height: 100vh;">
+        <div class="p-3">
+            <h4 class="text-white mb-4 oswald-heading">Admin Panel</h4>
+            <div class="nav flex-column">
+                <div class="mb-3">
+                    <h6 class="sidebar-heading text-muted px-2 oswald-heading">User Management</h6>
+                    <a asp-action="PendingApprovals" class="nav-link text-white"><i class="bi bi-person-plus me-2"></i>Pending Approvals</a>
+                    <a asp-action="AllUsers" class="nav-link text-white"><i class="bi bi-people me-2"></i>All Users</a>
                 </div>
-                <div class="card-body">
-                    <p>Manage user accounts, approve new registrations, and view all users.</p>
-                    <div class="d-grid gap-2">
-                        <a asp-action="PendingApprovals" class="btn btn-outline-primary">Pending Approvals</a>
-                        <a asp-action="AllUsers" class="btn btn-outline-secondary">All Users</a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">Announcements</h5>
+                <div class="mb-3">
+                    <h6 class="sidebar-heading text-muted px-2 oswald-heading">Announcements</h6>
+                    <a asp-controller="Announcements" asp-action="Index" class="nav-link text-white"><i class="bi bi-megaphone me-2"></i>Manage Announcements</a>
+                    <a asp-controller="Announcements" asp-action="Create" class="nav-link text-white"><i class="bi bi-plus-circle me-2"></i>Create Announcement</a>
                 </div>
-                <div class="card-body">
-                    <p>Manage announcements and notifications for the community.</p>
-                    <div class="d-grid">
-                        <a asp-controller="Announcements" asp-action="Index" class="btn btn-outline-success">Manage
-                            Announcements</a>
-                        <a asp-controller="Announcements" asp-action="Create"
-                            class="btn btn-outline-success mt-2">Create New Announcement</a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-header bg-purple text-white" style="background-color: #6f42c1;">
-                    <h5 class="mb-0">Staff Management</h5>
+                <div class="mb-3">
+                    <h6 class="sidebar-heading text-muted px-2 oswald-heading">Staff</h6>
+                    <a asp-action="StaffMembers" class="nav-link text-white"><i class="bi bi-person-badge me-2"></i>Manage Staff</a>
+                    <a asp-action="CreateStaff" class="nav-link text-white"><i class="bi bi-person-plus-fill me-2"></i>Add Staff</a>
                 </div>
-                <div class="card-body">
-                    <p>Manage subdivision staff members and their accounts.</p>
-                    <div class="d-grid">
-                        <a asp-action="StaffMembers" class="btn btn-outline-purple"
-                            style="color: #6f42c1; border-color: #6f42c1;">Manage Staff</a>
-                        <a asp-action="CreateStaff" class="btn btn-outline-purple mt-2"
-                            style="color: #6f42c1; border-color: #6f42c1;">Add New Staff</a>
-                    </div>
+
+                <div class="mb-3">
+                    <h6 class="sidebar-heading text-muted px-2 oswald-heading">Billing</h6>
+                    <a asp-controller="Billing" asp-action="Index" class="nav-link text-white"><i class="bi bi-cash me-2"></i>Manage Billing</a>
+                    <a asp-controller="Billing" asp-action="Payments" class="nav-link text-white"><i class="bi bi-credit-card me-2"></i>View Payments</a>
+                    <a href="#" class="nav-link text-white"><i class="bi bi-building me-2"></i>Manage Facilities</a>
+                </div>
+
+                <div class="mb-3">
+                    <h6 class="sidebar-heading text-muted px-2 oswald-heading">Service Requests</h6>
+                    <a href="#" class="nav-link text-white"><i class="bi bi-tools me-2"></i>Manage Requests</a>
+                </div>
+
+                <div class="mb-3">
+                    <h6 class="sidebar-heading text-muted px-2 oswald-heading">Reports</h6>
+                    <a href="#" class="nav-link text-white"><i class="bi bi-file-text me-2"></i>View Reports</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Billing</h5>
-                </div>
-                <div class="card-body">
-                    <p>Manage billing and payments for homeowners.</p>
-                    <div class="d-grid">
-                        <a asp-controller="Billing" asp-action="Index" class="btn btn-outline-info">Manage Billing</a>
-                        <a asp-controller="Billing" asp-action="Payments" class="btn btn-outline-info mt-2">View
-                            Payments</a>
-                        <a asp-controller="Billing" asp-action="GenerateMonthlyBills"
-                            class="btn btn-outline-info mt-2">Generate Monthly Bills</a>
+    <!-- Main Content -->
+    <div class="flex-grow-1 p-4">
+        <h1 class="mb-4">@ViewData["Title"]</h1>
+        <div class="row">
+            <!-- Quick Stats Cards -->
+            <div class="col-md-3 mb-4">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Pending Approvals</h5>
+                        <h2 class="mb-0">@ViewBag.PendingApprovalsCount</h2>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-header bg-warning text-dark">
-                    <h5 class="mb-0">Facilities</h5>
-                </div>
-                <div class="card-body">
-                    <p>Manage facility reservations and maintenance.</p>
-                    <div class="d-grid">
-                        <a href="#" class="btn btn-outline-warning">Manage Facilities</a>
+            <div class="col-md-3 mb-4">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Users</h5>
+                        <h2 class="mb-0">@ViewBag.ActiveUsersCount</h2>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-header bg-danger text-white">
-                    <h5 class="mb-0">Service Requests</h5>
-                </div>
-                <div class="card-body">
-                    <p>Manage service requests and maintenance tickets.</p>
-                    <div class="d-grid">
-                        <a href="#" class="btn btn-outline-danger">Manage Requests</a>
+            <div class="col-md-3 mb-4">
+                <div class="card bg-warning text-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Open Requests</h5>
+                        <h2 class="mb-0">@ViewBag.OpenRequestsCount</h2>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-header bg-secondary text-white">
-                    <h5 class="mb-0">Reports</h5>
-                </div>
-                <div class="card-body">
-                    <p>View and generate reports for the association.</p>
-                    <div class="d-grid">
-                        <a href="#" class="btn btn-outline-secondary">View Reports</a>
+            <div class="col-md-3 mb-4">
+                <div class="card bg-info text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Recent Payments</h5>
+                        <h2 class="mb-0">@ViewBag.RecentPaymentsCount</h2>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .sidebar .nav-link:hover {
+        background-color: rgba(255,255,255,0.1);
+    }
+    .sidebar-heading {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+    }
+    .nav-link {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+</style>
