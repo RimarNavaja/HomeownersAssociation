@@ -5,6 +5,7 @@ using HomeownersAssociation.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
+using HomeownersAssociation.Data;
 
 namespace HomeownersAssociation.Controllers
 {
@@ -13,18 +14,79 @@ namespace HomeownersAssociation.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWebHostEnvironment _environment;
+        private readonly ApplicationDbContext _context;
 
         public AdminController(
             UserManager<ApplicationUser> userManager,
-            IWebHostEnvironment environment)
+            IWebHostEnvironment environment,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _environment = environment;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
             return View();
+        }
+
+        public IActionResult CreateGlobalBill()
+        {
+            var model = new BillViewModel
+            {
+                BillNumber = GenerateBillNumber(),
+                IssueDate = DateTime.Now,
+                DueDate = DateTime.Now.AddDays(30)
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateGlobalBill(BillViewModel model)
+        {
+            ModelState.Remove("HomeownerId");
+
+            if (ModelState.IsValid)
+            {
+                var bill = new Bill
+                {
+                    BillNumber = model.BillNumber,
+                    Description = model.Description,
+                    Amount = model.Amount,
+                    DueDate = model.DueDate,
+                    IssueDate = model.IssueDate,
+                    Status = model.Status,
+                    Type = model.Type,
+                    Notes = model.Notes + " (Global bill - not assigned to specific homeowner)"
+                };
+
+                _context.Add(bill);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Global bill created successfully!";
+                return RedirectToAction("Index", "Billing");
+            }
+
+            return View(model);
+        }
+
+        private string GenerateBillNumber()
+        {
+            var lastBill = _context.Bills.OrderByDescending(b => b.Id).FirstOrDefault();
+            int billNumber = 1000;
+            
+            if (lastBill != null)
+            {
+                if (int.TryParse(lastBill.BillNumber.Replace("BILL-", ""), out int lastNumber))
+                {
+                    billNumber = lastNumber + 1;
+                }
+            }
+            
+            return $"BILL-{billNumber}";
         }
 
         public async Task<IActionResult> PendingApprovals()

@@ -36,7 +36,7 @@ namespace HomeownersAssociation.Controllers
                 .ToListAsync();
 
             // Filter out expired and inactive announcements for non-admin users
-            if (!User.IsInRole("Admin"))
+            if (!User.IsInRole("Admin") && !User.IsInRole("Staff"))
             {
                 announcements = announcements
                     .Where(a => a.IsActive &&
@@ -86,16 +86,17 @@ namespace HomeownersAssociation.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            // Check if announcement is active or user is admin
-            if (!announcement.IsActive && !User.IsInRole("Admin"))
+            // Check if announcement is active or user is admin/staff
+            if (!announcement.IsActive && !User.IsInRole("Admin") && !User.IsInRole("Staff"))
             {
                 return NotFound();
             }
 
-            // Check if announcement is expired and user is not admin
+            // Check if announcement is expired and user is not admin/staff
             if (announcement.ExpiryDate != null &&
                 announcement.ExpiryDate < DateTime.Now &&
-                !User.IsInRole("Admin"))
+                !User.IsInRole("Admin") &&
+                !User.IsInRole("Staff"))
             {
                 return NotFound();
             }
@@ -104,7 +105,7 @@ namespace HomeownersAssociation.Controllers
         }
 
         // GET: Announcements/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Staff")]
         public IActionResult Create()
         {
             return View();
@@ -113,7 +114,7 @@ namespace HomeownersAssociation.Controllers
         // POST: Announcements/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> Create(AnnouncementViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -160,7 +161,7 @@ namespace HomeownersAssociation.Controllers
         }
 
         // GET: Announcements/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -192,7 +193,7 @@ namespace HomeownersAssociation.Controllers
         // POST: Announcements/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> Edit(int id, AnnouncementViewModel viewModel)
         {
             if (id != viewModel.Id)

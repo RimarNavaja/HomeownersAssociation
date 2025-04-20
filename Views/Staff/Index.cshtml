@@ -1,0 +1,67 @@
+@{
+    ViewData["Title"] = "Staff Dashboard";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="bi bi-speedometer2 me-2"></i>Staff Dashboard</h4>
+                </div>
+                <div class="card-body">
+                    <h5>Welcome to the Staff Portal</h5>
+                    <p>Use the functions below to manage homeowners association activities.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="bi bi-megaphone-fill me-2"></i>Announcements</h5>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p>Create and manage community announcements that will be shown to homeowners.</p>
+                    <div class="mt-auto">
+                        <a asp-controller="Staff" asp-action="Announcements" class="btn btn-outline-success me-2">
+                            <i class="bi bi-list me-1"></i>View All
+                        </a>
+                        <a asp-controller="Staff" asp-action="CreateAnnouncement" class="btn btn-success">
+                            <i class="bi bi-plus-circle me-1"></i>Create New
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="bi bi-cash-stack me-2"></i>Billing Management</h5>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p>Manage homeowners association dues, bills, and payments.</p>
+                    <div class="mt-auto">
+                        <a asp-controller="Staff" asp-action="Billing" class="btn btn-outline-info me-2">
+                            <i class="bi bi-list me-1"></i>View Bills
+                        </a>
+                        <div class="btn-group mt-2 mt-md-0">
+                            <a asp-controller="Staff" asp-action="CreateBill" class="btn btn-info text-white">
+                                <i class="bi bi-plus-circle me-1"></i>Create Homeowner Bill
+                            </a>
+                            <a asp-controller="Staff" asp-action="CreateGlobalBill" class="btn btn-outline-info">
+                                <i class="bi bi-globe me-1"></i>Create Global Bill
+                            </a>
+                        </div>
+                        <a asp-controller="Staff" asp-action="Payments" class="btn btn-outline-info ms-2">
+                            <i class="bi bi-credit-card me-1"></i>Payments
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

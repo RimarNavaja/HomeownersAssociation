@@ -5,8 +5,20 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+        @if (User.IsInRole("Admin"))
         {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="Billing" asp-action="Index">Billing</a>
+            </li>
+        }
+        else if (User.IsInRole("Staff"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="Staff" asp-action="Index">Staff Dashboard</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-controller="Billing" asp-action="Index">Billing</a>
             </li>

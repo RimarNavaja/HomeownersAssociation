@@ -34,6 +34,15 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <div class="form-check mb-3 mt-4">
+                                    <input asp-for="IsGlobal" class="form-check-input" id="isGlobalBill" />
+                                    <label asp-for="IsGlobal" class="form-check-label"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3" id="homeownerSelectDiv">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label asp-for="HomeownerId" class="control-label">Homeowner</label>
                                     <select asp-for="HomeownerId" class="form-select">
@@ -138,4 +147,21 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        $(document).ready(function() {
+            // Handle the global bill checkbox toggle
+            $('#isGlobalBill').change(function() {
+                if($(this).is(':checked')) {
+                    $('#homeownerSelectDiv').hide();
+                } else {
+                    $('#homeownerSelectDiv').show();
+                }
+            });
+            
+            // Initialize the form based on the current state
+            if($('#isGlobalBill').is(':checked')) {
+                $('#homeownerSelectDiv').hide();
+            }
+        });
+    </script>
 }

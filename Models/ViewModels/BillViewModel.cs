@@ -40,6 +40,9 @@ namespace HomeownersAssociation.Models.ViewModels
 
         [Display(Name = "Notes")]
         public string? Notes { get; set; }
+        
+        [Display(Name = "Global Bill (Not assigned to any homeowner)")]
+        public bool IsGlobal { get; set; } = false;
 
         // For dropdown lists in view
         public IEnumerable<ApplicationUser>? Homeowners { get; set; }

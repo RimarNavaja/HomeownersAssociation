@@ -57,8 +57,22 @@ namespace HomeownersAssociation.Controllers
                 return NotFound();
             }
 
+            // Get a list of admin user IDs (used to identify global bills)
+            var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+            var adminIds = adminUsers.Select(a => a.Id).ToList();
+            
+            // Get staff user IDs (also used for global bills)
+            var staffUsers = await _userManager.GetUsersInRoleAsync("Staff");
+            var staffIds = staffUsers.Select(s => s.Id).ToList();
+            
+            // Combine admin and staff IDs
+            var adminStaffIds = adminIds.Concat(staffIds).ToList();
+
+            // Get both personal bills AND global bills (those assigned to admins or staff with a note indicating they're global)
             var bills = await _context.Bills
-                .Where(b => b.HomeownerId == user.Id)
+                .Where(b => b.HomeownerId == user.Id || 
+                       (adminStaffIds.Contains(b.HomeownerId) && b.Notes != null && b.Notes.Contains("Global bill")))
+                .Include(b => b.Homeowner)
                 .OrderByDescending(b => b.IssueDate)
                 .ToListAsync();
 
@@ -90,7 +104,8 @@ namespace HomeownersAssociation.Controllers
                 Homeowners = homeowners,
                 BillNumber = GenerateBillNumber(),
                 IssueDate = DateTime.Now,
-                DueDate = DateTime.Now.AddDays(30)
+                DueDate = DateTime.Now.AddDays(30),
+                IsGlobal = false
             };
 
             return View(model);
@@ -102,6 +117,12 @@ namespace HomeownersAssociation.Controllers
         [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> Create(BillViewModel model)
         {
+            // If it's a global bill, remove HomeownerId validation
+            if (model.IsGlobal)
+            {
+                ModelState.Remove("HomeownerId");
+            }
+
             if (ModelState.IsValid)
             {
                 var bill = new Bill
@@ -112,15 +133,41 @@ namespace HomeownersAssociation.Controllers
                     DueDate = model.DueDate,
                     IssueDate = model.IssueDate,
                     Status = model.Status,
-                    HomeownerId = model.HomeownerId,
                     Type = model.Type,
                     Notes = model.Notes
                 };
 
+                // For global bills, we need to find an admin user to associate with the bill
+                // to satisfy the foreign key constraint
+                if (model.IsGlobal || string.IsNullOrEmpty(model.HomeownerId))
+                {
+                    // Try to find the admin user first
+                    var adminUser = await _userManager.GetUsersInRoleAsync("Admin");
+                    if (adminUser.Any())
+                    {
+                        bill.HomeownerId = adminUser.First().Id;
+                        bill.Notes = (bill.Notes ?? "") + " (Global bill - managed by admin)";
+                    }
+                    else
+                    {
+                        // If no admin, use the current logged-in user
+                        var currentUser = await _userManager.GetUserAsync(User);
+                        bill.HomeownerId = currentUser.Id;
+                        bill.Notes = (bill.Notes ?? "") + " (Global bill - managed by staff)";
+                    }
+                }
+                else
+                {
+                    // For regular bills, use the selected homeowner
+                    bill.HomeownerId = model.HomeownerId;
+                }
+
                 _context.Add(bill);
                 await _context.SaveChangesAsync();
 
-                TempData["SuccessMessage"] = "Bill created successfully!";
+                TempData["SuccessMessage"] = model.IsGlobal ? 
+                    "Global bill created successfully!" : 
+                    "Bill created successfully!";
                 return RedirectToAction(nameof(Index));
             }
 

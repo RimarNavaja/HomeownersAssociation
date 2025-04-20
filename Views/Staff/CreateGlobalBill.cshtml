@@ -1,0 +1,116 @@
+@model HomeownersAssociation.Models.ViewModels.BillViewModel
+
+@{
+    ViewData["Title"] = "Create Global Bill";
+}
+
+<div class="container mt-4">
+    <h2>Create Global Bill</h2>
+    <p>Use this form to create a bill that is not associated with a specific homeowner.</p>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Global Bill Details</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="CreateGlobalBill" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label asp-for="BillNumber" class="form-label">Bill Number</label>
+                            <input asp-for="BillNumber" class="form-control" readonly />
+                            <span asp-validation-for="BillNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label asp-for="Type" class="form-label">Bill Type</label>
+                            <select asp-for="Type" class="form-select" asp-items="Html.GetEnumSelectList<BillType>()">
+                                <option selected disabled>Select a bill type</option>
+                            </select>
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group">
+                            <label asp-for="Description" class="form-label">Description</label>
+                            <input asp-for="Description" class="form-control" placeholder="Enter bill description" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="form-group">
+                            <label asp-for="Amount" class="form-label">Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input asp-for="Amount" class="form-control" placeholder="0.00" />
+                            </div>
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="form-group">
+                            <label asp-for="IssueDate" class="form-label">Issue Date</label>
+                            <input asp-for="IssueDate" class="form-control" type="date" />
+                            <span asp-validation-for="IssueDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="form-group">
+                            <label asp-for="DueDate" class="form-label">Due Date</label>
+                            <input asp-for="DueDate" class="form-control" type="date" />
+                            <span asp-validation-for="DueDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label asp-for="Status" class="form-label">Status</label>
+                            <select asp-for="Status" class="form-select" asp-items="Html.GetEnumSelectList<BillStatus>()">
+                                <option selected disabled>Select bill status</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group">
+                            <label asp-for="Notes" class="form-label">Notes</label>
+                            <textarea asp-for="Notes" class="form-control" rows="3" placeholder="Additional notes or information about this bill"></textarea>
+                            <span asp-validation-for="Notes" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Billing" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left me-1"></i>Back to Bills
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save me-1"></i>Create Global Bill
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 
