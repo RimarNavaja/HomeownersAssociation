@@ -38,7 +38,7 @@ namespace HomeownersAssociation.Models
         public DateTime? PaymentDate { get; set; }
 
         [ForeignKey("Homeowner")]
-        public string HomeownerId { get; set; } = string.Empty;
+        public string? HomeownerId { get; set; }
 
         public virtual ApplicationUser? Homeowner { get; set; }
 

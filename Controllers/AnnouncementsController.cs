@@ -270,7 +270,7 @@ namespace HomeownersAssociation.Controllers
         }
 
         // GET: Announcements/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -293,7 +293,7 @@ namespace HomeownersAssociation.Controllers
         // POST: Announcements/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var announcement = await _context.Announcements.FindAsync(id);

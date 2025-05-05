@@ -57,22 +57,10 @@ namespace HomeownersAssociation.Controllers
                 return NotFound();
             }
 
-            // Get a list of admin user IDs (used to identify global bills)
-            var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
-            var adminIds = adminUsers.Select(a => a.Id).ToList();
-            
-            // Get staff user IDs (also used for global bills)
-            var staffUsers = await _userManager.GetUsersInRoleAsync("Staff");
-            var staffIds = staffUsers.Select(s => s.Id).ToList();
-            
-            // Combine admin and staff IDs
-            var adminStaffIds = adminIds.Concat(staffIds).ToList();
-
-            // Get both personal bills AND global bills (those assigned to admins or staff with a note indicating they're global)
+            // Get both personal bills (HomeownerId matches user) AND global bills (HomeownerId is null)
             var bills = await _context.Bills
-                .Where(b => b.HomeownerId == user.Id || 
-                       (adminStaffIds.Contains(b.HomeownerId) && b.Notes != null && b.Notes.Contains("Global bill")))
-                .Include(b => b.Homeowner)
+                .Where(b => b.HomeownerId == user.Id || b.HomeownerId == null)
+                .Include(b => b.Homeowner) // Include homeowner info (will be null for global bills)
                 .OrderByDescending(b => b.IssueDate)
                 .ToListAsync();
 
@@ -117,10 +105,15 @@ namespace HomeownersAssociation.Controllers
         [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> Create(BillViewModel model)
         {
-            // If it's a global bill, remove HomeownerId validation
-            if (model.IsGlobal)
+            // Manual validation for HomeownerId if IsGlobal is false
+            if (!model.IsGlobal && string.IsNullOrEmpty(model.HomeownerId))
             {
-                ModelState.Remove("HomeownerId");
+                ModelState.AddModelError("HomeownerId", "The Homeowner field is required for non-global bills.");
+            }
+            else if (model.IsGlobal)
+            {
+                // Ensure HomeownerId errors are removed if it's global
+                ModelState.Remove("HomeownerId"); 
             }
 
             if (ModelState.IsValid)
@@ -137,28 +130,13 @@ namespace HomeownersAssociation.Controllers
                     Notes = model.Notes
                 };
 
-                // For global bills, we need to find an admin user to associate with the bill
-                // to satisfy the foreign key constraint
-                if (model.IsGlobal || string.IsNullOrEmpty(model.HomeownerId))
+                if (model.IsGlobal)
                 {
-                    // Try to find the admin user first
-                    var adminUser = await _userManager.GetUsersInRoleAsync("Admin");
-                    if (adminUser.Any())
-                    {
-                        bill.HomeownerId = adminUser.First().Id;
-                        bill.Notes = (bill.Notes ?? "") + " (Global bill - managed by admin)";
-                    }
-                    else
-                    {
-                        // If no admin, use the current logged-in user
-                        var currentUser = await _userManager.GetUserAsync(User);
-                        bill.HomeownerId = currentUser.Id;
-                        bill.Notes = (bill.Notes ?? "") + " (Global bill - managed by staff)";
-                    }
+                    bill.HomeownerId = null; // Set to null for global bills
+                    bill.Notes = (bill.Notes ?? "") + " (Global Bill)"; 
                 }
                 else
                 {
-                    // For regular bills, use the selected homeowner
                     bill.HomeownerId = model.HomeownerId;
                 }
 
@@ -194,6 +172,9 @@ namespace HomeownersAssociation.Controllers
             }
 
             var homeowners = await _userManager.GetUsersInRoleAsync("Homeowner");
+            
+            // Determine if the bill is currently global (HomeownerId is null)
+            bool isCurrentlyGlobal = bill.HomeownerId == null;
 
             var model = new BillViewModel
             {
@@ -204,10 +185,11 @@ namespace HomeownersAssociation.Controllers
                 DueDate = bill.DueDate,
                 IssueDate = bill.IssueDate,
                 Status = bill.Status,
-                HomeownerId = bill.HomeownerId,
+                HomeownerId = bill.HomeownerId, // Pre-select if not global
                 Type = bill.Type,
-                Notes = bill.Notes,
-                Homeowners = homeowners
+                Notes = bill.Notes?.Replace(" (Global Bill)", ""), // Clean notes for editing
+                Homeowners = homeowners,
+                IsGlobal = isCurrentlyGlobal
             };
 
             return View(model);
@@ -222,6 +204,17 @@ namespace HomeownersAssociation.Controllers
             if (id != model.Id)
             {
                 return NotFound();
+            }
+
+            // Manual validation for HomeownerId if IsGlobal is false
+            if (!model.IsGlobal && string.IsNullOrEmpty(model.HomeownerId))
+            {
+                ModelState.AddModelError("HomeownerId", "The Homeowner field is required for non-global bills.");
+            }
+            else if (model.IsGlobal)
+            {
+                // Ensure HomeownerId errors are removed if it's global
+                ModelState.Remove("HomeownerId");
             }
 
             if (ModelState.IsValid)
@@ -240,9 +233,22 @@ namespace HomeownersAssociation.Controllers
                     bill.DueDate = model.DueDate;
                     bill.IssueDate = model.IssueDate;
                     bill.Status = model.Status;
-                    bill.HomeownerId = model.HomeownerId;
                     bill.Type = model.Type;
                     bill.Notes = model.Notes;
+
+                    // Handle HomeownerId and Notes based on IsGlobal
+                    if (model.IsGlobal)
+                    {
+                        bill.HomeownerId = null; // Set to null for global bills
+                        bill.Notes = (bill.Notes ?? "") + " (Global Bill)"; 
+                    }
+                    else
+                    {
+                        // Assign the selected homeowner for non-global bills
+                        bill.HomeownerId = model.HomeownerId;
+                        // Ensure global bill note is removed if switching back
+                        bill.Notes = bill.Notes?.Replace(" (Global Bill)", "");
+                    }
 
                     _context.Update(bill);
                     await _context.SaveChangesAsync();

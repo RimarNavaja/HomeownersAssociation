@@ -31,9 +31,8 @@ namespace HomeownersAssociation.Models.ViewModels
         [Display(Name = "Payment Status")]
         public BillStatus Status { get; set; } = BillStatus.Unpaid;
 
-        [Required]
         [Display(Name = "Homeowner")]
-        public string HomeownerId { get; set; } = string.Empty;
+        public string? HomeownerId { get; set; }
 
         [Display(Name = "Bill Type")]
         public BillType Type { get; set; } = BillType.MonthlyDues;

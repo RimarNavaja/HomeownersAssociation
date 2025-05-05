@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Z09jbUGTGP8EsYnNh6yfPqzABBAlJKGkAYYslAywUto=",
+  "Hash": "YQkZjDfH1Q8ScI730vWUCcXA+o5BVK6j93VoX3/kj6Q=",
   "Source": "HomeownersAssociation",
   "BasePath": "_content/HomeownersAssociation",
   "Mode": "Default",
@@ -2599,6 +2599,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\announcements\\9287608f-462f-4604-8616-befd89de1735_Acer_Wallpaper_01_3840x2400.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Clyd Pardillo\\Documents\\Kapoy nga Iskol\\3rd year\\Homeowners\\HomeownersAssociation\\wwwroot\\uploads\\documents\\7d3be621-f58a-47ef-a30a-d3316b65c1fe_Database Manual.pdf",
+      "SourceId": "HomeownersAssociation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Clyd Pardillo\\Documents\\Kapoy nga Iskol\\3rd year\\Homeowners\\HomeownersAssociation\\wwwroot\\",
+      "BasePath": "_content/HomeownersAssociation",
+      "RelativePath": "uploads/documents/7d3be621-f58a-47ef-a30a-d3316b65c1fe_Database Manual.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\documents\\7d3be621-f58a-47ef-a30a-d3316b65c1fe_Database Manual.pdf"
     },
     {
       "Identity": "C:\\Users\\Clyd Pardillo\\Documents\\Kapoy nga Iskol\\3rd year\\Homeowners\\HomeownersAssociation\\wwwroot\\uploads\\profiles\\052916da-64c4-4d97-8f4d-8c00416a5501_photo_2024-04-18_20-14-23.jpg",

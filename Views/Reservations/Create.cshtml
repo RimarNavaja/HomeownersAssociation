@@ -1,0 +1,115 @@
+@model HomeownersAssociation.Models.ViewModels.FacilityReservationViewModel
+
+@{
+    ViewData["Title"] = "Book Facility: " + Model.FacilityName;
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="display-4 text-primary">Book Facility</h1>
+            <p class="lead">Submit a reservation request for <strong>@Model.FacilityName</strong>.</p>
+        </div>
+         <div class="col-md-4 text-end">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                 <i class="bi bi-arrow-left"></i> Back to Facilities
+            </a>
+        </div>
+    </div>
+
+     <div class="row">
+        <div class="col-md-8">
+             <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                     <h5 class="mb-0">Reservation Details</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="FacilityId" />
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ReservationDate" class="form-label"></label>
+                                <input asp-for="ReservationDate" class="form-control" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                                <span asp-validation-for="ReservationDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="StartTime" class="form-label"></label>
+                                <input asp-for="StartTime" class="form-control" type="time" />
+                                <span asp-validation-for="StartTime" class="text-danger"></span>
+                            </div>
+                             <div class="col-md-6 mb-3">
+                                <label asp-for="EndTime" class="form-label"></label>
+                                <input asp-for="EndTime" class="form-control" type="time" />
+                                <span asp-validation-for="EndTime" class="text-danger"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Purpose" class="form-label"></label>
+                            <textarea asp-for="Purpose" class="form-control" rows="3" placeholder="e.g., Birthday Party, Meeting"></textarea>
+                            <span asp-validation-for="Purpose" class="text-danger"></span>
+                        </div>
+
+                        <p class="text-muted"><small>Your reservation will be submitted for approval.</small></p>
+                        
+                        <div class="form-group text-end">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-send-check me-1"></i> Submit Reservation Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+             <div class="card shadow-sm mb-4">
+                 <div class="card-header">
+                    <h5 class="mb-0">Existing Bookings</h5>
+                 </div>
+                 <div class="card-body p-0" style="max-height: 400px; overflow-y: auto;">
+                    @if (Model.ExistingReservations == null || !Model.ExistingReservations.Any())
+                    {
+                        <div class="p-3 text-center text-muted">
+                             No existing reservations found for today or later.
+                        </div>
+                    }
+                    else
+                    {
+                        <ul class="list-group list-group-flush">
+                             @foreach (var res in Model.ExistingReservations)
+                            {
+                                <li class="list-group-item">
+                                    <strong>@res.StartTime.ToString("yyyy-MM-dd")</strong> <br/>
+                                    @res.StartTime.ToString("hh:mm tt") - @res.EndTime.ToString("hh:mm tt")
+                                    <span class="badge bg-@GetStatusBadgeClass(res.Status) float-end">@res.Status</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            ReservationStatus.Approved => "success",
+            ReservationStatus.Pending => "warning text-dark",
+            ReservationStatus.Rejected => "danger",
+            ReservationStatus.Cancelled => "secondary",
+            _ => "light"
+        };
+    }
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

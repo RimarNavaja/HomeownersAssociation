@@ -1,0 +1,50 @@
+@model HomeownersAssociation.Models.Document
+
+@{ ViewData["Title"] = "Delete Document"; }
+
+<div class="container mt-4">
+    <h1 class="display-4 text-danger">Delete Document</h1>
+    <h3>Are you sure you want to delete this document?</h3>
+    <p class="text-danger">This will delete both the database record and the physical file (@Model.FileName). This action cannot be undone.</p>
+    <hr />
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Document Details</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Title)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Title)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Category)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Category)</dd>
+
+                 <dt class="col-sm-3">File Name</dt>
+                <dd class="col-sm-9">@Model.FileName</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.UploadedBy)</dt>
+                <dd class="col-sm-9">@Model.UploadedBy?.FirstName @Model.UploadedBy?.LastName</dd>
+                
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.UploadedAt)</dt>
+                <dd class="col-sm-9">@Model.UploadedAt.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                 <dt class="col-sm-3">@Html.DisplayNameFor(model => model.IsPublic)</dt>
+                <dd class="col-sm-9">@(Model.IsPublic ? "Yes" : "No")</dd>
+            </dl>
+        </div>
+    </div>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash me-1"></i> Delete Document
+        </button> 
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-1"></i> Cancel
+        </a>
+    </form>
+</div> 

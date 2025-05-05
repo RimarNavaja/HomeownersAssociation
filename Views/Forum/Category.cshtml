@@ -1,0 +1,73 @@
+@model HomeownersAssociation.Models.ForumCategory
+
+@{ ViewData["Title"] = Model.Name; }
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h1 class="display-4 text-primary">@Model.Name</h1>
+            <p class="lead">@Model.Description</p>
+        </div>
+        <div class="col-md-6 text-end">
+             <a asp-action="CreateThread" asp-route-categoryId="@Model.Id" class="btn btn-success">
+                <i class="bi bi-plus-circle me-1"></i> Start New Thread
+            </a>
+            <a asp-action="Index" class="btn btn-outline-secondary ms-2">
+                 <i class="bi bi-arrow-left"></i> Back to Forum Categories
+            </a>
+        </div>
+    </div>
+
+     @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="list-group shadow-sm">
+        @if (Model.ForumThreads == null || !Model.ForumThreads.Any())
+        {
+            <div class="list-group-item text-center text-muted">
+                No threads found in this category yet. Be the first to start one!
+            </div>
+        }
+        else
+        {
+             <div class="list-group-item list-group-item-secondary d-none d-md-flex">
+                <div class="col-md-6"><strong>Thread / Started by</strong></div>
+                <div class="col-md-2 text-center"><strong>Replies</strong></div>
+                <div class="col-md-4 text-end"><strong>Last Reply</strong></div>
+            </div>
+            @foreach (var thread in Model.ForumThreads)
+            {
+                <a asp-action="Thread" asp-route-id="@thread.Id" class="list-group-item list-group-item-action">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                             <h6 class="mb-1 text-primary">@thread.Title</h6>
+                             <small>by @thread.User?.UserName on @thread.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small>
+                             @if(thread.IsLocked) {<span class="badge bg-secondary ms-2">Locked</span>}
+                        </div>
+                         <div class="col-md-2 text-center">
+                            <span class="badge bg-info rounded-pill">@(thread.ForumReplies?.Count() ?? 0)</span>
+                         </div>
+                         <div class="col-md-4 text-end">
+                            @if (thread.ForumReplies != null && thread.ForumReplies.Any())
+                            {
+                                var lastReply = thread.ForumReplies.OrderByDescending(r => r.CreatedAt).First();
+                                <small>@lastReply.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small>
+                                @* Optionally show user: <small>by @lastReply.User?.UserName</small> *@
+                            }
+                            else
+                            {
+                                <small>No replies</small>
+                            }
+                        </div>
+                    </div>
+                </a>
+            }
+        }
+    </div>
+
+</div>

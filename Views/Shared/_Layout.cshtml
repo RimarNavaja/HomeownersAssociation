@@ -59,47 +59,54 @@
                     <div class="navbar-nav me-auto">
                         <!-- Left side empty for brand -->
                     </div>
-                    <ul class="navbar-nav">
-                        <!--Navigation links with updated active classes-->
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link fw-bold @(Context.Request.Path.StartsWithSegments("/Admin") ? "text-primary border-bottom border-primary" : "text-dark")"
-                                    asp-area="" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link fw-bold @(Context.Request.Path.StartsWithSegments("/Home") || Context.Request.Path == "/" ? "text-primary border-bottom border-primary" : "text-dark")"
-                                    asp-area="" asp-controller="Home" asp-action="Index">Home Page</a>
-                            </li>
-                        }
-
-                        <li class="nav-item mx-2">
-                            <a class="nav-link fw-bold @(Context.Request.Path.StartsWithSegments("/Announcements") ? "text-primary border-bottom border-primary" : "text-dark")"
-                                asp-area="" asp-controller="Announcements"
-                                asp-action="@(User.Identity != null && User.Identity.IsAuthenticated ? "Index" : "Public")">Announcements</a>
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-
-
-                        <!-- Hidden when the user logged in-->
-                        @if (User.Identity != null && !User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item mx-2">
-                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Home" asp-action="">Our
-                                    Community</a>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Announcements" asp-action="Index">Announcements</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Billing" asp-action="MyBills">My Bills</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Reservations" asp-action="Index">Facilities</a>
+                            </li>
+                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ServiceRequests" asp-action="Index">Service Requests</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Documents" asp-action="Index">Documents</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Forum" asp-action="Index">Community Forum</a>
                             </li>
 
-                            <li class="nav-item mx-2">
-                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Home"
-                                    asp-action="">Contact Us</a>
-                            </li>
+                            @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-dark" href="#" id="adminStaffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Management
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="adminStaffDropdown">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Index">User Management</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Billing" asp-action="Index">Manage Bills</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Payments" asp-action="Index">Manage Payments</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Facilities" asp-action="Index">Manage Facilities</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Reservations" asp-action="Manage">Manage Reservations</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="ServiceCategories" asp-action="Index">Manage Service Categories</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="ServiceRequests" asp-action="Manage">Manage Service Requests</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Documents" asp-action="Manage">Manage Documents</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="ForumCategories" asp-action="Index">Manage Forum Categories</a></li>
+                                    </ul>
+                                </li>
+                            }
                         }
-
-
-                        <partial name="_LoginPartial" />
                     </ul>
+                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

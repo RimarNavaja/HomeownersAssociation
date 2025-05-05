@@ -1,0 +1,114 @@
+@model HomeownersAssociation.Models.Facility
+
+@{
+    ViewData["Title"] = $"{Model.Name} - Schedule";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="display-4 text-primary">@Model.Name</h1>
+            <p class="lead">Details and Booking Schedule</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="Index" class="btn btn-outline-secondary me-2">
+                 <i class="bi bi-arrow-left"></i> Back to Facilities
+            </a>
+            <a asp-action="Create" asp-route-facilityId="@Model.Id" class="btn btn-success">
+                 <i class="bi bi-calendar-plus me-1"></i> Book This Facility
+            </a>
+        </div>
+    </div>
+
+     <div class="row">
+        <div class="col-md-5">
+             <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Facility Information</h5>
+                </div>
+                <div class="card-body">
+                     <dl class="row">
+                        <dt class="col-sm-4">Description</dt>
+                        <dd class="col-sm-8">@(Model.Description ?? "N/A")</dd>
+
+                        <dt class="col-sm-4">Capacity</dt>
+                        <dd class="col-sm-8">@(Model.Capacity?.ToString() ?? "N/A")</dd>
+
+                        <dt class="col-sm-4">Rate</dt>
+                        <dd class="col-sm-8">@(Model.RatePerHour?.ToString("C") ?? "Free") / hour</dd>
+
+                        <dt class="col-sm-4">Status</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.IsActive) { <span class="badge bg-success">Active</span> }
+                            else { <span class="badge bg-secondary">Inactive</span> }
+                        </dd>
+
+                        <dt class="col-sm-4">Maintenance</dt>
+                        <dd class="col-sm-8">@(Model.MaintenanceSchedule ?? "N/A")</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card shadow-sm mb-4">
+                 <div class="card-header">
+                    <h5 class="mb-0">Upcoming Bookings</h5>
+                 </div>
+                 <div class="card-body p-0">
+                    @if (Model.Reservations == null || !Model.Reservations.Any())
+                    {
+                        <div class="p-3 text-center text-muted">
+                             No upcoming reservations found for this facility.
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                                        {
+                                            <th>Booked By</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var res in Model.Reservations)
+                                    {
+                                        <tr>
+                                            <td>@res.StartTime.ToString("yyyy-MM-dd")</td>
+                                            <td>@res.StartTime.ToString("hh:mm tt") - @res.EndTime.ToString("hh:mm tt")</td>
+                                            <td><span class="badge bg-@GetStatusBadgeClass(res.Status)">@res.Status</span></td>
+                                            @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                                            {
+                                                <td>@(res.User?.FirstName) @(res.User?.LastName)</td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            ReservationStatus.Approved => "success",
+            ReservationStatus.Pending => "warning text-dark",
+            ReservationStatus.Rejected => "danger",
+            ReservationStatus.Cancelled => "secondary",
+            _ => "light"
+        };
+    }
+} 

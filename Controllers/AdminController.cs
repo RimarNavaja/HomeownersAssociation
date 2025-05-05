@@ -28,65 +28,10 @@ namespace HomeownersAssociation.Controllers
 
         public async Task<IActionResult> Index()
         {
+            // You might want to pass some dashboard data to the view here
+            // Example: ViewBag.PendingApprovalsCount = await _userManager.Users.CountAsync(u => !u.IsApproved && u.UserType == UserType.Homeowner);
+            // Example: ViewBag.ActiveUsersCount = await _userManager.Users.CountAsync(u => u.IsApproved);
             return View();
-        }
-
-        public IActionResult CreateGlobalBill()
-        {
-            var model = new BillViewModel
-            {
-                BillNumber = GenerateBillNumber(),
-                IssueDate = DateTime.Now,
-                DueDate = DateTime.Now.AddDays(30)
-            };
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateGlobalBill(BillViewModel model)
-        {
-            ModelState.Remove("HomeownerId");
-
-            if (ModelState.IsValid)
-            {
-                var bill = new Bill
-                {
-                    BillNumber = model.BillNumber,
-                    Description = model.Description,
-                    Amount = model.Amount,
-                    DueDate = model.DueDate,
-                    IssueDate = model.IssueDate,
-                    Status = model.Status,
-                    Type = model.Type,
-                    Notes = model.Notes + " (Global bill - not assigned to specific homeowner)"
-                };
-
-                _context.Add(bill);
-                await _context.SaveChangesAsync();
-
-                TempData["SuccessMessage"] = "Global bill created successfully!";
-                return RedirectToAction("Index", "Billing");
-            }
-
-            return View(model);
-        }
-
-        private string GenerateBillNumber()
-        {
-            var lastBill = _context.Bills.OrderByDescending(b => b.Id).FirstOrDefault();
-            int billNumber = 1000;
-            
-            if (lastBill != null)
-            {
-                if (int.TryParse(lastBill.BillNumber.Replace("BILL-", ""), out int lastNumber))
-                {
-                    billNumber = lastNumber + 1;
-                }
-            }
-            
-            return $"BILL-{billNumber}";
         }
 
         public async Task<IActionResult> PendingApprovals()

@@ -1,0 +1,38 @@
+@model HomeownersAssociation.Models.ServiceCategory
+
+@{ ViewData["Title"] = "Delete Service Category"; }
+
+<div class="container mt-4">
+    <h1 class="display-4 text-danger">Delete Category</h1>
+    <h3>Are you sure you want to delete this category?</h3>
+    <p class="text-danger">This action cannot be undone. Deleting this category may affect existing service requests if not handled properly (though deletion is currently restricted if requests exist).</p>
+    <hr />
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Category Details</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Name)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.IsActive)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.IsActive)</dd>
+            </dl>
+        </div>
+    </div>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash me-1"></i> Delete Category
+        </button> 
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-1"></i> Cancel
+        </a>
+    </form>
+</div> 

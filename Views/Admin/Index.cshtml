@@ -34,14 +34,27 @@
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Billing</h6>
                     <a asp-controller="Billing" asp-action="Index" class="nav-link text-white"><i class="bi bi-cash me-2"></i>Manage Billing</a>
-                    <a asp-action="CreateGlobalBill" class="nav-link text-white"><i class="bi bi-globe me-2"></i>Create Global Bill</a>
+                    <a asp-controller="Billing" asp-action="Create" class="nav-link text-white"><i class="bi bi-plus-circle me-2"></i>Create Bill</a>
                     <a asp-controller="Billing" asp-action="Payments" class="nav-link text-white"><i class="bi bi-credit-card me-2"></i>View Payments</a>
-                    <a href="#" class="nav-link text-white"><i class="bi bi-building me-2"></i>Manage Facilities</a>
+                    <a asp-controller="Billing" asp-action="GenerateMonthlyBills" class="nav-link text-white"><i class="bi bi-calendar-check me-2"></i>Generate Monthly Bills</a> 
+                </div>
+
+                <div class="mb-3">
+                    <h6 class="sidebar-heading text-muted px-2 oswald-heading">Facilities & Reservations</h6>
+                    <a asp-controller="Facilities" asp-action="Index" class="nav-link text-white"><i class="bi bi-building me-2"></i>Manage Facilities</a>
+                    <a asp-controller="Reservations" asp-action="Manage" class="nav-link text-white"><i class="bi bi-calendar-check me-2"></i>Manage Reservations</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Service Requests</h6>
-                    <a href="#" class="nav-link text-white"><i class="bi bi-tools me-2"></i>Manage Requests</a>
+                    <a asp-controller="ServiceRequests" asp-action="Manage" class="nav-link text-white"><i class="bi bi-tools me-2"></i>Manage Requests</a>
+                    <a asp-controller="ServiceCategories" asp-action="Index" class="nav-link text-white"><i class="bi bi-tags me-2"></i>Manage Categories</a>
+                </div>
+
+                <div class="mb-3">
+                    <h6 class="sidebar-heading text-muted px-2 oswald-heading">Document Management</h6>
+                    <a asp-controller="Documents" asp-action="Index" class="nav-link text-white"><i class="bi bi-folder me-2"></i>Manage Documents</a>
+                    <a asp-controller="Documents" asp-action="Upload" class="nav-link text-white"><i class="bi bi-upload me-2"></i>Upload Document</a>
                 </div>
 
                 <div class="mb-3">
