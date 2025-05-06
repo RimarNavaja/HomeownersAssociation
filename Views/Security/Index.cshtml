@@ -1,0 +1,250 @@
+@model HomeownersAssociation.Models.ViewModels.SecurityDashboardViewModel
+
+@{
+    ViewData["Title"] = "Security Dashboard";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h1 class="display-4 text-primary">Security Dashboard</h1>
+            <p class="text-muted">Overview of security features and activities</p>
+        </div>
+        <div class="col-md-6 text-end">
+            <div class="btn-group" role="group">
+                <a asp-controller="VisitorPasses" asp-action="Create" class="btn btn-primary">
+                    <i class="bi bi-person-badge"></i> Request Visitor Pass
+                </a>
+                <a asp-controller="Vehicles" asp-action="Create" class="btn btn-outline-primary">
+                    <i class="bi bi-car-front"></i> Register Vehicle
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-person-badge"></i> Visitor Passes</h5>
+                    <h2 class="display-4">@Model.TotalVisitorPasses</h2>
+                    <div class="mt-2">
+                        <span class="badge bg-light text-primary">@Model.TotalApprovedPasses Approved</span>
+                        <span class="badge bg-warning text-dark">@Model.TotalRejectedPasses Rejected</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a asp-controller="VisitorPasses" asp-action="Index" class="text-white">View My Passes <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-car-front"></i> Vehicles</h5>
+                    <h2 class="display-4">@Model.TotalVehicles</h2>
+                    <p class="card-text mt-3">Registered vehicles in the system</p>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a asp-controller="Vehicles" asp-action="Index" class="text-white">View My Vehicles <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-info text-white h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-telephone"></i> Emergency Contacts</h5>
+                    <h2 class="display-4">@Model.TotalEmergencyContacts</h2>
+                    <p class="card-text mt-3">Important contacts available</p>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a asp-controller="Security" asp-action="EmergencyContacts" class="text-white">View Contacts <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-dark text-white h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-shield-check"></i> Security Status</h5>
+                    <div class="mt-3">
+                        <span class="badge bg-success"><i class="bi bi-check-circle"></i> Gates Online</span>
+                        <span class="badge bg-success"><i class="bi bi-check-circle"></i> CCTV Online</span>
+                        <span class="badge bg-success"><i class="bi bi-check-circle"></i> Guards On Duty</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <span class="text-white">Last updated: @DateTime.Now.ToString("MMM dd, yyyy h:mm tt")</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Pending Visitor Passes -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="bi bi-hourglass-split"></i> Pending Visitor Passes</h5>
+                    <a asp-controller="VisitorPasses" asp-action="Index" class="btn btn-sm btn-light">View All</a>
+                </div>
+                <div class="card-body">
+                    @if (Model.PendingVisitorPasses != null && Model.PendingVisitorPasses.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Visitor Name</th>
+                                        <th>Visit Date</th>
+                                        <th>Time</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var pass in Model.PendingVisitorPasses)
+                                    {
+                                        <tr>
+                                            <td>@pass.VisitorName</td>
+                                            <td>@pass.VisitDate.ToString("MMM dd, yyyy")</td>
+                                            <td>@pass.ExpectedTimeIn.ToString("h:mm tt") - @pass.ExpectedTimeOut.ToString("h:mm tt")</td>
+                                            <td>
+                                                <a asp-controller="VisitorPasses" asp-action="Details" asp-route-id="@pass.Id" class="btn btn-sm btn-outline-primary">
+                                                    Details
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info text-center">
+                            <i class="bi bi-info-circle"></i> No pending visitor passes found.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Today's Visitors -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="bi bi-calendar-day"></i> Today's Visitors</h5>
+                    <span class="badge bg-light text-success">@(Model.TodayVisitorPasses?.Count ?? 0) Visitors</span>
+                </div>
+                <div class="card-body">
+                    @if (Model.TodayVisitorPasses != null && Model.TodayVisitorPasses.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Visitor Name</th>
+                                        <th>Expected Time</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var pass in Model.TodayVisitorPasses)
+                                    {
+                                        <tr>
+                                            <td>@pass.VisitorName</td>
+                                            <td>@pass.ExpectedTimeIn.ToString("h:mm tt") - @pass.ExpectedTimeOut.ToString("h:mm tt")</td>
+                                            <td>
+                                                @if (pass.Status == "Approved")
+                                                {
+                                                    <span class="badge bg-success">Approved</span>
+                                                }
+                                                else if (pass.Status == "Pending")
+                                                {
+                                                    <span class="badge bg-warning text-dark">Pending</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-danger">@pass.Status</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a asp-controller="VisitorPasses" asp-action="Details" asp-route-id="@pass.Id" class="btn btn-sm btn-outline-primary">
+                                                    Details
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info text-center">
+                            <i class="bi bi-info-circle"></i> No visitors scheduled for today.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Vehicle Registrations -->
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="bi bi-car-front"></i> Recently Registered Vehicles</h5>
+                    <a asp-controller="Vehicles" asp-action="Index" class="btn btn-sm btn-light">View All</a>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentVehicles != null && Model.RecentVehicles.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>License Plate</th>
+                                        <th>Make/Model</th>
+                                        <th>Owner</th>
+                                        <th>Registered On</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var vehicle in Model.RecentVehicles)
+                                    {
+                                        <tr>
+                                            <td>@vehicle.LicensePlate</td>
+                                            <td>@vehicle.Make @vehicle.Model (@vehicle.Year)</td>
+                                            <td>@(vehicle.Owner?.FirstName ?? "") @(vehicle.Owner?.LastName ?? "")</td>
+                                            <td>@vehicle.RegistrationDate.ToString("MMM dd, yyyy")</td>
+                                            <td>
+                                                @if (vehicle.IsActive)
+                                                {
+                                                    <span class="badge bg-success">Active</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-danger">Inactive</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info text-center">
+                            <i class="bi bi-info-circle"></i> No recently registered vehicles found.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

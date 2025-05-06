@@ -22,6 +22,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<ForumCategory> ForumCategories { get; set; }
     public DbSet<ForumThread> ForumThreads { get; set; }
     public DbSet<ForumReply> ForumReplies { get; set; }
+    
+    // New security-related DbSets
+    public DbSet<VisitorPass> VisitorPasses { get; set; }
+    public DbSet<Vehicle> Vehicles { get; set; }
+    public DbSet<EmergencyContact> EmergencyContacts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -124,5 +129,26 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .WithMany()
             .HasForeignKey(fr => fr.UserId)
             .OnDelete(DeleteBehavior.Restrict);
+            
+        // Configure VisitorPass entity
+        builder.Entity<VisitorPass>()
+            .HasOne(vp => vp.RequestedBy)
+            .WithMany()
+            .HasForeignKey(vp => vp.RequestedById)
+            .OnDelete(DeleteBehavior.Cascade);
+            
+        // Configure Vehicle entity
+        builder.Entity<Vehicle>()
+            .HasOne(v => v.Owner)
+            .WithMany()
+            .HasForeignKey(v => v.OwnerId)
+            .OnDelete(DeleteBehavior.Cascade);
+            
+        // Configure EmergencyContact entity
+        builder.Entity<EmergencyContact>()
+            .HasOne(ec => ec.CreatedBy)
+            .WithMany()
+            .HasForeignKey(ec => ec.CreatedById)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

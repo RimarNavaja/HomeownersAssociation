@@ -142,6 +142,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRzXFVwbG9hZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/EmergencyContacts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1lcmdlbmN5Q29udGFjdHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/Facilities/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFjaWxpdGllc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -182,8 +186,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9ydW1cQ2F0ZWdvcnkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/Forum/CreateThread.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9ydW1cQ3JlYXRlVGhyZWFkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/Forum/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9ydW1cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/Forum/Thread.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9ydW1cVGhyZWFkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/Home/Index.cshtml]
@@ -216,6 +228,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/Reservations/MyReservations.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25zXE15UmVzZXJ2YXRpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/Security/EmergencyContacts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VjdXJpdHlcRW1lcmdlbmN5Q29udGFjdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/Security/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VjdXJpdHlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/ServiceCategories/Create.cshtml]
@@ -264,6 +284,34 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/Staff/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhZmZcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/Vehicles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/Vehicles/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZXNcTWFuYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/VisitorPasses/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRvclBhc3Nlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/VisitorPasses/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRvclBhc3Nlc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/VisitorPasses/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRvclBhc3Nlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/VisitorPasses/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRvclBhc3Nlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/VisitorPasses/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRvclBhc3Nlc1xNYW5hZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Clyd Pardillo/Documents/Kapoy nga Iskol/3rd year/Homeowners/HomeownersAssociation/Views/_ViewImports.cshtml]

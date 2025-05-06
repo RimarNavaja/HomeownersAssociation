@@ -1,0 +1,146 @@
+@model IEnumerable<HomeownersAssociation.Models.VisitorPass>
+
+@{
+    ViewData["Title"] = "Manage Visitor Passes";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Manage Visitor Passes</h1>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            There are no visitor passes in the system.
+        </div>
+    }
+    else
+    {
+        <div class="mb-3">
+            <div class="input-group">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search by name, status, date...">
+                <button class="btn btn-outline-secondary" type="button" id="clearSearchBtn">
+                    <i class="bi bi-x"></i> Clear
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table id="visitorPassesTable" class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Visitor Name</th>
+                        <th>Requested By</th>
+                        <th>Visit Date</th>
+                        <th>Expected Time</th>
+                        <th>Status</th>
+                        <th>Purpose</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.VisitorName</td>
+                            <td>@item.RequestedBy?.UserName</td>
+                            <td>@item.VisitDate.ToShortDateString()</td>
+                            <td>
+                                @item.ExpectedTimeIn.ToString("h:mm tt") - @item.ExpectedTimeOut.ToString("h:mm tt")
+                            </td>
+                            <td>
+                                @{
+                                    var badgeClass = item.Status switch
+                                    {
+                                        "Approved" => "bg-success",
+                                        "Pending" => "bg-warning text-dark",
+                                        "Denied" => "bg-danger",
+                                        "Completed" => "bg-info",
+                                        _ => "bg-secondary"
+                                    };
+                                }
+                                <span class="badge @badgeClass">@item.Status</span>
+                            </td>
+                            <td>@item.Purpose</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    
+                                    @if (item.Status == "Pending")
+                                    {
+                                        <form asp-action="UpdateStatus" asp-route-id="@item.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="status" value="Approved" />
+                                            <button type="submit" class="btn btn-sm btn-outline-success">
+                                                <i class="bi bi-check-circle"></i> Approve
+                                            </button>
+                                        </form>
+                                        <form asp-action="UpdateStatus" asp-route-id="@item.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="status" value="Denied" />
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-x-circle"></i> Deny
+                                            </button>
+                                        </form>
+                                    }
+                                    
+                                    @if (item.Status == "Approved" && item.ActualTimeIn == null)
+                                    {
+                                        <form asp-action="CheckIn" asp-route-id="@item.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-box-arrow-in-right"></i> Check In
+                                            </button>
+                                        </form>
+                                    }
+                                    
+                                    @if (item.ActualTimeIn != null && item.ActualTimeOut == null)
+                                    {
+                                        <form asp-action="CheckOut" asp-route-id="@item.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-box-arrow-right"></i> Check Out
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#visitorPassesTable tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+            
+            $("#clearSearchBtn").click(function(){
+                $("#searchInput").val('');
+                $("#visitorPassesTable tbody tr").show();
+            });
+        });
+    </script>
+} 

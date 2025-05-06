@@ -3,6 +3,7 @@ using System;
 using HomeownersAssociation.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeownersAssociation.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250506021506_RenamingForumColumns")]
+    partial class RenamingForumColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.13");
@@ -247,76 +250,6 @@ namespace HomeownersAssociation.Data.Migrations
                     b.ToTable("Documents");
                 });
 
-            modelBuilder.Entity("HomeownersAssociation.Models.EmergencyContact", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AlternativePhone")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ContactType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsAvailable24x7")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OperatingHours")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Organization")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("PriorityOrder")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.ToTable("EmergencyContacts");
-                });
-
             modelBuilder.Entity("HomeownersAssociation.Models.Facility", b =>
                 {
                     b.Property<int>("Id")
@@ -420,7 +353,10 @@ namespace HomeownersAssociation.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<int?>("ParentReplyId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("PostedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ThreadId")
@@ -431,6 +367,8 @@ namespace HomeownersAssociation.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentReplyId");
 
                     b.HasIndex("ThreadId");
 
@@ -448,30 +386,26 @@ namespace HomeownersAssociation.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsLocked")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("StartedByUserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("StartedByUserId");
 
                     b.ToTable("ForumThreads");
                 });
@@ -590,119 +524,6 @@ namespace HomeownersAssociation.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ServiceRequests");
-                });
-
-            modelBuilder.Entity("HomeownersAssociation.Models.Vehicle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Color")
-                        .HasMaxLength(30)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("LicensePlate")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Make")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OwnerId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("RegistrationDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("RfidTag")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("VehicleType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("Year")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("Vehicles");
-                });
-
-            modelBuilder.Entity("HomeownersAssociation.Models.VisitorPass", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("ActualTimeIn")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("ActualTimeOut")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("ExpectedTimeIn")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("ExpectedTimeOut")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Purpose")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("RequestedById")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("VehicleDetails")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("VisitDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("VisitorName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RequestedById");
-
-                    b.ToTable("VisitorPasses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -864,16 +685,6 @@ namespace HomeownersAssociation.Data.Migrations
                     b.Navigation("UploadedBy");
                 });
 
-            modelBuilder.Entity("HomeownersAssociation.Models.EmergencyContact", b =>
-                {
-                    b.HasOne("HomeownersAssociation.Models.ApplicationUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("CreatedBy");
-                });
-
             modelBuilder.Entity("HomeownersAssociation.Models.FacilityReservation", b =>
                 {
                     b.HasOne("HomeownersAssociation.Models.Facility", "Facility")
@@ -895,8 +706,13 @@ namespace HomeownersAssociation.Data.Migrations
 
             modelBuilder.Entity("HomeownersAssociation.Models.ForumReply", b =>
                 {
+                    b.HasOne("HomeownersAssociation.Models.ForumReply", "ParentReply")
+                        .WithMany("ChildReplies")
+                        .HasForeignKey("ParentReplyId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("HomeownersAssociation.Models.ForumThread", "Thread")
-                        .WithMany("ForumReplies")
+                        .WithMany("Posts")
                         .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -907,6 +723,8 @@ namespace HomeownersAssociation.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("ParentReply");
+
                     b.Navigation("Thread");
 
                     b.Navigation("User");
@@ -915,20 +733,20 @@ namespace HomeownersAssociation.Data.Migrations
             modelBuilder.Entity("HomeownersAssociation.Models.ForumThread", b =>
                 {
                     b.HasOne("HomeownersAssociation.Models.ForumCategory", "Category")
-                        .WithMany("ForumThreads")
+                        .WithMany("Threads")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HomeownersAssociation.Models.ApplicationUser", "User")
+                    b.HasOne("HomeownersAssociation.Models.ApplicationUser", "StartedByUser")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("StartedByUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
 
-                    b.Navigation("User");
+                    b.Navigation("StartedByUser");
                 });
 
             modelBuilder.Entity("HomeownersAssociation.Models.Payment", b =>
@@ -974,28 +792,6 @@ namespace HomeownersAssociation.Data.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("HomeownersAssociation.Models.Vehicle", b =>
-                {
-                    b.HasOne("HomeownersAssociation.Models.ApplicationUser", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("HomeownersAssociation.Models.VisitorPass", b =>
-                {
-                    b.HasOne("HomeownersAssociation.Models.ApplicationUser", "RequestedBy")
-                        .WithMany()
-                        .HasForeignKey("RequestedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RequestedBy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1056,12 +852,17 @@ namespace HomeownersAssociation.Data.Migrations
 
             modelBuilder.Entity("HomeownersAssociation.Models.ForumCategory", b =>
                 {
-                    b.Navigation("ForumThreads");
+                    b.Navigation("Threads");
+                });
+
+            modelBuilder.Entity("HomeownersAssociation.Models.ForumReply", b =>
+                {
+                    b.Navigation("ChildReplies");
                 });
 
             modelBuilder.Entity("HomeownersAssociation.Models.ForumThread", b =>
                 {
-                    b.Navigation("ForumReplies");
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("HomeownersAssociation.Models.ServiceCategory", b =>

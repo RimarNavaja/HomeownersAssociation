@@ -74,7 +74,7 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Reservations" asp-action="Index">Facilities</a>
                             </li>
-                             <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="ServiceRequests" asp-action="Index">Service Requests</a>
                             </li>
                             <li class="nav-item">
@@ -82,6 +82,28 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Forum" asp-action="Index">Community Forum</a>
+                            </li>
+                            
+                            <!-- New Security Dropdown Menu -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="securityDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Security
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="securityDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Security" asp-action="Index">Security Dashboard</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="VisitorPasses" asp-action="Index">My Visitor Passes</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="VisitorPasses" asp-action="Create">Request Visitor Pass</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Vehicles" asp-action="Index">My Vehicles</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Vehicles" asp-action="Create">Register Vehicle</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Security" asp-action="EmergencyContacts">Emergency Contacts</a></li>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                                    {
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="VisitorPasses" asp-action="Manage">Manage Visitor Passes</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Vehicles" asp-action="Manage">Manage Vehicles</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="EmergencyContacts" asp-action="Index">Manage Emergency Contacts</a></li>
+                                    }
+                                </ul>
                             </li>
 
                             @if (User.IsInRole("Admin") || User.IsInRole("Staff"))

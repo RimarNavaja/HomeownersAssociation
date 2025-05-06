@@ -1,0 +1,89 @@
+@model HomeownersAssociation.Models.ViewModels.VisitorPassViewModel
+
+@{
+    ViewData["Title"] = "Request Visitor Pass";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title m-0">Request Visitor Pass</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="RequestedById" />
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="VisitorName" class="control-label">Visitor Name</label>
+                                    <input asp-for="VisitorName" class="form-control" />
+                                    <span asp-validation-for="VisitorName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Purpose" class="control-label">Purpose of Visit</label>
+                                    <input asp-for="Purpose" class="form-control" />
+                                    <span asp-validation-for="Purpose" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="VisitDate" class="control-label">Visit Date</label>
+                                    <input asp-for="VisitDate" class="form-control" type="date" />
+                                    <span asp-validation-for="VisitDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="ExpectedTimeIn" class="control-label">Expected Time In</label>
+                                    <input asp-for="ExpectedTimeIn" class="form-control" type="time" />
+                                    <span asp-validation-for="ExpectedTimeIn" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="ExpectedTimeOut" class="control-label">Expected Time Out</label>
+                                    <input asp-for="ExpectedTimeOut" class="form-control" type="time" />
+                                    <span asp-validation-for="ExpectedTimeOut" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="VehicleDetails" class="control-label">Vehicle Details (Optional)</label>
+                            <textarea asp-for="VehicleDetails" class="form-control" rows="2" placeholder="Make, model, color, license plate"></textarea>
+                            <span asp-validation-for="VehicleDetails" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Notes" class="control-label">Additional Notes (Optional)</label>
+                            <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Notes" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Submit Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

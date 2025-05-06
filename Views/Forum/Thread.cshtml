@@ -1,0 +1,149 @@
+@model HomeownersAssociation.Models.ViewModels.ForumThreadViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-action="Index">Forum</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Category" asp-route-id="@Model.CategoryId">@Model.CategoryName</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-4 text-end">
+            @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+            {
+                <form asp-action="ToggleLock" asp-route-id="@Model.Id" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-sm @(Model.IsLocked ? "btn-warning" : "btn-outline-warning")" title="@(Model.IsLocked ? "Unlock thread" : "Lock thread")">
+                        <i class="bi @(Model.IsLocked ? "bi-unlock" : "bi-lock")"></i> @(Model.IsLocked ? "Unlock" : "Lock")
+                    </button>
+                </form>
+            }
+            <a asp-action="Category" asp-route-id="@Model.CategoryId" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to @Model.CategoryName
+            </a>
+        </div>
+    </div>
+
+    <!-- Thread Main Post -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">@Model.Title</h4>
+            @if (Model.IsLocked)
+            {
+                <span class="badge bg-warning text-dark"><i class="bi bi-lock me-1"></i> Locked</span>
+            }
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2 border-end text-center">
+                    <div class="mb-2">
+                        <i class="bi bi-person-circle" style="font-size: 3rem;"></i>
+                    </div>
+                    <div class="text-primary fw-bold">@Model.UserName</div>
+                    <div class="text-muted small">Posted @Model.CreatedAt.ToString("MMM dd, yyyy")</div>
+                </div>
+                <div class="col-md-10">
+                    <div class="thread-content">
+                        @Html.Raw(Html.Encode(Model.Content).Replace("\n", "<br />"))
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        @if (User.Identity!.Name == Model.UserName || User.IsInRole("Admin") || User.IsInRole("Staff"))
+                        {
+                            <form asp-action="DeleteThread" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this thread?');" class="me-2">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i> Delete
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Replies -->
+    <h5 class="mb-3">Replies (@(Model.Replies?.Count ?? 0))</h5>
+
+    @if (Model.Replies != null && Model.Replies.Count > 0)
+    {
+        <div class="replies mb-4">
+            @foreach (var reply in Model.Replies)
+            {
+                <div class="card shadow-sm mb-3" id="reply-@reply.Id">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2 border-end text-center">
+                                <div class="mb-2">
+                                    <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
+                                </div>
+                                <div class="text-primary">@reply.User?.UserName</div>
+                                <div class="text-muted small">@reply.CreatedAt.ToString("MMM dd, yyyy h:mm tt")</div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="reply-content">
+                                    @Html.Raw(Html.Encode(reply.Content).Replace("\n", "<br />"))
+                                </div>
+                                <div class="d-flex justify-content-end mt-3">
+                                    @if (reply.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value || User.IsInRole("Admin") || User.IsInRole("Staff"))
+                                    {
+                                        <form asp-action="DeleteReply" asp-route-id="@reply.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this reply?');">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-light text-center mb-4">
+            <i class="bi bi-chat-dots"></i> No replies yet. Be the first to reply!
+        </div>
+    }
+
+    <!-- Add Reply Form -->
+    @if (!Model.IsLocked)
+    {
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Post a Reply</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="CreateReply" method="post">
+                    <input type="hidden" name="ThreadId" value="@Model.Id" />
+                    <div class="mb-3">
+                        <label for="Content" class="form-label">Your Reply</label>
+                        <textarea name="Content" id="Content" class="form-control" rows="5" required></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-reply"></i> Post Reply
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            <i class="bi bi-lock"></i> This thread is locked. New replies cannot be added.
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 
