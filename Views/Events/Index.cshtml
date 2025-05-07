@@ -1,0 +1,191 @@
+@model IEnumerable<HomeownersAssociation.Models.Event>
+
+@{
+    ViewData["Title"] = "Manage Events";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Manage Events</h1>
+        @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+        {
+            <div>
+                <a asp-action="Create" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Create New Event
+                </a>
+                <a asp-action="Calendar" class="btn btn-outline-primary ms-2">
+                    <i class="bi bi-calendar3"></i> Calendar View
+                </a>
+            </div>
+        }
+        else
+        {
+            <a asp-action="Calendar" class="btn btn-primary">
+                <i class="bi bi-calendar3"></i> Calendar View
+            </a>
+        }
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="mb-3">
+        <div class="input-group">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by title, type, location...">
+            <button class="btn btn-outline-secondary" type="button" id="clearSearchBtn">
+                <i class="bi bi-x"></i> Clear
+            </button>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-secondary active filter-btn" data-filter="all">All</button>
+            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="Community">Community</button>
+            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="Maintenance">Maintenance</button>
+            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="Meeting">Meeting</button>
+            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="Holiday">Holiday</button>
+            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="Other">Other</button>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            There are no events in the system. Click "Create New Event" to add one.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table id="eventsTable" class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Dates</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Created By</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr data-type="@item.EventType">
+                            <td>
+                                <span class="badge" style="background-color: @item.Color">•</span>
+                                @item.Title
+                            </td>
+                            <td>@item.EventType</td>
+                            <td>
+                                @if (item.IsAllDay)
+                                {
+                                    if (item.StartDateTime.Date == item.EndDateTime.Date)
+                                    {
+                                        <span>@item.StartDateTime.ToShortDateString() (All day)</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@item.StartDateTime.ToShortDateString() - @item.EndDateTime.ToShortDateString() (All day)</span>
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.StartDateTime.Date == item.EndDateTime.Date)
+                                    {
+                                        <span>@item.StartDateTime.ToShortDateString() @item.StartDateTime.ToString("h:mm tt") - @item.EndDateTime.ToString("h:mm tt")</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@item.StartDateTime.ToString("g") - @item.EndDateTime.ToString("g")</span>
+                                    }
+                                }
+                            </td>
+                            <td>@(string.IsNullOrEmpty(item.Location) ? "N/A" : item.Location)</td>
+                            <td>
+                                @if (item.IsActive)
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Inactive</span>
+                                }
+                            </td>
+                            <td>@(item.CreatedBy?.UserName ?? "Unknown")</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <form asp-action="ToggleStatus" asp-route-id="@item.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm @(item.IsActive ? "btn-outline-warning" : "btn-outline-success")">
+                                                <i class="bi @(item.IsActive ? "bi-toggle-off" : "bi-toggle-on")"></i>
+                                            </button>
+                                        </form>
+                                        <form asp-action="Delete" asp-route-id="@item.Id" method="post" 
+                                              onsubmit="return confirm('Are you sure you want to delete this event?');">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Search functionality
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#eventsTable tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+            
+            $("#clearSearchBtn").click(function(){
+                $("#searchInput").val('');
+                $("#eventsTable tbody tr").show();
+                $(".filter-btn").removeClass("active");
+                $(".filter-btn[data-filter='all']").addClass("active");
+            });
+            
+            // Filter by event type
+            $(".filter-btn").click(function(){
+                $(".filter-btn").removeClass("active");
+                $(this).addClass("active");
+                
+                var filterValue = $(this).data("filter");
+                
+                if (filterValue === "all") {
+                    $("#eventsTable tbody tr").show();
+                } else {
+                    $("#eventsTable tbody tr").hide();
+                    $("#eventsTable tbody tr[data-type='" + filterValue + "']").show();
+                }
+            });
+        });
+    </script>
+} 

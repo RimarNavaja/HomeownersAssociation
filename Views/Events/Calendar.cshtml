@@ -1,0 +1,198 @@
+@{
+    ViewData["Title"] = "Event Calendar";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Event Calendar</h1>
+        <div>
+            @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+            {
+                <a asp-action="Create" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Create New Event
+                </a>
+            }
+            <a asp-action="Index" class="btn btn-outline-primary ms-2">
+                <i class="bi bi-list"></i> List View
+            </a>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Community Events</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-secondary active filter-btn" data-filter="all">All</button>
+                            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="Community">Community</button>
+                            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="Maintenance">Maintenance</button>
+                            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="Meeting">Meeting</button>
+                            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="Holiday">Holiday</button>
+                            <button type="button" class="btn btn-outline-secondary filter-btn" data-filter="Other">Other</button>
+                        </div>
+                    </div>
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Event Details Modal -->
+<div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-labelledby="eventDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventDetailsModalLabel">Event Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <h4 id="eventTitle"></h4>
+                    <span class="badge" id="eventType"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="fw-bold"><i class="bi bi-calendar-date"></i> Date & Time:</label>
+                    <p id="eventDateTime"></p>
+                </div>
+                <div class="mb-3" id="eventLocationContainer">
+                    <label class="fw-bold"><i class="bi bi-geo-alt"></i> Location:</label>
+                    <p id="eventLocation"></p>
+                </div>
+                <div class="mb-3">
+                    <label class="fw-bold"><i class="bi bi-info-circle"></i> Description:</label>
+                    <p id="eventDescription"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a id="eventDetailsLink" href="#" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+    <style>
+        .fc-event {
+            cursor: pointer;
+        }
+        .fc-day-today {
+            background-color: #f8f9fa !important;
+        }
+        .fc-toolbar-title {
+            font-size: 1.5rem !important;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var activeFilter = 'all';
+            
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                },
+                navLinks: true,
+                editable: false,
+                dayMaxEvents: true,
+                eventTimeFormat: {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    meridiem: 'short'
+                },
+                events: function(fetchInfo, successCallback, failureCallback) {
+                    $.ajax({
+                        url: '@Url.Action("GetEvents")',
+                        type: 'GET',
+                        success: function(response) {
+                            var filteredEvents = response;
+                            if (activeFilter !== 'all') {
+                                filteredEvents = response.filter(function(event) {
+                                    return event.eventType === activeFilter;
+                                });
+                            }
+                            successCallback(filteredEvents);
+                        },
+                        error: function() {
+                            failureCallback();
+                        }
+                    });
+                },
+                eventClick: function(info) {
+                    var event = info.event;
+                    var extendedProps = event.extendedProps;
+                    
+                    $('#eventTitle').text(event.title);
+                    $('#eventType').text(extendedProps.eventType).css('background-color', event.backgroundColor);
+                    
+                    if (event.allDay) {
+                        if (event.start.toDateString() === event.end.toDateString()) {
+                            $('#eventDateTime').text(event.start.toLocaleDateString() + ' (All day)');
+                        } else {
+                            $('#eventDateTime').text(
+                                event.start.toLocaleDateString() + ' - ' + 
+                                event.end.toLocaleDateString() + ' (All day)'
+                            );
+                        }
+                    } else {
+                        if (event.start.toDateString() === event.end.toDateString()) {
+                            $('#eventDateTime').text(
+                                event.start.toLocaleDateString() + ' ' + 
+                                event.start.toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'}) + ' - ' + 
+                                event.end.toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})
+                            );
+                        } else {
+                            $('#eventDateTime').text(
+                                event.start.toLocaleString([], {
+                                    year: 'numeric', month: 'numeric', day: 'numeric',
+                                    hour: 'numeric', minute: '2-digit'
+                                }) + ' - ' + 
+                                event.end.toLocaleString([], {
+                                    year: 'numeric', month: 'numeric', day: 'numeric',
+                                    hour: 'numeric', minute: '2-digit'
+                                })
+                            );
+                        }
+                    }
+                    
+                    if (extendedProps.location) {
+                        $('#eventLocation').text(extendedProps.location);
+                        $('#eventLocationContainer').show();
+                    } else {
+                        $('#eventLocationContainer').hide();
+                    }
+                    
+                    $('#eventDescription').text(extendedProps.description);
+                    $('#eventDetailsLink').attr('href', '/Events/Details/' + event.id);
+                    
+                    var modal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+                    modal.show();
+                }
+            });
+            
+            calendar.render();
+            
+            // Filter events by type
+            $('.filter-btn').click(function(){
+                $('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+                
+                activeFilter = $(this).data('filter');
+                calendar.refetchEvents();
+            });
+        });
+    </script>
+} 

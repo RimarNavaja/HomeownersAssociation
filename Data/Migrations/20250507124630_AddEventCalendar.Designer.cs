@@ -3,6 +3,7 @@ using System;
 using HomeownersAssociation.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeownersAssociation.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250507124630_AddEventCalendar")]
+    partial class AddEventCalendar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.13");
@@ -442,68 +445,6 @@ namespace HomeownersAssociation.Data.Migrations
                     b.HasIndex("FacilityId", "StartTime", "EndTime");
 
                     b.ToTable("FacilityReservations");
-                });
-
-            modelBuilder.Entity("HomeownersAssociation.Models.Feedback", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("AttachmentUrl")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsPublic")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Priority")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("RespondedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("RespondedById")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Response")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SubmittedById")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RespondedById");
-
-                    b.HasIndex("SubmittedById");
-
-                    b.ToTable("Feedbacks");
                 });
 
             modelBuilder.Entity("HomeownersAssociation.Models.ForumCategory", b =>
@@ -1020,24 +961,6 @@ namespace HomeownersAssociation.Data.Migrations
                     b.Navigation("Facility");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("HomeownersAssociation.Models.Feedback", b =>
-                {
-                    b.HasOne("HomeownersAssociation.Models.ApplicationUser", "RespondedBy")
-                        .WithMany()
-                        .HasForeignKey("RespondedById")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("HomeownersAssociation.Models.ApplicationUser", "SubmittedBy")
-                        .WithMany()
-                        .HasForeignKey("SubmittedById")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("RespondedBy");
-
-                    b.Navigation("SubmittedBy");
                 });
 
             modelBuilder.Entity("HomeownersAssociation.Models.ForumReply", b =>

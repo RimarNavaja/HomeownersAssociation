@@ -1,0 +1,136 @@
+@model HomeownersAssociation.Models.ViewModels.FeedbackViewModel
+
+@{
+    ViewData["Title"] = "Submit Feedback";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h5 class="mb-0">Submit Feedback</h5>
+            <a asp-action="Index" class="btn btn-sm btn-secondary">
+                <i class="fas fa-arrow-left me-1"></i> Back to List
+            </a>
+        </div>
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fa fa-exclamation-circle me-2"></i>@TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="Create" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Status" value="New" />
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Type" class="control-label"></label>
+                                        <select asp-for="Type" class="form-select">
+                                            @foreach (var type in (List<string>)ViewData["FeedbackTypes"])
+                                            {
+                                                <option value="@type">@type</option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="Type" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Priority" class="control-label"></label>
+                                        <select asp-for="Priority" class="form-select" 
+                                                asp-items="@((List<SelectListItem>)ViewData["Priorities"])">
+                                        </select>
+                                        <span asp-validation-for="Priority" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <label asp-for="Title" class="control-label"></label>
+                                <input asp-for="Title" class="form-control" placeholder="Enter a descriptive title" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <label asp-for="Description" class="control-label"></label>
+                                <textarea asp-for="Description" class="form-control" rows="6" 
+                                         placeholder="Provide details of your feedback, complaint, or suggestion"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <label asp-for="Attachment" class="control-label"></label>
+                                <input asp-for="Attachment" class="form-control" type="file" />
+                                <div class="form-text">
+                                    You can attach a related image, document, or other file (max 5MB)
+                                </div>
+                                <span asp-validation-for="Attachment" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-check mb-4">
+                                <input asp-for="IsPublic" class="form-check-input" />
+                                <label asp-for="IsPublic" class="form-check-label">
+                                    Make this feedback visible to other homeowners (once resolved)
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane me-1"></i> Submit
+                                </button>
+                                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0">Feedback Guidelines</h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="mb-0">
+                            <li class="mb-2">Be clear and specific about your feedback or concern.</li>
+                            <li class="mb-2">Provide relevant details such as dates, times, and locations.</li>
+                            <li class="mb-2">Use a respectful and constructive tone.</li>
+                            <li class="mb-2">Attach supporting documents or photos if applicable.</li>
+                            <li>Responses are typically provided within 3-5 business days.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h6 class="mb-0">Priority Levels</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="badge bg-danger me-2">High</span>
+                            <small>Urgent issues requiring immediate attention.</small>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="badge bg-warning text-dark me-2">Medium</span>
+                            <small>Important but not urgent issues.</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-info me-2">Low</span>
+                            <small>General suggestions or non-critical issues.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+} 

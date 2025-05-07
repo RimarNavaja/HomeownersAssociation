@@ -1,0 +1,169 @@
+@model HomeownersAssociation.Models.ViewModels.EventViewModel
+
+@{
+    ViewData["Title"] = "Create Event";
+    var eventTypes = ViewData["EventTypes"] as List<string>;
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title m-0">Create New Event</h2>
+                </div>
+                <div class="card-body">
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                            @TempData["ErrorMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <!-- Add hidden fields with empty values -->
+                        <input type="hidden" name="CreatedById" value="" />
+                        <input type="hidden" name="CreatedByName" value="" />
+
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label asp-for="Title" class="control-label">Event Title</label>
+                                    <input asp-for="Title" class="form-control" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EventType" class="control-label">Event Type</label>
+                                    <select asp-for="EventType" class="form-select">
+                                        @foreach (var type in eventTypes)
+                                        {
+                                            <option value="@type">@type</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="EventType" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="StartDateTime" class="control-label">Start Date & Time</label>
+                                    <input asp-for="StartDateTime" class="form-control" type="datetime-local" />
+                                    <span asp-validation-for="StartDateTime" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="EndDateTime" class="control-label">End Date & Time</label>
+                                    <input asp-for="EndDateTime" class="form-control" type="datetime-local" />
+                                    <span asp-validation-for="EndDateTime" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label asp-for="Location" class="control-label">Location</label>
+                                    <input asp-for="Location" class="form-control" placeholder="Where will this event take place?" />
+                                    <span asp-validation-for="Location" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Color" class="control-label">Calendar Color</label>
+                                    <input asp-for="Color" type="color" class="form-control form-control-color" />
+                                    <span asp-validation-for="Color" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="form-check mb-2">
+                                    <input asp-for="IsAllDay" class="form-check-input" />
+                                    <label asp-for="IsAllDay" class="form-check-label">All Day Event</label>
+                                </div>
+                                <div class="form-check">
+                                    <input asp-for="IsActive" class="form-check-input" />
+                                    <label asp-for="IsActive" class="form-check-label">Active (visible on calendar)</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Description" class="control-label">Description</label>
+                            <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Create Event
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        $(document).ready(function() {
+            // When All Day checkbox is clicked
+            $('#IsAllDay').change(function() {
+                if ($(this).is(':checked')) {
+                    // If all day, set the time to start of day and end of day
+                    var startDate = new Date($('#StartDateTime').val());
+                    startDate.setHours(0, 0, 0, 0);
+                    
+                    var endDate = new Date($('#EndDateTime').val());
+                    endDate.setHours(23, 59, 59, 999);
+                    
+                    $('#StartDateTime').val(formatDateTimeLocal(startDate));
+                    $('#EndDateTime').val(formatDateTimeLocal(endDate));
+                }
+            });
+            
+            // Format date to datetime-local format
+            function formatDateTimeLocal(date) {
+                var year = date.getFullYear();
+                var month = (date.getMonth() + 1).toString().padStart(2, '0');
+                var day = date.getDate().toString().padStart(2, '0');
+                var hours = date.getHours().toString().padStart(2, '0');
+                var minutes = date.getMinutes().toString().padStart(2, '0');
+                
+                return `${year}-${month}-${day}T${hours}:${minutes}`;
+            }
+            
+            // Handle event type change to set default colors
+            $('#EventType').change(function() {
+                var colorMap = {
+                    'Community': '#0d6efd',   // Bootstrap primary
+                    'Maintenance': '#fd7e14', // Bootstrap orange
+                    'Meeting': '#6f42c1',     // Bootstrap purple
+                    'Holiday': '#198754',     // Bootstrap success/green
+                    'Other': '#6c757d'        // Bootstrap secondary
+                };
+                
+                var selectedType = $(this).val();
+                if (colorMap[selectedType]) {
+                    $('#Color').val(colorMap[selectedType]);
+                }
+            });
+        });
+    </script>
+}

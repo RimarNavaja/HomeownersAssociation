@@ -27,6 +27,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<VisitorPass> VisitorPasses { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<EmergencyContact> EmergencyContacts { get; set; }
+    
+    // Event Calendar
+    public DbSet<Event> Events { get; set; }
+    
+    // Feedback and Complaints
+    public DbSet<Feedback> Feedbacks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -149,6 +155,27 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .HasOne(ec => ec.CreatedBy)
             .WithMany()
             .HasForeignKey(ec => ec.CreatedById)
+            .OnDelete(DeleteBehavior.SetNull);
+            
+        // Configure Event entity
+        builder.Entity<Event>()
+            .HasOne(e => e.CreatedBy)
+            .WithMany()
+            .HasForeignKey(e => e.CreatedById)
+            .OnDelete(DeleteBehavior.SetNull);
+            
+        // Configure Feedback entity
+        builder.Entity<Feedback>()
+            .HasOne(f => f.SubmittedBy)
+            .WithMany()
+            .HasForeignKey(f => f.SubmittedById)
+            .OnDelete(DeleteBehavior.Restrict);
+            
+        builder.Entity<Feedback>()
+            .HasOne(f => f.RespondedBy)
+            .WithMany()
+            .HasForeignKey(f => f.RespondedById)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.SetNull);
     }
 }

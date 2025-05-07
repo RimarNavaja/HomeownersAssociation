@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HomeownersAssociation.styles.css" asp-append-version="true" />
     
-
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -69,6 +69,9 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Announcements" asp-action="Index">Announcements</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="Calendar">Events</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Billing" asp-action="MyBills">My Bills</a>
                             </li>
                             <li class="nav-item">
@@ -82,6 +85,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Forum" asp-action="Index">Community Forum</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Feedback" asp-action="Index">Feedback</a>
                             </li>
                             
                             <!-- New Security Dropdown Menu -->
@@ -114,6 +120,7 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="adminStaffDropdown">
                                         <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Index">User Management</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Events" asp-action="Index">Manage Events</a></li>
                                         <li><a class="dropdown-item" asp-area="" asp-controller="Billing" asp-action="Index">Manage Bills</a></li>
                                         <li><a class="dropdown-item" asp-area="" asp-controller="Payments" asp-action="Index">Manage Payments</a></li>
                                         <li><a class="dropdown-item" asp-area="" asp-controller="Facilities" asp-action="Index">Manage Facilities</a></li>
@@ -121,6 +128,7 @@
                                         <li><a class="dropdown-item" asp-area="" asp-controller="ServiceCategories" asp-action="Index">Manage Service Categories</a></li>
                                         <li><a class="dropdown-item" asp-area="" asp-controller="ServiceRequests" asp-action="Manage">Manage Service Requests</a></li>
                                         <li><a class="dropdown-item" asp-area="" asp-controller="Documents" asp-action="Manage">Manage Documents</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Feedback" asp-action="Index">Manage Feedback</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" asp-area="" asp-controller="ForumCategories" asp-action="Index">Manage Forum Categories</a></li>
                                     </ul>
@@ -180,7 +188,10 @@
                                     style="text-decoration: none;">discussions</a>
                             </p>
                             <p>
-                                <a href="#!" class="text-reset text-capitalize" style="text-decoration: none;"> events</a>
+                                <a asp-controller="Events" asp-action="Calendar" class="text-reset text-capitalize" style="text-decoration: none;">events</a>
+                            </p>
+                            <p>
+                                <a asp-controller="Feedback" asp-action="Public" class="text-reset text-capitalize" style="text-decoration: none;">community feedback</a>
                             </p>
                             <p>
                                 <a href="#!" class="text-reset text-capitalize" style="text-decoration: none;">community
