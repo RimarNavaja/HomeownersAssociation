@@ -1,0 +1,85 @@
+@model HomeownersAssociation.Models.ViewModels.PollResultsViewModel
+
+@{
+    ViewData["Title"] = "Poll Results";
+    void CalculatePercentages()
+    {
+        foreach (var option in Model.OptionsWithVotes)
+        {
+            option.VotePercentage = (Model.TotalVotes > 0) ? ((double)option.VoteCount / Model.TotalVotes) * 100 : 0;
+        }
+    }
+    CalculatePercentages();
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+                <h5 class="mb-1">@ViewData["Title"]: <span class="fw-normal">@Model.PollTitle</span></h5>
+                @if (!string.IsNullOrEmpty(Model.PollDescription))
+                {
+                    <p class="text-muted small mb-0">@Model.PollDescription</p>
+                }
+            </div>
+            <a asp-action="Manage" class="btn btn-sm btn-secondary"><i class="fas fa-arrow-left me-2"></i>Back to Manage Polls</a>
+        </div>
+        <hr />
+
+        <h6 class="mt-4 mb-3">Total Votes: <span class="fw-bold">@Model.TotalVotes</span></h6>
+
+        @if (!Model.OptionsWithVotes.Any())
+        {
+            <div class="alert alert-info" role="alert">
+                This poll has no options or no votes have been cast yet.
+            </div>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var option in Model.OptionsWithVotes.OrderByDescending(o => o.VoteCount))
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                        <div class="flex-grow-1">
+                            @option.OptionText
+                            <div class="progress mt-2" style="height: 20px;">
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: @option.VotePercentage.ToString("0.##")%;"
+                                     aria-valuenow="@option.VotePercentage.ToString("0.##")" 
+                                     aria-valuemin="0" aria-valuemax="100">
+                                     @option.VotePercentage.ToString("0.##")%
+                                </div>
+                            </div>
+                        </div>
+                        <span class="badge bg-primary rounded-pill ms-3" style="font-size: 0.9rem;">@option.VoteCount vote(s)</span>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .progress-bar {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #fff; /* Ensure text is visible on colored bars */
+            background-color: #0d6efd; /* Default Bootstrap primary, can be customized */
+        }
+        .list-group-item {
+            border-left: none;
+            border-right: none;
+        }
+        .list-group-item:first-child {
+            border-top-left-radius: .25rem;
+            border-top-right-radius: .25rem;
+            border-top: 1px solid #dee2e6; /* Add top border for first item */
+        }
+        .list-group-item:last-child {
+            border-bottom-left-radius: .25rem;
+            border-bottom-right-radius: .25rem;
+            border-bottom: 1px solid #dee2e6; /* Add bottom border for last item */
+        }
+    </style>
+} 

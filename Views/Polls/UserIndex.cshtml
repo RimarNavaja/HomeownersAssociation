@@ -1,0 +1,127 @@
+@model IEnumerable<HomeownersAssociation.Models.ViewModels.PollResultsViewModel>
+
+@{
+    ViewData["Title"] = "Polls & Surveys";
+    void CalculatePercentages(HomeownersAssociation.Models.ViewModels.PollResultsViewModel poll)
+    {
+        foreach (var option in poll.OptionsWithVotes)
+        {
+            option.VotePercentage = (poll.TotalVotes > 0) ? ((double)option.VoteCount / poll.TotalVotes) * 100 : 0;
+        }
+    }
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-5">@ViewData["Title"]</h1>
+        @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+        {
+            <a asp-action="Manage" class="btn btn-info btn-sm"><i class="fas fa-cog me-2"></i>Manage Polls</a>
+        }
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fa fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fa fa-exclamation-triangle me-2"></i>@TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info mt-4" role="alert">
+            There are no active polls or surveys at the moment. Please check back later.
+        </div>
+    }
+    else
+    {
+        @foreach (var poll in Model.OrderByDescending(p => !p.HasPollEnded).ThenByDescending(p => p.IsPollOpen))
+        {
+            CalculatePercentages(poll);
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0 oswald-subheading">@poll.PollTitle</h5>
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(poll.PollDescription))
+                    {
+                        <p class="card-text text-muted">@poll.PollDescription</p>
+                    }
+
+                    @if (poll.IsPollOpen && !poll.UserHasVoted)
+                    {
+                        <form asp-action="Vote" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="pollId" value="@poll.PollId" />
+                            <p class="fw-semibold">Cast your vote:</p>
+                            <ul class="list-group mb-3">
+                                @foreach (var option in poll.OptionsWithVotes)
+                                {
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-2" type="radio" name="selectedOptionId" id="option-@poll.PollId-@option.OptionId" value="@option.OptionId" required>
+                                        <label class="form-check-label" for="option-@poll.PollId-@option.OptionId">@option.OptionText</label>
+                                    </li>
+                                }
+                            </ul>
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-check-to-slot me-2"></i>Submit Vote</button>
+                             <a asp-action="ViewPollResults" asp-route-id="@poll.PollId" class="btn btn-outline-secondary btn-sm ms-2"><i class="fas fa-chart-pie me-2"></i>View Current Results</a>
+                        </form>
+                    }
+                    else if (poll.UserHasVoted)
+                    {
+                        <div class="alert alert-info">
+                            <i class="fas fa-check-circle me-2"></i>You have already voted in this poll.
+                            Your choice: <strong class="fw-semibold">@(poll.OptionsWithVotes.FirstOrDefault(o => o.OptionId == poll.UserVoteOptionId)?.OptionText ?? "N/A")</strong>
+                        </div>
+                        <a asp-action="ViewPollResults" asp-route-id="@poll.PollId" class="btn btn-secondary btn-sm"><i class="fas fa-chart-pie me-2"></i>View Full Results</a>
+                    }
+                    else if (poll.HasPollEnded)
+                    {
+                        <div class="alert alert-secondary">
+                            <i class="fas fa-stopwatch me-2"></i>This poll has ended.
+                        </div>
+                        <a asp-action="ViewPollResults" asp-route-id="@poll.PollId" class="btn btn-secondary btn-sm"><i class="fas fa-chart-pie me-2"></i>View Final Results</a>
+                    }
+                     else // Poll is active but not yet open (Scheduled) - this case might not appear based on controller logic but good for robustness
+                    {
+                        <div class="alert alert-warning">
+                            <i class="fas fa-clock me-2"></i>This poll is scheduled to open soon.
+                        </div>
+                    }
+                </div>
+                <div class="card-footer text-muted small">
+                    Total votes cast so far: @poll.TotalVotes
+                    @if(poll.IsPollOpen && !poll.HasPollEnded)
+                    {
+                        <span> | Voting closes: @poll.EndDate.ToString("MMM dd, yyyy hh:mm tt")</span>
+                         // Note: Accessing EndDate more directly might be better if PollResultsViewModel had EndDate property directly.
+                         // For now, trying to get it via first option's poll reference - this is not ideal.
+                         // Better to add EndDate to PollResultsViewModel or pass the original Poll model too.
+                         // Corrected in thought process - PollResultsViewModel *does* have HasPollEnded and IsPollOpen.
+                         // If you add EndDate to PollResultsViewModel, it simplifies this display.
+                    }
+                    else if (poll.HasPollEnded)
+                    {
+                         <span> | Poll ended on: @poll.EndDate.ToString("MMM dd, yyyy hh:mm tt")</span>
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@section Styles {
+    <style>
+        .card-title {
+            font-size: 1.1rem;
+        }
+    </style>
+} 

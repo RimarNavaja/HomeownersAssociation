@@ -1,0 +1,131 @@
+@model HomeownersAssociation.Models.ViewModels.PollFormViewModel
+
+@{
+    ViewData["Title"] = "Edit Poll";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="bg-light rounded p-4 shadow-sm">
+                <h4 class="mb-4">@ViewData["Title"]: <span class="fw-normal">@Model.Title</span></h4>
+                <hr />
+                <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Title" class="form-control" placeholder="Poll Title" />
+                        <label asp-for="Title"></label>
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <textarea asp-for="Description" class="form-control" placeholder="Poll Description" style="height: 100px;"></textarea>
+                        <label asp-for="Description"></label>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="StartDate" type="datetime-local" class="form-control" />
+                                <label asp-for="StartDate"></label>
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="EndDate" type="datetime-local" class="form-control" />
+                                <label asp-for="EndDate"></label>
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Poll Options</label>
+                        <div id="existingPollOptionsContainer">
+                            @for (int i = 0; i < Model.ExistingOptions.Count; i++)
+                            {
+                                <div class="input-group mb-2 poll-option-group existing-option-group">
+                                    <input type="hidden" asp-for="ExistingOptions[i].Id" />
+                                    <input type="text" asp-for="ExistingOptions[i].OptionText" class="form-control" placeholder="Existing option text" />
+                                    @if (Model.ExistingOptions.Count > 0) // Allow removal if there are existing options
+                                    {
+                                        <button type="button" class="btn btn-outline-danger remove-existing-option-btn"><i class="fas fa-times"></i></button>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div id="newPollOptionsContainer">
+                             @for (int i = 0; i < Model.Options.Count; i++)
+                            {
+                                <div class="input-group mb-2 poll-option-group new-option-group">
+                                    <input type="text" asp-for="Options[i]" class="form-control" placeholder="New option text" />
+                                    <button type="button" class="btn btn-outline-danger remove-new-option-btn"><i class="fas fa-times"></i></button>
+                                </div>
+                            }
+                        </div>
+                        <button type="button" id="addOptionBtn" class="btn btn-sm btn-outline-secondary mt-2"><i class="fas fa-plus me-1"></i>Add Another New Option</button>
+                        <span asp-validation-for="Options" class="text-danger d-block"></span>
+                        <span asp-validation-for="ExistingOptions" class="text-danger d-block"></span>
+                    </div>
+
+                    <div class="form-check form-switch mb-4">
+                        <input class="form-check-input" type="checkbox" asp-for="IsActive" />
+                        <label class="form-check-label" asp-for="IsActive"></label>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Save Changes</button>
+                        <a asp-action="Manage" class="btn btn-secondary"><i class="fas fa-times me-2"></i>Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            let newOptionIndex = @Model.Options.Count; // Index for dynamically added new options
+
+            $("#addOptionBtn").click(function () {
+                const newOptionHtml = `
+                    <div class="input-group mb-2 poll-option-group new-option-group">
+                        <input type="text" name="Options[${newOptionIndex}]" class="form-control" placeholder="New option text" />
+                        <button type="button" class="btn btn-outline-danger remove-new-option-btn"><i class="fas fa-times"></i></button>
+                    </div>`;
+                $("#newPollOptionsContainer").append(newOptionHtml);
+                newOptionIndex++;
+            });
+
+            // Remove Existing Option
+            $("#existingPollOptionsContainer").on("click", ".remove-existing-option-btn", function () {
+                // Instead of removing, we can clear the value and the controller will handle removal if text is empty.
+                // Or, if you prefer to visually remove and handle complex logic in controller: 
+                $(this).closest(".existing-option-group").find("input[type='text']").val(""); // Clear value, controller handles logic
+                $(this).closest(".existing-option-group").hide(); // Optionally hide it
+                // alert("Existing option will be removed if its text is cleared and you save changes.");
+            });
+            
+            // Remove Newly Added Option
+            $("#newPollOptionsContainer").on("click", ".remove-new-option-btn", function () {
+                 $(this).closest(".new-option-group").remove();
+                 reindexNewOptions();
+            });
+
+            function reindexNewOptions() {
+                let currentNewOptionIndex = 0;
+                $("#newPollOptionsContainer .new-option-group").each(function() {
+                    $(this).find("input[type='text']").attr("name", `Options[${currentNewOptionIndex}]`);
+                    currentNewOptionIndex++;
+                });
+                newOptionIndex = currentNewOptionIndex; // Update the master index
+            }
+        });
+    </script>
+} 

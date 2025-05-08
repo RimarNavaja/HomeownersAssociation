@@ -1,0 +1,55 @@
+@{
+    ViewData["Title"] = "Reports Dashboard";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h5 class="mb-0">@ViewData["Title"]</h5>
+        </div>
+
+        <p class="mb-4">
+            Welcome to the Reports Dashboard. Select a report from the navigation or links below to view detailed analytics.
+        </p>
+
+        <div class="row g-4">
+            <div class="col-sm-12 col-md-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Service Requests</h6>
+                        <p class="card-text">View a summary of service requests by status, category, and priority.</p>
+                        <a asp-action="ServiceRequestsReport" class="btn btn-primary btn-sm"><i class="fas fa-chart-bar me-2"></i>View Report</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more report cards here as they are developed -->
+            @* 
+            <div class="col-sm-12 col-md-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Payments & Billing</h6>
+                        <p class="card-text">Analyze payment statuses, bill types, and revenue.</p>
+                        <a asp-action="PaymentsReport" class="btn btn-primary btn-sm disabled"><i class="fas fa-dollar-sign me-2"></i>View Report (Coming Soon)</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Community Engagement</h6>
+                        <p class="card-text">Track forum activity, event participation, and feedback trends.</p>
+                        <a asp-action="CommunityEngagementReport" class="btn btn-primary btn-sm disabled"><i class="fas fa-users me-2"></i>View Report (Coming Soon)</a>
+                    </div>
+                </div>
+            </div>
+            *@
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Add any page-specific scripts here if needed in the future
+    </script>
+} 

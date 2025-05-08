@@ -1,0 +1,115 @@
+@model IEnumerable<HomeownersAssociation.Models.Poll>
+
+@{
+    ViewData["Title"] = "Manage Polls & Surveys";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h5 class="mb-0">@ViewData["Title"]</h5>
+            <a asp-action="Create" class="btn btn-sm btn-primary"><i class="fas fa-plus me-2"></i>Create New Poll</a>
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fa fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fa fa-exclamation-triangle me-2"></i>@TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info" role="alert">
+                No polls or surveys have been created yet. <a asp-action="Create" class="alert-link">Create one now!</a>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover table-striped" id="pollsTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Options</th>
+                            <th>Votes</th>
+                            <th>Created By</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                                <td>
+                                    @if (!item.IsActive)
+                                    {
+                                        <span class="badge bg-secondary">Inactive</span>
+                                    }
+                                    else if (item.IsOpen)
+                                    {
+                                        <span class="badge bg-success">Open</span>
+                                    }
+                                    else if (item.HasEnded)
+                                    {
+                                        <span class="badge bg-danger">Ended</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning text-dark">Scheduled</span>
+                                    }
+                                </td>
+                                <td>@item.StartDate.ToString("MMM dd, yyyy hh:mm tt")</td>
+                                <td>@item.EndDate.ToString("MMM dd, yyyy hh:mm tt")</td>
+                                <td>@item.Options.Count</td>
+                                <td>@item.Votes.Count</td>
+                                <td>@(item.CreatedBy?.UserName ?? "N/A")</td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <a asp-action="Results" asp-route-id="@item.Id" class="btn btn-sm btn-success mx-1" title="View Results">
+                                            <i class="fas fa-chart-pie"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary mx-1" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger mx-1" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#pollsTable').DataTable({
+                "order": [[2, "desc"]], // Sort by Start Date descending by default
+                 "columnDefs": [
+                    { "orderable": false, "targets": [7] } // Disable sorting on Actions column
+                ]
+            });
+        });
+    </script>
+} 

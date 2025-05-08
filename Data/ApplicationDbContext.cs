@@ -34,6 +34,14 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     // Feedback and Complaints
     public DbSet<Feedback> Feedbacks { get; set; }
 
+    // Contact Directory
+    public DbSet<Contact> Contacts { get; set; }
+
+    // Polls and Surveys
+    public DbSet<Poll> Polls { get; set; }
+    public DbSet<PollOption> PollOptions { get; set; }
+    public DbSet<PollVote> PollVotes { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -177,5 +185,42 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .HasForeignKey(f => f.RespondedById)
             .IsRequired(false)
             .OnDelete(DeleteBehavior.SetNull);
+
+        // Configure Poll entity
+        builder.Entity<Poll>()
+            .HasOne(p => p.CreatedBy)
+            .WithMany()
+            .HasForeignKey(p => p.CreatedById)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Configure PollOption entity
+        builder.Entity<PollOption>()
+            .HasOne(po => po.Poll)
+            .WithMany(p => p.Options)
+            .HasForeignKey(po => po.PollId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Configure PollVote entity
+        builder.Entity<PollVote>()
+            .HasOne(pv => pv.Poll)
+            .WithMany(p => p.Votes)
+            .HasForeignKey(pv => pv.PollId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<PollVote>()
+            .HasOne(pv => pv.PollOption)
+            .WithMany()
+            .HasForeignKey(pv => pv.PollOptionId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<PollVote>()
+            .HasOne(pv => pv.User)
+            .WithMany()
+            .HasForeignKey(pv => pv.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Ensure a user can vote only once per poll
+        builder.Entity<PollVote>()
+            .HasIndex(pv => new { pv.PollId, pv.UserId }).IsUnique();
     }
 }

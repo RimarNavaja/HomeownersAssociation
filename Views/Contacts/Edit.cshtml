@@ -1,0 +1,87 @@
+@model HomeownersAssociation.Models.Contact
+
+@{
+    ViewData["Title"] = "Edit Contact";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="bg-light rounded p-4 shadow-sm">
+                <h4 class="mb-4">@ViewData["Title"]: <span class="fw-normal">@Model.Name</span></h4>
+                <hr />
+                <form asp-action="Edit">
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control" placeholder="Name" />
+                        <label asp-for="Name"></label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Category" class="form-control" placeholder="Category / Department" />
+                        <label asp-for="Category"></label>
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                        <div class="form-text">E.g., Security, Administration, Maintenance, Emergency</div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number" />
+                        <label asp-for="PhoneNumber"></label>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="EmailAddress" class="form-control" placeholder="Email Address" />
+                        <label asp-for="EmailAddress"></label>
+                        <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="OfficeHours" class="form-control" placeholder="Office Hours / Availability" />
+                        <label asp-for="OfficeHours"></label>
+                        <span asp-validation-for="OfficeHours" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Location" class="form-control" placeholder="Location" />
+                        <label asp-for="Location"></label>
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                         <div class="form-text">E.g., Admin Building, Room 101</div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <textarea asp-for="Notes" class="form-control" placeholder="Additional Notes" style="height: 100px"></textarea>
+                        <label asp-for="Notes"></label>
+                        <span asp-validation-for="Notes" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="DisplayOrder" class="form-control" placeholder="Display Order" />
+                        <label asp-for="DisplayOrder"></label>
+                        <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+                        <div class="form-text">Set to 0 or higher. Lower numbers appear first within a category.</div>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" asp-for="IsPublic" />
+                        <label class="form-check-label" asp-for="IsPublic">
+                            @Html.DisplayNameFor(model => model.IsPublic)
+                        </label>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Save Changes</button>
+                        <a asp-action="Manage" class="btn btn-secondary"><i class="fas fa-times me-2"></i>Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

@@ -1,0 +1,46 @@
+@model HomeownersAssociation.Models.Contact
+
+@{
+    ViewData["Title"] = "Delete Contact";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="bg-light rounded p-4 shadow-sm">
+                <h4 class="mb-3 text-danger"><i class="fas fa-exclamation-triangle me-2"></i>@ViewData["Title"]</h4>
+                <p class="lead">Are you sure you want to delete the contact for "<strong>@Model.Name</strong>" in the "<strong>@Model.Category</strong>" category?</p>
+                <p>This action cannot be undone.</p>
+                <hr />
+                
+                <dl class="row">
+                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Name)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
+
+                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Category)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Category)</dd>
+
+                    @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                    {
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.EmailAddress))
+                    {
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.EmailAddress)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.EmailAddress)</dd>
+                    }
+                </dl>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt me-2"></i>Delete Contact</button>
+                        <a asp-action="Manage" class="btn btn-secondary"><i class="fas fa-times me-2"></i>Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 

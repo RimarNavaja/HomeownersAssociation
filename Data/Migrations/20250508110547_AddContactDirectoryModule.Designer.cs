@@ -3,6 +3,7 @@ using System;
 using HomeownersAssociation.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeownersAssociation.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250508110547_AddContactDirectoryModule")]
+    partial class AddContactDirectoryModule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.13");
@@ -689,92 +692,6 @@ namespace HomeownersAssociation.Data.Migrations
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("HomeownersAssociation.Models.Poll", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreatedById")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.ToTable("Polls");
-                });
-
-            modelBuilder.Entity("HomeownersAssociation.Models.PollOption", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("OptionText")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("PollId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PollId");
-
-                    b.ToTable("PollOptions");
-                });
-
-            modelBuilder.Entity("HomeownersAssociation.Models.PollVote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PollId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PollOptionId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("VotedAt")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PollOptionId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("PollId", "UserId")
-                        .IsUnique();
-
-                    b.ToTable("PollVotes");
-                });
-
             modelBuilder.Entity("HomeownersAssociation.Models.ServiceCategory", b =>
                 {
                     b.Property<int>("Id")
@@ -1236,55 +1153,6 @@ namespace HomeownersAssociation.Data.Migrations
                     b.Navigation("ProcessedBy");
                 });
 
-            modelBuilder.Entity("HomeownersAssociation.Models.Poll", b =>
-                {
-                    b.HasOne("HomeownersAssociation.Models.ApplicationUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
-                });
-
-            modelBuilder.Entity("HomeownersAssociation.Models.PollOption", b =>
-                {
-                    b.HasOne("HomeownersAssociation.Models.Poll", "Poll")
-                        .WithMany("Options")
-                        .HasForeignKey("PollId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Poll");
-                });
-
-            modelBuilder.Entity("HomeownersAssociation.Models.PollVote", b =>
-                {
-                    b.HasOne("HomeownersAssociation.Models.Poll", "Poll")
-                        .WithMany("Votes")
-                        .HasForeignKey("PollId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HomeownersAssociation.Models.PollOption", "PollOption")
-                        .WithMany()
-                        .HasForeignKey("PollOptionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("HomeownersAssociation.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Poll");
-
-                    b.Navigation("PollOption");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("HomeownersAssociation.Models.ServiceRequest", b =>
                 {
                     b.HasOne("HomeownersAssociation.Models.ServiceCategory", "Category")
@@ -1390,13 +1258,6 @@ namespace HomeownersAssociation.Data.Migrations
             modelBuilder.Entity("HomeownersAssociation.Models.ForumThread", b =>
                 {
                     b.Navigation("ForumReplies");
-                });
-
-            modelBuilder.Entity("HomeownersAssociation.Models.Poll", b =>
-                {
-                    b.Navigation("Options");
-
-                    b.Navigation("Votes");
                 });
 
             modelBuilder.Entity("HomeownersAssociation.Models.ServiceCategory", b =>
