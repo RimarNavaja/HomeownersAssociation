@@ -208,3 +208,38 @@ body {
 .hero-content {
   z-index: 1;
 }
+
+/* Register page spacing fix */
+.register-section {
+  margin-bottom: 80px;
+}
+
+/* Fix for MDBootstrap floating label overlap with custom fonts */
+.form-outline .form-label {
+    line-height: 1.2;
+    font-size: 1rem;
+    top: 0.65rem;
+    left: 0.75rem;
+    padding: 0 0.25rem;
+    background: transparent;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+}
+.form-outline .form-control:focus ~ .form-label,
+.form-outline .form-control:not(:placeholder-shown) ~ .form-label,
+.form-outline .form-control:-webkit-autofill ~ .form-label {
+    top: -0.8rem;
+    left: 0.6rem;
+    font-size: 0.85rem;
+    color: #171717;
+    background: #f8f9fa;
+    padding: 0 0.25rem;
+}
+
+/* Prevent custom font from breaking input height */
+.form-outline .form-control {
+    line-height: 1.5;
+    font-size: 1rem;
+    padding-top: 1.25rem;
+    padding-bottom: 0.5rem;
+}
