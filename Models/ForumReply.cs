@@ -27,5 +27,8 @@ namespace HomeownersAssociation.Models
         [Required]
         [Display(Name = "Replied At")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        [NotMapped] // This attribute ensures EF Core doesn't try to create a database column for it
+        public string? TempThreadTitleForMatching { get; set; }
     }
 } 

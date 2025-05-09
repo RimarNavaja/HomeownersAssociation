@@ -9,7 +9,7 @@ using HomeownersAssociation.Data;
 
 namespace HomeownersAssociation.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Staff")]
     public class AdminController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -110,6 +110,10 @@ namespace HomeownersAssociation.Controllers
         // Staff Management
         public async Task<IActionResult> StaffMembers()
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return Forbid();
+            }
             var staffMembers = await _userManager.Users
                 .Where(u => u.UserType == UserType.Staff)
                 .ToListAsync();
@@ -119,6 +123,10 @@ namespace HomeownersAssociation.Controllers
 
         public IActionResult CreateStaff()
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return Forbid();
+            }
             return View(new CreateStaffViewModel());
         }
 
@@ -126,6 +134,10 @@ namespace HomeownersAssociation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateStaff(CreateStaffViewModel model)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return Forbid();
+            }
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
@@ -183,6 +195,10 @@ namespace HomeownersAssociation.Controllers
 
         public async Task<IActionResult> EditStaff(string id)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return Forbid();
+            }
             var staff = await _userManager.FindByIdAsync(id);
             if (staff == null || staff.UserType != UserType.Staff)
             {
@@ -207,6 +223,10 @@ namespace HomeownersAssociation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditStaff(EditStaffViewModel model)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return Forbid();
+            }
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -288,6 +308,10 @@ namespace HomeownersAssociation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteStaff(string id)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return Forbid();
+            }
             var staff = await _userManager.FindByIdAsync(id);
 
             if (staff == null || staff.UserType != UserType.Staff)

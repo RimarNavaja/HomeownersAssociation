@@ -54,5 +54,8 @@ namespace HomeownersAssociation.Models
 
         [Display(Name = "Notes")]
         public string? Notes { get; set; }
+
+        [NotMapped]
+        public string? TempBillNumberForMatching { get; set; }
     }
 }
