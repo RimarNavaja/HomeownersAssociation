@@ -4,13 +4,12 @@
     ViewData["Title"] = "Edit Announcement";
 }
 
-<div class="container-fluid p-0">
-    <!-- Hero Section -->
-    <div class="hero-section text-white text-center d-flex align-items-center justify-content-center"
-        style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/edit-announcement.jpg'); background-size: cover; min-height: 20vh;">
+<div class="container-fluid p-0 mb-5">
+    <div class="hero-section bg-dark text-white text-center d-flex align-items-center justify-content-center"
+         style="min-height: 20vh; background-image: url('/images/edit-announcement.jpg'); background-size: cover; background-position: center;">
         <div style="background-color: rgba(0, 0, 0, 0.5); padding: 2rem; border-radius: .5rem;">
             <h1 class="display-4 fw-bold oswald-heading">@ViewData["Title"]</h1>
-            <p class="lead lora-body mb-0">Update the details for this announcement.</p>
+            <p class="lead lora-body mb-0">Stay informed with the latest community updates and notices</p>
         </div>
     </div>
 </div>
@@ -36,16 +35,16 @@
                         <input type="hidden" asp-for="ExistingAttachmentUrl" />
 
                         <!-- Title -->
-                        <div class="form-outline mb-4 mt-2" data-mdb-input-init>
+                        <div class="form-outline mb-4 " data-mdb-input-init>
                             <input asp-for="Title" id="title" class="form-control border" />
-                            <label asp-for="Title" class="form-label" for="title"></label>
+                            <label asp-for="Title" class="form-label mt-2" for="title"></label>
                         </div>
                         <span asp-validation-for="Title" class="text-danger d-block"></span>
 
                         <!-- Content -->
                         <div class="form-outline mb-4" data-mdb-input-init>
                             <textarea asp-for="Content" id="content" class="form-control border" rows="10"></textarea>
-                            <label asp-for="Content" class="form-label" for="content"></label>
+                            <label asp-for="Content" class="form-label mt-2" for="content"></label>
                         </div>
                         <span asp-validation-for="Content" class="text-danger d-block mb-3"></span>
                         <small class="form-text text-muted mb-3 d-block">You can use basic HTML formatting in the content.</small>

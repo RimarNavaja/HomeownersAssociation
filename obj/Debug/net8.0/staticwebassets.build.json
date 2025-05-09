@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "hGFGKKEiIESQInoshaEn05o6B9uItp+YhMfCQccDXKk=",
+  "Hash": "tNkFR56EXoUTbQdNMDHTgedfOZRpsRsiS3wtiXG03QE=",
   "Source": "HomeownersAssociation",
   "BasePath": "_content/HomeownersAssociation",
   "Mode": "Default",
@@ -1333,8 +1333,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "8k19qhvnfz",
-      "Integrity": "2KGUBAEroUOSbrn8F0X66Sf/TLVtYv9s3dgRHXBvkYo=",
+      "Fingerprint": "nvauqmhi56",
+      "Integrity": "k5Tno8mWr9kKVCpm/9/7OrrXMo9Y4eb1IT1kYad8534=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -3463,51 +3463,6 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/site.8k19qhvnfz.css",
-      "AssetFile": "C:\\Users\\USER\\Desktop\\HomeownersAssociation\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "4703"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"2KGUBAEroUOSbrn8F0X66Sf/TLVtYv9s3dgRHXBvkYo=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 06:58:22 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "8k19qhvnfz"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-2KGUBAEroUOSbrn8F0X66Sf/TLVtYv9s3dgRHXBvkYo="
-        }
-      ]
-    },
-    {
       "Route": "css/site.css",
       "AssetFile": "C:\\Users\\USER\\Desktop\\HomeownersAssociation\\wwwroot\\css\\site.css",
       "Selectors": [],
@@ -3526,11 +3481,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"2KGUBAEroUOSbrn8F0X66Sf/TLVtYv9s3dgRHXBvkYo=\""
+          "Value": "\"k5Tno8mWr9kKVCpm/9/7OrrXMo9Y4eb1IT1kYad8534=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 06:58:22 GMT"
+          "Value": "Fri, 09 May 2025 11:10:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3540,7 +3495,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-2KGUBAEroUOSbrn8F0X66Sf/TLVtYv9s3dgRHXBvkYo="
+          "Value": "sha256-k5Tno8mWr9kKVCpm/9/7OrrXMo9Y4eb1IT1kYad8534="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.nvauqmhi56.css",
+      "AssetFile": "C:\\Users\\USER\\Desktop\\HomeownersAssociation\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"k5Tno8mWr9kKVCpm/9/7OrrXMo9Y4eb1IT1kYad8534=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 11:10:05 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nvauqmhi56"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-k5Tno8mWr9kKVCpm/9/7OrrXMo9Y4eb1IT1kYad8534="
         }
       ]
     },

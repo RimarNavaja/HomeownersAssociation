@@ -1,5 +1,5 @@
 @model HomeownersAssociation.Models.Announcement
-@using HomeownersAssociation.Models // Required for AnnouncementPriority enum
+@using HomeownersAssociation.Models 
 
 @{
     ViewData["Title"] = Model.Title;
@@ -8,11 +8,11 @@
 
 <div class="container-fluid p-0">
     <!-- Hero Section -->
-    <div class="hero-section text-white text-center d-flex align-items-center justify-content-center"
-         style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/announcement-details-hero.jpg'); background-size: cover; background-position: center; min-height: 30vh;">
+    <div class="hero-section bg-dark text-white text-center d-flex align-items-center justify-content-center"
+         style="min-height: 20vh; background-image: url('/images/announcement-details-hero.jpg'); background-size: cover; background-position: center;">
         <div style="background-color: rgba(0, 0, 0, 0.5); padding: 2rem; border-radius: .5rem;">
             <h1 class="display-4 fw-bold oswald-heading">@Model.Title</h1>
-            <div class="d-flex justify-content-center align-items-center mt-2">
+                        <div class="d-flex justify-content-center align-items-center mt-2">
                 @if (Model.IsPublic)
                 {
                     <span class="badge badge-light me-2 fs-6"><i class="fas fa-globe me-1"></i> Public</span>
@@ -23,6 +23,7 @@
                 }
                 <span class="badge @GetPriorityBadgeClass(Model.Priority) fs-6">@Model.Priority</span>
             </div>
+
         </div>
     </div>
 </div>

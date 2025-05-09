@@ -60,11 +60,11 @@
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-mdb-target="#carouselExample" data-mdb-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span aria-hidden="true"><i class="fas fa-chevron-left fa-lg text-white"></i></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-mdb-target="#carouselExample" data-mdb-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span aria-hidden="true"><i class="fas fa-chevron-right fa-lg text-white"></i></span>
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
@@ -239,3 +239,14 @@
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const carouselElement = document.getElementById('carouselExample');
+            if (carouselElement) {
+                new mdb.Carousel(carouselElement);
+            }
+        });
+    </script>
+}
