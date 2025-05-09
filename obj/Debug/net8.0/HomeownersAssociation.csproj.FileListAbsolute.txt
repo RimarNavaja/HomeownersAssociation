@@ -1894,3 +1894,5 @@ C:\Users\USER\Desktop\HomeownersAssociation\obj\Debug\net8.0\HomeownersAssociati
 C:\Users\USER\Desktop\HomeownersAssociation\obj\Debug\net8.0\ref\HomeownersAssociation.dll
 C:\Users\USER\Desktop\HomeownersAssociation\bin\Debug\net8.0\package-lock.json
 C:\Users\USER\Desktop\HomeownersAssociation\bin\Debug\net8.0\package.json
+C:\Users\Clyd Pardillo\Documents\Kapoy nga Iskol\3rd year\Homeowners\HomeownersAssociation\bin\Debug\net8.0\package-lock.json
+C:\Users\Clyd Pardillo\Documents\Kapoy nga Iskol\3rd year\Homeowners\HomeownersAssociation\bin\Debug\net8.0\package.json
