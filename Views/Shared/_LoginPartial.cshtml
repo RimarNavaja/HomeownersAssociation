@@ -1,59 +1,69 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using HomeownersAssociation.Models
 @inject SignInManager<HomeownersAssociation.Models.ApplicationUser> SignInManager
 @inject UserManager<HomeownersAssociation.Models.ApplicationUser> UserManager
 
-<ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        @if (User.IsInRole("Admin"))
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-controller="Billing" asp-action="Index">Billing</a>
-            </li>
-        }
-        else if (User.IsInRole("Staff"))
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-controller="Staff" asp-action="Index">Staff Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-controller="Billing" asp-action="Index">Billing</a>
-            </li>
-        }
-        else
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-controller="Billing" asp-action="MyBills">My Bills</a>
-            </li>
-        }
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Profile" title="Manage">Hello
-                @User.Identity?.Name!</a>
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.GetUserAsync(User);
+    var displayName = user?.FirstName ?? User.Identity?.Name ?? "User";
+    var userProfilePicture = user?.ProfilePictureUrl ?? "/images/default-avatar.png"; // Default avatar
+
+    <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center ripple" href="#" id="userDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false" data-mdb-ripple-color="dark">
+                <img src="@userProfilePicture" class="rounded-circle me-2" height="22" alt="User Avatar" loading="lazy" />
+                <span class="d-none d-sm-inline-block">@displayName</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><h6 class="dropdown-header">Hello, @displayName!</h6></li>
+                <li><a class="dropdown-item ripple" asp-controller="Account" asp-action="Profile" data-mdb-ripple-color="primary"><i class="fas fa-user-cog me-2"></i>My Profile</a></li>
+                
+                @if (User.IsInRole("Admin"))
+                {
+                    <li><a class="dropdown-item ripple" asp-controller="Admin" asp-action="Index" data-mdb-ripple-color="primary"><i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard</a></li>
+                }
+                else if (User.IsInRole("Staff"))
+                {
+                    <li><a class="dropdown-item ripple" asp-controller="Staff" asp-action="Index" data-mdb-ripple-color="primary"><i class="fas fa-briefcase me-2"></i>Staff Dashboard</a></li>
+                }
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" onsubmit="return confirmLogout();">
+                        <button type="submit" class="dropdown-item ripple" data-mdb-ripple-color="danger"><i class="fas fa-sign-out-alt me-2"></i>Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="navbar-nav ms-auto d-flex flex-row">
+        <li class="nav-item me-2">
+            <a class="btn btn-outline-dark ripple" asp-area="" asp-controller="Account" asp-action="Register" data-mdb-ripple-color="dark">
+                <i class="fas fa-user-plus me-2"></i>Register
+            </a>
         </li>
         <li class="nav-item">
-            <form class="form-inline" asp-controller="Account" asp-action="Logout"
-                asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" onsubmit="return confirmLogout()">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
+            <a class="btn btn-dark ripple" asp-area="" asp-controller="Account" asp-action="Login" data-mdb-ripple-color="light">
+               <i class="fas fa-sign-in-alt me-2"></i>Login
+            </a>
         </li>
-    }
-    else
-    {
-        @* <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-        </li> *@
-        <li class="nav-item">
-            <a class="nav-link text-dark oswald-subheading fw-bold border px-4 border-dark text-center text-sm-end "
-                asp-area="" asp-controller="Account" asp-action="Login" style="transition: color 0.3s;">Resident Login</a>
-        </li>
-    }
-</ul>
+    </ul>
+}
 
 <script>
     function confirmLogout() {
         return confirm("Are you sure you want to logout?");
+    }
+    // Explicitly initialize all MDB dropdowns
+    document.querySelectorAll('.dropdown-toggle').forEach(function (dropdown) {
+        new mdb.Dropdown(dropdown);
+    });
+    // Explicitly initialize the navbar collapse
+    const collapsibleElement = document.getElementById('navbarSupportedContent');
+    if (collapsibleElement) {
+        new mdb.Collapse(collapsibleElement, { toggle: false });
     }
 </script>

@@ -1,0 +1,56 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+You are doing a full UI migration using MDBootstrap, these are the UI migration rules.
+
+1. Base Layout & Imports
+Always include MDBootstrap CSS and JS in your main layout (_Layout.cshtml), after Bootstrap.
+Remove any legacy Bootstrap-only or conflicting CSS/JS.
+Use CDN or npm package for MDBootstrap, but do not mix versions.
+2. Grid & Spacing
+Replace all Bootstrap grid classes (container, row, col-*) with MDB equivalents (they are compatible, but prefer MDB docs for advanced layouts).
+Use MDB spacing utilities (.p-*, .m-*, .g-*) for consistent padding/margin.
+3. Forms
+Use .form-outline for all text-based inputs for floating label effect.
+For file inputs, use .form-control only (do not use .form-outline).
+Always place <label> immediately after <input> for floating labels.
+Add .border or .border-* for visible input borders if desired.
+Use MDB validation classes for feedback (.is-valid, .is-invalid).
+4. Buttons
+Replace all buttons with MDB classes: .btn, .btn-primary, .btn-dark, etc.
+Add .ripple and data-mdb-ripple-color for interactive effects.
+Use MDB button sizes (.btn-lg, .btn-sm) as needed.
+5. Cards & Containers
+Use MDB .card, .card-body, .card-header, etc. for all card-like UI.
+Add .hover-shadow and .hover-zoom for interactive cards/images.
+6. Modals, Alerts, and Toasts
+Use MDB components for modals, alerts, and toasts.
+Replace Bootstrap modals/alerts with MDB’s for consistent look and JS behavior.
+7. Navigation & Dropdowns
+Use MDB’s navbar, sidenav, and dropdown components.
+Ensure all navbars use MDB’s responsive and color classes.
+8. Lists & Tables
+Use MDB’s .list-group, .table, and related classes for lists and tables.
+Add .table-hover, .table-striped, etc. for enhanced UI.
+9. Icons
+Use MDB’s icon set or Bootstrap Icons, but be consistent across the project.
+10. Animations & Effects
+Use MDB’s animation classes (.animated, .fadeIn, etc.) for transitions.
+Add hover and focus effects using MDB utilities.
+11. Custom CSS
+Minimize custom CSS. When needed, scope it to avoid conflicts with MDB.
+Override MDB variables using :root or SCSS if customization is required.
+12. JavaScript Initialization
+For dynamic components (carousels, modals, tooltips), use MDB’s JS initialization.
+Remove legacy jQuery/Bootstrap JS if not needed.
+13. Accessibility
+Ensure all MDB components are used with proper ARIA attributes and semantic HTML.
+14. Testing
+After migration, test all pages for:
+Label overlap
+Button ripple effect
+Modal and dropdown functionality
+Responsive layout
+Visual consistency

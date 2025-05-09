@@ -1,0 +1,80 @@
+# ASP.NET Core / .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# User secrets
+secrets.json
+
+# Logs
+*.log
+logs/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# npm & node
+node_modules/
+
+# Publish output
+wwwroot/dist/
+wwwroot/node_modules/
+
+# Others
+*.swp
+*.bak
+*.tmp
+
+# Build results
+artifacts/
+
+# Test results
+TestResults/
+
+# NuGet
+*.nupkg
+.nuget/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# DotCover
+*.dotCover
+
+# Azure Pipelines
+.azure-pipelines/
+
+# Local environment
+.env
+.env.*
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# VS for Mac
+.vscode/
+
+# Backup & temp
+*.bak
+*.tmp
+~$*
+
+# Others
+wwwroot/uploads/
+
+#cursor
+.cursorrules
+.cursor/rules

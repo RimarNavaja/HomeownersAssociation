@@ -31,249 +31,173 @@
 
 <body class="d-flex flex-column min-vh-100">
 
-    <header class="sticky-top">
-        <nav
-            class="navbar navbar-expand-sm  navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow oswald-subheading ">
+    <header class="sticky-top shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white oswald-subheading">
             <div class="container-fluid mx-3 mx-lg-5 mx-md-4">
-                <!--Project Brand/Logo-->
-                <a class="navbar-brand oswald-heading fs-1" style="letter-spacing: 5px;" asp-area=""
-                    asp-controller="@(User.IsInRole("Admin") ? "Admin" : "Home")" asp-action="Index">747HOA</a>
-                <!--End of Project Brand/Logo-->
-
-                <!-- User greeting beside logo -->
-                @if (User.Identity != null && User.Identity.IsAuthenticated)
-                {
-                    var user = await UserManager.GetUserAsync(User);
-                    var displayName = user?.FirstName ?? User.Identity?.Name ?? "User";
-
-                    <div class="ms-3 d-none d-sm-inline">
-                        <span class="nav-link text-dark">Hello @displayName!</span>
-                    </div>
-                }
-
-                <!--Hamburger Icon-->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <a class="navbar-brand oswald-heading fs-1" style="letter-spacing: 5px;" asp-area="" asp-controller="@(User.IsInRole("Admin") ? "Admin" : "Home")" asp-action="Index">747HOA</a>
+                
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
                 </button>
-                <!--Hamburger Icon-->
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <div class="navbar-nav me-auto">
-                        <!-- Left side empty for brand -->
-                    </div>
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link ripple" asp-area="" asp-controller="Home" asp-action="Index" data-mdb-ripple-color="primary">Home</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin") && !User.IsInRole("Staff")) // Regular User Links
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Announcements" asp-action="Index">Announcements</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="Calendar">Events</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Billing" asp-action="MyBills">My Bills</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Reservations" asp-action="Index">Facilities</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="ServiceRequests" asp-action="Index">Service Requests</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Documents" asp-action="Index">Documents</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Forum" asp-action="Index">Community Forum</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Feedback" asp-action="Index">Feedback</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Contacts" asp-action="Index">Contact Directory</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Polls" asp-action="Index">Polls & Surveys</a>
-                            </li>
-                            
-                            <!-- New Security Dropdown Menu -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark" href="#" id="securityDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Security
+                                <a class="nav-link dropdown-toggle ripple" href="#" id="communityDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false" data-mdb-ripple-color="primary">
+                                    Community
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="securityDropdown">
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Security" asp-action="Index">Security Dashboard</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="VisitorPasses" asp-action="Index">My Visitor Passes</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="VisitorPasses" asp-action="Create">Request Visitor Pass</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Vehicles" asp-action="Index">My Vehicles</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Vehicles" asp-action="Create">Register Vehicle</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Security" asp-action="EmergencyContacts">Emergency Contacts</a></li>
-                                    @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
-                                    {
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="VisitorPasses" asp-action="Manage">Manage Visitor Passes</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Vehicles" asp-action="Manage">Manage Vehicles</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="EmergencyContacts" asp-action="Index">Manage Emergency Contacts</a></li>
-                                    }
+                                <ul class="dropdown-menu" aria-labelledby="communityDropdown">
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="Announcements" asp-action="Index" data-mdb-ripple-color="primary">Announcements</a></li>
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="Events" asp-action="Calendar" data-mdb-ripple-color="primary">Events Calendar</a></li>
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="Forum" asp-action="Index" data-mdb-ripple-color="primary">Community Forum</a></li>
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="Polls" asp-action="Index" data-mdb-ripple-color="primary">Polls & Surveys</a></li>
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="Documents" asp-action="Index" data-mdb-ripple-color="primary">Documents</a></li>
                                 </ul>
                             </li>
-
-                            @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
-                            {
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle text-dark" href="#" id="adminStaffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Management
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="adminStaffDropdown">
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Index">User Management</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Events" asp-action="Index">Manage Events</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Billing" asp-action="Index">Manage Bills</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Payments" asp-action="Index">Manage Payments</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Facilities" asp-action="Index">Manage Facilities</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Reservations" asp-action="Manage">Manage Reservations</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="ServiceCategories" asp-action="Index">Manage Service Categories</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="ServiceRequests" asp-action="Manage">Manage Service Requests</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Documents" asp-action="Manage">Manage Documents</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Feedback" asp-action="Index">Manage Feedback</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Contacts" asp-action="Manage">Manage Contacts</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Reports" asp-action="Index">Reports & Analytics</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Polls" asp-action="Manage">Manage Polls & Surveys</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="ForumCategories" asp-action="Index">Manage Forum Categories</a></li>
-                                    </ul>
-                                </li>
-                            }
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle ripple" href="#" id="servicesDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false" data-mdb-ripple-color="primary">
+                                    Services
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="Billing" asp-action="MyBills" data-mdb-ripple-color="primary">My Bills</a></li>
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="Reservations" asp-action="Index" data-mdb-ripple-color="primary">Facility Reservations</a></li>
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="ServiceRequests" asp-action="Index" data-mdb-ripple-color="primary">Service Requests</a></li>
+                                </ul>
+                            </li>
+                             <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle ripple" href="#" id="securityUserDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false" data-mdb-ripple-color="primary">
+                                    Security
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="securityUserDropdown">
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="Security" asp-action="Index" data-mdb-ripple-color="primary">Security Dashboard</a></li>
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="VisitorPasses" asp-action="Index" data-mdb-ripple-color="primary">My Visitor Passes</a></li>
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="VisitorPasses" asp-action="Create" data-mdb-ripple-color="primary">Request Visitor Pass</a></li>
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="Vehicles" asp-action="Index" data-mdb-ripple-color="primary">My Vehicles</a></li>
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="Vehicles" asp-action="Create" data-mdb-ripple-color="primary">Register Vehicle</a></li>
+                                    <li><a class="dropdown-item ripple" asp-area="" asp-controller="Security" asp-action="EmergencyContacts" data-mdb-ripple-color="primary">Emergency Contacts</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link ripple" asp-area="" asp-controller="Feedback" asp-action="Index" data-mdb-ripple-color="primary">Feedback</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link ripple" asp-area="" asp-controller="Contacts" asp-action="Index" data-mdb-ripple-color="primary">Contact Directory</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                        { // Admin & Staff Links
+                             <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle ripple" href="#" id="managementDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false" data-mdb-ripple-color="primary">
+                                    Man agement
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="managementDropdown">
+                                    <li><a class="dropdown-item ripple" asp-controller="Admin" asp-action="Index" data-mdb-ripple-color="primary">User Management</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="Announcements" asp-action="Index" data-mdb-ripple-color="primary">Manage Announcements</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="Events" asp-action="Index" data-mdb-ripple-color="primary">Manage Events</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="Billing" asp-action="Index" data-mdb-ripple-color="primary">Manage Bills</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="Payments" asp-action="Index" data-mdb-ripple-color="primary">Manage Payments</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="Facilities" asp-action="Index" data-mdb-ripple-color="primary">Manage Facilities</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="Reservations" asp-action="Manage" data-mdb-ripple-color="primary">Manage Reservations</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="ServiceCategories" asp-action="Index" data-mdb-ripple-color="primary">Manage Service Categories</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="ServiceRequests" asp-action="Manage" data-mdb-ripple-color="primary">Manage Service Requests</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="Documents" asp-action="Manage" data-mdb-ripple-color="primary">Manage Documents</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="Feedback" asp-action="Manage" data-mdb-ripple-color="primary">Manage Feedback</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="Contacts" asp-action="Manage" data-mdb-ripple-color="primary">Manage Contacts</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="Reports" asp-action="Index" data-mdb-ripple-color="primary">Reports & Analytics</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="Polls" asp-action="Manage" data-mdb-ripple-color="primary">Manage Polls & Surveys</a></li>
+                                    <li><a class="dropdown-item ripple" asp-controller="ForumCategories" asp-action="Index" data-mdb-ripple-color="primary">Manage Forum Categories</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle ripple" href="#" id="securityAdminDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false" data-mdb-ripple-color="primary">
+                                    Security Management
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="securityAdminDropdown">
+                                     <li><a class="dropdown-item ripple" asp-area="" asp-controller="VisitorPasses" asp-action="Manage" data-mdb-ripple-color="primary">Manage Visitor Passes</a></li>
+                                     <li><a class="dropdown-item ripple" asp-area="" asp-controller="Vehicles" asp-action="Manage" data-mdb-ripple-color="primary">Manage Vehicles</a></li>
+                                     <li><a class="dropdown-item ripple" asp-area="" asp-controller="EmergencyContacts" asp-action="Index" data-mdb-ripple-color="primary">Manage Emergency Contacts</a></li>
+                                </ul>
+                            </li>
                         }
                     </ul>
-                     <partial name="_LoginPartial" />
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
-
     </header>
 
-
-
     <div>
-        <main role="main">
-
+        <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <!-- Footer - hidden for Admin users -->
     @if (!User.IsInRole("Admin"))
     {
-        <footer class="text-center text-lg-start bg-body-tertiary text-muted">
-            <!-- Section: Links  -->
-            <section class="bg-dark text-light py-1 oswald-subheading">
+        <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-auto">
+            <section class="bg-dark text-light py-4 oswald-subheading">
                 <div class="container text-center text-md-start mt-5">
-                    <!-- Grid row -->
                     <div class="row mt-3">
-                        <!-- Grid column -->
                         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                            <!-- Content -->
-                            <p class=" oswald-heading fs-4">
-                                <a class="text-white" style="text-decoration: none; letter-spacing: 1px;" asp-area=""
-                                    asp-controller="Home" asp-action="Index"> 747 Homeowners Association</a>
+                            <h6 class="text-uppercase fw-bold mb-4 oswald-heading">
+                                <i class="fas fa-gem me-3"></i>747 Homeowners Association
+                            </h6>
+                            <p class="lora-body">
+                                Sanciangko St, Cebu City, 6000 Cebu.
+                                Dedicated to a thriving and harmonious community.
                             </p>
-                            <p>Sanciangko St,</p>
-                            <p>Cebu City,</p>
-                            <p>6000 Cebu</p>
                         </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
-                            <h6 class="  mb-4 oswald-heading" style="letter-spacing: 1px;">
-                                Community Links
+                            <h6 class="text-uppercase fw-bold mb-4 oswald-heading">
+                                Community
                             </h6>
-                            <p>
-                                <a href="#!" class="text-reset" style="text-decoration: none;">Home Page</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset text-capitalize"
-                                    style="text-decoration: none;">discussions</a>
-                            </p>
-                            <p>
-                                <a asp-controller="Events" asp-action="Calendar" class="text-reset text-capitalize" style="text-decoration: none;">events</a>
-                            </p>
-                            <p>
-                                <a asp-controller="Feedback" asp-action="Public" class="text-reset text-capitalize" style="text-decoration: none;">community feedback</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset text-capitalize" style="text-decoration: none;">community
-                                    guidelines</a>
-                            </p>
+                            <p><a asp-controller="Announcements" asp-action="@(User?.Identity?.IsAuthenticated == true ? "Index" : "Public")" class="text-reset ripple" data-mdb-ripple-color="light">Announcements</a></p>
+                            <p><a asp-controller="Events" asp-action="Calendar" class="text-reset ripple" data-mdb-ripple-color="light">Events</a></p>
+                            <p><a asp-controller="Forum" asp-action="Index" class="text-reset ripple" data-mdb-ripple-color="light">Forum</a></p>
+                            <p><a asp-controller="Feedback" asp-action="Public" class="text-reset ripple" data-mdb-ripple-color="light">Feedback</a></p>
                         </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
                         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
-                            <h6 class="text-capitalize mb-4 oswald-heading" style="letter-spacing: 1px;">
-                                My Account
+                            <h6 class="text-uppercase fw-bold mb-4 oswald-heading">
+                                Useful links
                             </h6>
-                            <!--If logged in this <a> should be remove -->
-                            @if (User.Identity != null && !User.Identity.IsAuthenticated)
-                            {
-                                <p>
-                                    <a class="text-reset" style="text-decoration: none;" asp-area="" asp-controller="Account"
-                                        asp-action="Login">Login</a>
-                                </p>
-                            }
                             @if (User.Identity != null && User.Identity.IsAuthenticated)
                             {
-                                <p>
-                                    <a class="text-reset" style="text-decoration: none;" asp-area="" asp-controller="Account"
-                                        asp-action="Profile">My Profile</a>
-                                </p>
+                                <p><a asp-controller="Account" asp-action="Profile" class="text-reset ripple" data-mdb-ripple-color="light">My Profile</a></p>
                             }
-                            <p>
-                                <a href="#!" class="text-reset" style="text-decoration: none;">Forgot Password?</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset" style="text-decoration: none;">Help</a>
-                            </p>
+                            else
+                            {
+                                <p><a asp-controller="Account" asp-action="Login" class="text-reset ripple" data-mdb-ripple-color="light">Login</a></p>
+                                <p><a asp-controller="Account" asp-action="Register" class="text-reset ripple" data-mdb-ripple-color="light">Register</a></p>
+                            }
+                            <p><a asp-controller="Home" asp-action="TermsAndConditions" class="text-reset ripple" data-mdb-ripple-color="light">Terms & Conditions</a></p>
+                            <p><a asp-controller="Home" asp-action="Privacy" class="text-reset ripple" data-mdb-ripple-color="light">Privacy Policy</a></p>
                         </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-md-0 mb-4 oswald-light"
-                            style="font-size: 0.8rem;">
-                            <!-- Links -->
-                            <p><a class="text-white link-underline-dark " style="text-decoration: none;" asp-area=""
-                                    asp-controller="Home" asp-action="Privacy"> Privacy Policy</a></p>
-
-                            <p><a class=" text-white link-underline-dark" style="text-decoration: none;" asp-area=""
-                                    asp-controller="Home" asp-action="TermsAndConditions">Terms & Conditions</a></p>
+                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                            <h6 class="text-uppercase fw-bold mb-4 oswald-heading">Contact</h6>
+                            <p class="lora-body"><i class="fas fa-home me-3"></i> Sanciangko St, Cebu City, PH</p>
+                            <p class="lora-body"><i class="fas fa-envelope me-3"></i> info@747hoa.com</p>
+                            <p class="lora-body"><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
                         </div>
-
-                        <!-- Grid column -->
                     </div>
-                    <!-- Grid row -->
                 </div>
             </section>
-            <!-- Section: Links  -->
-
-            <!-- Copyright -->
-            <div class="text-center p-2 lora-body " style="background-color: rgba(0, 0, 0, 0.05); font-size: 0.8rem;">
-                © 2025 Copyright:
-                <a class="text-reset fw-bold" href="https://mdbootstrap.com/">747 Group</a>
+            <div class="text-center p-3 lora-body" style="background-color: rgba(0, 0, 0, 0.05);">
+                © @DateTime.Now.Year Copyright:
+                <a class="text-reset fw-bold ripple" href="https://747hoa.com/" data-mdb-ripple-color="dark">747Homeowners.com</a>
             </div>
-            <!-- Copyright -->
         </footer>
     }
-    <!-- End Footer -->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- MDBootstrap JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"></script>
+    <!-- Bootstrap Bundle JS (Keep for components that might still rely on it, or remove if fully on MDB) -->
+    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
