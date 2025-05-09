@@ -29,9 +29,9 @@ namespace HomeownersAssociation.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.PendingApprovalsCount = await _context.Users.CountAsync(u => !u.IsApproved && u.UserType == UserType.Homeowner);
-            ViewBag.ActiveUsersCount = await _context.Users.CountAsync(u => u.IsApproved);
-            // Example: ViewBag.OpenRequestsCount = await _context.ServiceRequests.CountAsync(sr => sr.Status != "Closed");
-            // Example: ViewBag.RecentPaymentsCount = await _context.Payments.CountAsync(p => p.PaymentDate >= DateTime.Today.AddMonths(-1));
+            ViewBag.ActiveUsersCount = await _context.Users.CountAsync(u => u.IsApproved && u.IsActive);
+            ViewBag.OpenRequestsCount = await _context.ServiceRequests.CountAsync(sr => sr.Status != ServiceRequestStatus.Completed && sr.Status != ServiceRequestStatus.Cancelled);
+            ViewBag.RecentPaymentsCount = await _context.Payments.CountAsync(p => p.PaymentDate >= DateTime.Today.AddDays(-7));
             return View();
         }
 
@@ -317,6 +317,138 @@ namespace HomeownersAssociation.Controllers
             }
 
             return RedirectToAction(nameof(StaffMembers));
+        }
+
+        // API Endpoints for Dashboard Widgets
+        [HttpGet("Admin/Dashboard/CommunityGrowth")]
+        public async Task<JsonResult> GetCommunityGrowthData()
+        {
+            var twelveMonthsAgo = DateTime.Now.AddMonths(-12);
+            // Fetch raw data first
+            var userRegistrations = await _context.Users
+                .Where(u => u.RegistrationDate >= twelveMonthsAgo)
+                .Select(u => new { u.RegistrationDate })
+                .ToListAsync();
+
+            // Perform grouping and transformation in memory
+            var registrationsByMonth = userRegistrations
+                .GroupBy(u => new { Year = u.RegistrationDate.Year, Month = u.RegistrationDate.Month })
+                .Select(g => new {
+                    Label = new DateTime(g.Key.Year, g.Key.Month, 1),
+                    Count = g.Count()
+                })
+                .OrderBy(x => x.Label)
+                .ToList(); // Ensure it's a list for consistent processing below
+
+            // Ensure all months in the last 12 are present, even if count is 0
+            var labels = new List<string>();
+            var data = new List<int>();
+            for (int i = 11; i >= 0; i--) // Iterate from 11 months ago to current month
+            {
+                var targetMonth = DateTime.Now.AddMonths(-i);
+                var monthLabel = new DateTime(targetMonth.Year, targetMonth.Month, 1);
+                labels.Add(monthLabel.ToString("MMM yyyy"));
+                data.Add(registrationsByMonth.FirstOrDefault(r => r.Label.Year == monthLabel.Year && r.Label.Month == monthLabel.Month)?.Count ?? 0);
+            }
+
+            return Json(new { labels, data });
+        }
+
+        [HttpGet("Admin/Dashboard/BillStatusDistribution")]
+        public async Task<JsonResult> GetBillStatusDistributionData()
+        {
+            var billCounts = await _context.Bills
+                .GroupBy(b => b.Status)
+                .Select(g => new { Status = g.Key.ToString(), Count = g.Count() })
+                .ToListAsync();
+            
+            // Ensure all enum values are present, even if count is 0
+            var statuses = Enum.GetNames(typeof(BillStatus));
+            var labels = new List<string>();
+            var data = new List<int>();
+
+            foreach (var statusName in statuses)
+            {
+                labels.Add(statusName);
+                data.Add(billCounts.FirstOrDefault(bc => bc.Status == statusName)?.Count ?? 0);
+            }
+
+            return Json(new { labels, data });
+        }
+
+        [HttpGet("Admin/Dashboard/RecentAnnouncements")]
+        public async Task<JsonResult> GetRecentAnnouncementsSummary(int count = 3)
+        {
+            var announcements = await _context.Announcements
+                .OrderByDescending(a => a.DatePosted)
+                .Take(count)
+                .Select(a => new 
+                {
+                    a.Title,
+                    DatePosted = a.DatePosted.ToString("MMM dd, yyyy"),
+                    Snippet = a.Content.Length > 100 ? a.Content.Substring(0, 100) + "..." : a.Content,
+                    Url = Url.Action("Details", "Announcements", new { id = a.Id })
+                })
+                .ToListAsync();
+            return Json(announcements);
+        }
+
+        [HttpGet("Admin/Dashboard/LatestActivity")]
+        public async Task<JsonResult> GetLatestActivitySummary(int count = 3)
+        {
+            // For now, let's get users pending approval
+            var pendingUsers = await _context.Users
+                .Where(u => !u.IsApproved && u.UserType == UserType.Homeowner)
+                .OrderByDescending(u => u.RegistrationDate)
+                .Take(count)
+                .Select(u => new 
+                {
+                    Activity = $"New user pending approval: {u.FullName} ({u.Email})",
+                    Date = u.RegistrationDate.ToString("MMM dd, yyyy"),
+                    Url = Url.Action("PendingApprovals", "Admin")
+                })
+                .ToListAsync();
+            
+            // In a real scenario, you might want to combine different types of activities here
+            // For example, recent service requests, new documents, etc.
+
+            return Json(pendingUsers);
+        }
+
+        [HttpGet("Admin/Dashboard/PaymentAmounts")]
+        public async Task<JsonResult> GetPaymentAmountsData(int months = 6)
+        {
+            var startDate = DateTime.Now.AddMonths(-months + 1).Date;
+            startDate = new DateTime(startDate.Year, startDate.Month, 1);
+
+            // Fetch raw data first
+            var payments = await _context.Payments
+                .Where(p => p.PaymentDate >= startDate)
+                .Select(p => new { p.PaymentDate, p.AmountPaid })
+                .ToListAsync();
+
+            // Perform grouping and summing in memory
+            var paymentsByMonth = payments
+                .GroupBy(p => new { Year = p.PaymentDate.Year, Month = p.PaymentDate.Month })
+                .Select(g => new
+                {
+                    LabelDate = new DateTime(g.Key.Year, g.Key.Month, 1),
+                    TotalAmount = g.Sum(p => p.AmountPaid)
+                })
+                .OrderBy(x => x.LabelDate)
+                .ToList();
+
+            var resultLabels = new List<string>();
+            var resultData = new List<decimal>();
+            for (int i = 0; i < months; i++)
+            {
+                var currentDateLoop = DateTime.Now.AddMonths(-(months - 1) + i);
+                var monthLabel = new DateTime(currentDateLoop.Year, currentDateLoop.Month, 1);
+                resultLabels.Add(monthLabel.ToString("MMM yyyy"));
+                resultData.Add(paymentsByMonth.FirstOrDefault(pbm => pbm.LabelDate.Year == monthLabel.Year && pbm.LabelDate.Month == monthLabel.Month)?.TotalAmount ?? 0m);
+            }
+
+            return Json(new { labels = resultLabels, data = resultData });
         }
     }
 }

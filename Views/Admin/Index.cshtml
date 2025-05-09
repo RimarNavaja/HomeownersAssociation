@@ -15,115 +15,449 @@
             <div class="nav flex-column">
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">User Management</h6>
-                    <a asp-action="PendingApprovals" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-person-plus me-2"></i>Pending Approvals</a>
-                    <a asp-action="AllUsers" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-people me-2"></i>All Users</a>
+                    <a asp-action="PendingApprovals" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-user-clock me-2"></i>Pending Approvals</a>
+                    <a asp-action="AllUsers" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-users me-2"></i>All Users</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Announcements</h6>
-                    <a asp-controller="Announcements" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-megaphone me-2"></i>Manage Announcements</a>
-                    <a asp-controller="Announcements" asp-action="Create" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-plus-circle me-2"></i>Create Announcement</a>
+                    <a asp-controller="Announcements" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-bullhorn me-2"></i>Manage Announcements</a>
+                    <a asp-controller="Announcements" asp-action="Create" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-plus-circle me-2"></i>Create Announcement</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Staff</h6>
-                    <a asp-action="StaffMembers" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-person-badge me-2"></i>Manage Staff</a>
-                    <a asp-action="CreateStaff" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-person-plus-fill me-2"></i>Add Staff</a>
+                    <a asp-action="StaffMembers" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-user-tie me-2"></i>Manage Staff</a>
+                    <a asp-action="CreateStaff" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-user-plus me-2"></i>Add Staff</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Billing</h6>
-                    <a asp-controller="Billing" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-cash me-2"></i>Manage Billing</a>
-                    <a asp-controller="Billing" asp-action="Create" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-plus-circle me-2"></i>Create Bill</a>
-                    <a asp-controller="Billing" asp-action="Payments" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-credit-card me-2"></i>View Payments</a>
-                    <a asp-controller="Billing" asp-action="GenerateMonthlyBills" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-calendar-check me-2"></i>Generate Monthly Bills</a> 
+                    <a asp-controller="Billing" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-file-invoice-dollar me-2"></i>Manage Billing</a>
+                    <a asp-controller="Billing" asp-action="Create" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-plus-circle me-2"></i>Create Bill</a>
+                    <a asp-controller="Billing" asp-action="Payments" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-credit-card me-2"></i>View Payments</a>
+                    <a asp-controller="Billing" asp-action="GenerateMonthlyBills" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-calendar-alt me-2"></i>Generate Monthly Bills</a> 
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Facilities & Reservations</h6>
-                    <a asp-controller="Facilities" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-building me-2"></i>Manage Facilities</a>
-                    <a asp-controller="Reservations" asp-action="Manage" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-calendar-check me-2"></i>Manage Reservations</a>
+                    <a asp-controller="Facilities" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-building me-2"></i>Manage Facilities</a>
+                    <a asp-controller="Reservations" asp-action="Manage" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-calendar-check me-2"></i>Manage Reservations</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Service Requests</h6>
-                    <a asp-controller="ServiceRequests" asp-action="Manage" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-tools me-2"></i>Manage Requests</a>
-                    <a asp-controller="ServiceCategories" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-tags me-2"></i>Manage Categories</a>
+                    <a asp-controller="ServiceRequests" asp-action="Manage" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-tools me-2"></i>Manage Requests</a>
+                    <a asp-controller="ServiceCategories" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-tags me-2"></i>Manage Categories</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Document Management</h6>
-                    <a asp-controller="Documents" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-folder me-2"></i>Manage Documents</a>
-                    <a asp-controller="Documents" asp-action="Upload" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-upload me-2"></i>Upload Document</a>
+                    <a asp-controller="Documents" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-folder me-2"></i>Manage Documents</a>
+                    <a asp-controller="Documents" asp-action="Upload" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-upload me-2"></i>Upload Document</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Reports</h6>
-                    <a href="#" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-file-text me-2"></i>View Reports</a>
+                    <a href="#" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="fas fa-chart-pie me-2"></i>View Reports</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Main Content -->
-    <div class="flex-grow-1 p-4">
-        <h1 class="mb-4 oswald-heading">@ViewData["Title"]</h1>
-        <div class="row">
-            <!-- Quick Stats Cards -->
-            <div class="col-md-3 mb-4">
-                <div class="card bg-primary text-white hover-shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Pending Approvals</h5>
-                        <h2 class="mb-0">@ViewBag.PendingApprovalsCount</h2>
+    <div class="flex-grow-1 p-4 bg-light lora-body">
+        <!-- Header Row -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-6">
+                <h1 class="oswald-heading display-5">@ViewData["Title"]</h1>
+                <p class="text-muted oswald-subheading">Key metrics and overview of your community.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent p-0 justify-content-md-end">
+                        <li class="breadcrumb-item oswald-subheading"><a asp-controller="Admin" asp-action="Index"><i class="fas fa-home"></i> Admin</a></li>
+                        <li class="breadcrumb-item active oswald-subheading" aria-current="page">Dashboard</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Quick Stats Cards - Row 1 -->
+        <div class="row gx-4 gy-4 mb-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="card rounded-6 shadow-3-strong hover-lift h-100">
+                    <div class="card-body text-center">
+                        <div class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle shadow-1-strong mx-auto mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-user-clock fa-2x"></i>
+                        </div>
+                        <h5 class="card-title oswald-heading text-primary mb-1">Pending Approvals</h5>
+                        <h2 class="mb-0 display-5 fw-bold">@ViewBag.PendingApprovalsCount</h2>
+                        <a asp-action="PendingApprovals" class="btn btn-link btn-sm text-primary p-0 mt-2">View Details <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-4">
-                <div class="card bg-success text-white hover-shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Active Users</h5>
-                        <h2 class="mb-0">@ViewBag.ActiveUsersCount</h2>
+            <div class="col-xl-3 col-md-6">
+                <div class="card rounded-6 shadow-3-strong hover-lift h-100">
+                    <div class="card-body text-center">
+                        <div class="d-flex align-items-center justify-content-center bg-success text-white rounded-circle shadow-1-strong mx-auto mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <h5 class="card-title oswald-heading text-success mb-1">Active Users</h5>
+                        <h2 class="mb-0 display-5 fw-bold">@ViewBag.ActiveUsersCount</h2>
+                         <a asp-action="AllUsers" class="btn btn-link btn-sm text-success p-0 mt-2">View Details <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-4">
-                <div class="card bg-warning text-dark hover-shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Open Requests</h5>
-                        <h2 class="mb-0">@ViewBag.OpenRequestsCount</h2>
+            <div class="col-xl-3 col-md-6">
+                <div class="card rounded-6 shadow-3-strong hover-lift h-100">
+                    <div class="card-body text-center">
+                        <div class="d-flex align-items-center justify-content-center bg-warning text-white rounded-circle shadow-1-strong mx-auto mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-concierge-bell fa-2x"></i>
+                        </div>
+                        <h5 class="card-title oswald-heading text-warning mb-1">Open Requests</h5>
+                        <h2 class="mb-0 display-5 fw-bold">@ViewBag.OpenRequestsCount</h2>
+                        <a asp-controller="ServiceRequests" asp-action="Manage" class="btn btn-link btn-sm text-warning p-0 mt-2">View Details <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-4">
-                <div class="card bg-info text-white hover-shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Recent Payments</h5>
-                        <h2 class="mb-0">@ViewBag.RecentPaymentsCount</h2>
+            <div class="col-xl-3 col-md-6">
+                <div class="card rounded-6 shadow-3-strong hover-lift h-100">
+                    <div class="card-body text-center">
+                        <div class="d-flex align-items-center justify-content-center bg-info text-white rounded-circle shadow-1-strong mx-auto mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-receipt fa-2x"></i>
+                        </div>
+                        <h5 class="card-title oswald-heading text-info mb-1">Recent Payments (Last 7 Days)</h5>
+                        <h2 class="mb-0 display-5 fw-bold">@ViewBag.RecentPaymentsCount</h2>
+                        <a asp-controller="Billing" asp-action="Payments" class="btn btn-link btn-sm text-info p-0 mt-2">View Details <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Main Chart Row -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card rounded-6 shadow-2-strong">
+                    <div class="card-header bg-dark text-white oswald-heading">
+                        <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Community Growth Analytics</h5>
+                    </div>
+                    <div class="card-body" style="min-height: 300px;">
+                        <p class="text-center text-muted p-5">Main chart will be displayed here.</p>
+                        <!-- Canvas for Chart.js will go here -->
+                         <canvas id="mainDashboardChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lower Widgets Row -->
+        <div class="row gx-4 gy-4">
+            <div class="col-lg-6 mb-4">
+                <div class="card rounded-6 shadow-2-strong h-100">
+                    <div class="card-header bg-dark text-white oswald-heading">
+                        <h5 class="mb-0"><i class="fas fa-newspaper me-2"></i>Recent Announcements</h5>
+                    </div>
+                    <div class="card-body" style="min-height: 250px; max-height: 400px; overflow-y: auto;">
+                        <!-- Placeholder for announcements list -->
+                        <ul class="list-group list-group-flush" id="recentAnnouncementsList">
+                            <li class="list-group-item text-muted">Loading...</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card rounded-6 shadow-2-strong h-100">
+                    <div class="card-header bg-dark text-white oswald-heading">
+                        <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Latest Activity</h5>
+                    </div>
+                    <div class="card-body" style="min-height: 250px; max-height: 400px; overflow-y: auto;">
+                        <!-- Placeholder for activity list -->
+                        <ul class="list-group list-group-flush" id="latestActivityList">
+                            <li class="list-group-item text-muted">Loading...</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card rounded-6 shadow-2-strong h-100">
+                    <div class="card-header bg-dark text-white oswald-heading">
+                        <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Bill Status Distribution</h5>
+                    </div>
+                    <div class="card-body" style="min-height: 250px;">
+                        <canvas id="billStatusDistributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card rounded-6 shadow-2-strong h-100">
+                    <div class="card-header bg-dark text-white oswald-heading">
+                        <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Payment Amounts</h5>
+                    </div>
+                    <div class="card-body" style="min-height: 250px;">
+                         <p class="text-center text-muted p-5">Payment amounts chart will be displayed here.</p>
+                        <canvas id="paymentAmountsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<style>
-    .sidebar .nav-link:hover {
-        background-color: rgba(255,255,255,0.1);
-    }
-    .sidebar-heading {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1rem;
-    }
-    .nav-link {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-    }
-    .hover-shadow {
-        transition: all 0.3s ease;
-    }
-    .hover-shadow:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    }
-</style>
+@section Styles {
+    <style>
+        .sidebar .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: .25rem;
+        }
+        .sidebar-heading {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.075rem;
+            font-weight: 500;
+        }
+        .nav-link {
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
+        }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.175) !important; /* MDB uses !important so we might need it too */
+        }
+        .breadcrumb-item a {
+            color: #007bff; /* Standard link blue for breadcrumbs */
+        }
+        .breadcrumb-item.active {
+            color: #6c757d; /* Muted color for active breadcrumb */
+        }
+        .card-header .fas {
+            font-size: 1.1rem;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Sidebar toggle (if you want to make it collapsible on small screens)
+            // const sidebar = document.getElementById('sidebar');
+            // const sidebarToggle = document.getElementById('sidebarToggle');
+            // if (sidebarToggle) {
+            //     sidebarToggle.addEventListener('click', () => {
+            //         sidebar.classList.toggle('d-none');
+            //     });
+            // }
+
+            // --- Community Growth Chart (Line Chart) ---
+            const ctxMain = document.getElementById('mainDashboardChart')?.getContext('2d');
+            if (ctxMain) {
+                fetch('/Admin/Dashboard/CommunityGrowth')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.labels && data.labels.length > 0) {
+                            document.querySelector('#mainDashboardChart').parentElement.querySelector('p.text-center.text-muted')?.remove(); // Remove placeholder text
+                            new Chart(ctxMain, {
+                                type: 'line',
+                                data: {
+                                    labels: data.labels,
+                                    datasets: [{
+                                        label: 'New User Registrations',
+                                        data: data.data,
+                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                        fill: true,
+                                        tension: 0.4
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            ticks: { stepSize: 1 } // Ensure y-axis shows whole numbers for counts
+                                        }
+                                    }
+                                }
+                            });
+                        } else {
+                           document.querySelector('#mainDashboardChart').parentElement.querySelector('p.text-center.text-muted').textContent = 'No community growth data to display yet.';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching community growth data:', error);
+                        document.querySelector('#mainDashboardChart').parentElement.querySelector('p.text-center.text-muted').textContent = 'Error loading chart data.';
+                    });
+            }
+
+            // --- Bill Status Distribution Chart (Doughnut Chart) ---
+            const ctxBillStatus = document.getElementById('billStatusDistributionChart')?.getContext('2d');
+            const billStatusCardBody = document.getElementById('billStatusDistributionChart')?.parentElement;
+
+            if (ctxBillStatus && billStatusCardBody) {
+                fetch('/Admin/Dashboard/BillStatusDistribution')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.labels && data.labels.length > 0 && data.data.some(d => d > 0)) {
+                            new Chart(ctxBillStatus, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: data.labels,
+                                    datasets: [{
+                                        label: 'Bill Statuses',
+                                        data: data.data,
+                                        backgroundColor: [
+                                            'rgba(75, 192, 192, 0.8)', // Paid (Teal)
+                                            'rgba(255, 159, 64, 0.8)', // Unpaid (Orange)
+                                            'rgba(255, 99, 132, 0.8)',  // Overdue (Red)
+                                            'rgba(54, 162, 235, 0.8)',  // PartiallyPaid (Blue)
+                                            'rgba(201, 203, 207, 0.8)'  // Other statuses if any
+                                        ],
+                                        hoverOffset: 4
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    plugins: {
+                                        legend: {
+                                            position: 'top',
+                                        }
+                                    }
+                                }
+                            });
+                        } else {
+                            billStatusCardBody.innerHTML = '<p class="text-center text-muted p-3">No bill status data to display yet.</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching bill status data:', error);
+                        billStatusCardBody.innerHTML = '<p class="text-center text-muted p-3">Error loading bill status chart.</p>';
+                    });
+            }
+
+            // --- Recent Announcements List ---
+            const announcementsList = document.getElementById('recentAnnouncementsList');
+            const announcementsCardBody = announcementsList?.parentElement;
+            if (announcementsList && announcementsCardBody) {
+                fetch('/Admin/Dashboard/RecentAnnouncements?count=3')
+                    .then(response => response.json())
+                    .then(data => {
+                        announcementsCardBody.querySelector('p.text-center.text-muted')?.remove();
+                        announcementsList.innerHTML = ''; // Clear loading/placeholder
+                        if (data && data.length > 0) {
+                            data.forEach(item => {
+                                const listItem = document.createElement('li');
+                                listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'lora-body');
+                                listItem.innerHTML = `
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold oswald-subheading">${item.title}</div>
+                                        <small class="text-muted">${item.datePosted}</small>
+                                        <p class="mb-1 small">${item.snippet}</p>
+                                    </div>
+                                    <a href="${item.url}" class="btn btn-sm btn-outline-primary ripple" data-mdb-ripple-color="primary"><i class="fas fa-eye me-1"></i>View</a>
+                                `;
+                                announcementsList.appendChild(listItem);
+                            });
+                        } else {
+                            announcementsList.innerHTML = '<li class="list-group-item text-muted">No recent announcements.</li>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching recent announcements:', error);
+                        announcementsList.innerHTML = '<li class="list-group-item text-danger">Error loading announcements.</li>';
+                    });
+            }
+
+            // --- Latest Activity List (Users Pending Approval) ---
+            const latestActivityListElement = document.getElementById('latestActivityList');
+            const latestActivityCardBody = latestActivityListElement?.parentElement;
+ 
+            if (latestActivityListElement && latestActivityCardBody) {
+                 fetch('/Admin/Dashboard/LatestActivity?count=3')
+                    .then(response => response.json())
+                    .then(data => {
+                        latestActivityCardBody.querySelector('p.text-center.text-muted')?.remove();
+                        latestActivityListElement.innerHTML = ''; // Clear loading/placeholder
+                        if (data && data.length > 0) {
+                            data.forEach(item => {
+                                const listItem = document.createElement('li');
+                                listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'lora-body');
+                                listItem.innerHTML = `
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold oswald-subheading">${item.activity}</div>
+                                        <small class="text-muted">Registered: ${item.date}</small>
+                                    </div>
+                                    <a href="${item.url}" class="btn btn-sm btn-outline-secondary ripple" data-mdb-ripple-color="dark"><i class="fas fa-user-edit me-1"></i>Review</a>
+                                `;
+                                latestActivityListElement.appendChild(listItem);
+                            });
+                        } else {
+                            latestActivityListElement.innerHTML = '<li class="list-group-item text-muted">No new pending user approvals.</li>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching latest activity:', error);
+                        latestActivityListElement.innerHTML = '<li class="list-group-item text-danger">Error loading activity.</li>';
+                    });
+            }
+
+            // --- Payment Amounts Chart (Bar Chart) ---
+            const ctxPaymentAmounts = document.getElementById('paymentAmountsChart')?.getContext('2d');
+            const paymentAmountsCardBody = document.getElementById('paymentAmountsChart')?.parentElement;
+            if (ctxPaymentAmounts && paymentAmountsCardBody) {
+                fetch('/Admin/Dashboard/PaymentAmounts?months=6') // Fetch for last 6 months
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.labels && data.labels.length > 0) {
+                            paymentAmountsCardBody.querySelector('p.text-center.text-muted')?.remove(); // Remove placeholder
+                            new Chart(ctxPaymentAmounts, {
+                                type: 'bar',
+                                data: {
+                                    labels: data.labels,
+                                    datasets: [{
+                                        label: 'Total Payments Received',
+                                        data: data.data,
+                                        backgroundColor: 'rgba(54, 162, 235, 0.7)', // MDB Blue
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            ticks: {
+                                                // Optional: Format as currency
+                                                callback: function(value, index, values) {
+                                                    return '₱' + value.toLocaleString();
+                                                }
+                                            }
+                                        }
+                                    },
+                                    plugins: {
+                                        legend: {
+                                            display: false // Can hide legend for a single dataset
+                                        }
+                                    }
+                                }
+                            });
+                        } else {
+                            paymentAmountsCardBody.innerHTML = '<p class="text-center text-muted p-3">No payment data available for the selected period.</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching payment amounts data:', error);
+                        paymentAmountsCardBody.innerHTML = '<p class="text-center text-muted p-3">Error loading payment amounts chart.</p>';
+                    });
+            }
+
+        });
+    </script>
+}
