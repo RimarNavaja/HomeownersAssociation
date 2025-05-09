@@ -36,6 +36,10 @@ namespace HomeownersAssociation.Controllers
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return Challenge();
+            }
             
             // For regular users, show only their own feedback
             if (!User.IsInRole("Admin") && !User.IsInRole("Staff"))
@@ -79,6 +83,10 @@ namespace HomeownersAssociation.Controllers
             }
 
             var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return Challenge();
+            }
             
             // Check if the current user is authorized to view this feedback
             if (!User.IsInRole("Admin") && !User.IsInRole("Staff") && feedback.SubmittedById != currentUser.Id && !feedback.IsPublic)
@@ -296,6 +304,19 @@ namespace HomeownersAssociation.Controllers
                     if (!string.IsNullOrEmpty(model.Response))
                     {
                         var currentUser = await _userManager.GetUserAsync(User);
+                        if (currentUser == null)
+                        {
+                            ModelState.AddModelError("", "Unable to identify the current user to record response.");
+                            ViewData["FeedbackTypes"] = new List<string> { "Complaint", "Feedback", "Suggestion", "Appreciation" };
+                            ViewData["Statuses"] = new List<string> { "New", "InProgress", "Resolved", "Closed" };
+                            ViewData["Priorities"] = new List<SelectListItem>
+                            {
+                                new SelectListItem { Value = "1", Text = "Low" },
+                                new SelectListItem { Value = "2", Text = "Medium" },
+                                new SelectListItem { Value = "3", Text = "High" }
+                            };
+                            return View(model);
+                        }
                         
                         feedback.Response = model.Response;
                         feedback.RespondedById = currentUser.Id;
@@ -308,7 +329,8 @@ namespace HomeownersAssociation.Controllers
                         // Delete the old file if it exists
                         if (!string.IsNullOrEmpty(feedback.AttachmentUrl))
                         {
-                            string oldFilePath = Path.Combine(_hostEnvironment.WebRootPath, feedback.AttachmentUrl.TrimStart('/'));
+                            // Ensure AttachmentUrl is not null before using TrimStart
+                            string oldFilePath = Path.Combine(_hostEnvironment.WebRootPath, feedback.AttachmentUrl!.TrimStart('/')); 
                             if (System.IO.File.Exists(oldFilePath))
                             {
                                 System.IO.File.Delete(oldFilePath);

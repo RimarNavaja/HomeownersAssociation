@@ -79,9 +79,19 @@ namespace HomeownersAssociation.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = _userManager.GetUserId(User);
+                if (userId == null)
+                {
+                    // This should not happen if [Authorize] is effective
+                    ModelState.AddModelError("", "Unable to identify the current user.");
+                    viewModel.AvailableCategories = await GetCategorySelectList();
+                    viewModel.AvailablePriorities = GetPrioritySelectList();
+                    return View(viewModel);
+                }
+
                 var serviceRequest = new ServiceRequest
                 {
-                    UserId = _userManager.GetUserId(User),
+                    UserId = userId,
                     CategoryId = viewModel.CategoryId,
                     Title = viewModel.Title,
                     Description = viewModel.Description,

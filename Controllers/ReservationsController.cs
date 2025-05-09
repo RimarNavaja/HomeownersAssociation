@@ -147,10 +147,28 @@ namespace HomeownersAssociation.Controllers
                 var startDateTime = viewModel.ReservationDate.Date + viewModel.StartTime;
                 var endDateTime = viewModel.ReservationDate.Date + viewModel.EndTime;
 
+                var userId = _userManager.GetUserId(User);
+                if (userId == null)
+                {
+                    // This should not happen if [Authorize] is effective
+                    ModelState.AddModelError("", "Unable to identify the current user.");
+                    // Reload facility name and existing reservations for the view
+                    var facilityForReload = await _context.Facilities.FindAsync(viewModel.FacilityId);
+                    viewModel.FacilityName = facilityForReload?.Name;
+                    viewModel.ExistingReservations = await _context.FacilityReservations
+                         .Where(r => r.FacilityId == viewModel.FacilityId && 
+                                      r.StartTime >= DateTime.Today && 
+                                      r.Status != ReservationStatus.Cancelled && 
+                                      r.Status != ReservationStatus.Rejected)
+                         .OrderBy(r => r.StartTime)
+                         .ToListAsync();
+                    return View(viewModel);
+                }
+
                 var reservation = new FacilityReservation
                 {
                     FacilityId = viewModel.FacilityId,
-                    UserId = _userManager.GetUserId(User),
+                    UserId = userId, // Now assigned from a checked userId
                     // Assign combined DateTime values
                     StartTime = startDateTime,
                     EndTime = endDateTime, 

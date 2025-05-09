@@ -13,6 +13,8 @@ namespace HomeownersAssociation.Models
         public bool IsApproved { get; set; } = false;
         public string? ProfilePictureUrl { get; set; }
         public UserType UserType { get; set; } = UserType.Homeowner;
+        public string Role { get; set; } = string.Empty;
+        public bool IsActive { get; set; } = true;
     }
 
     public enum UserType

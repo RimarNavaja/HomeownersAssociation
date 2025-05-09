@@ -8,12 +8,12 @@ namespace HomeownersAssociation.Models
 
         [Required]
         [StringLength(100)]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [Required]
         [StringLength(50)]
         [Display(Name = "Category / Department")]
-        public string Category { get; set; } // e.g., "Security", "Administration", "Maintenance", "Emergency"
+        public string Category { get; set; } = string.Empty; // e.g., "Security", "Administration", "Maintenance", "Emergency"
 
         [StringLength(50)]
         [Display(Name = "Phone Number")]

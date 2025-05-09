@@ -16,10 +16,10 @@ namespace HomeownersAssociation.Models.ViewModels
 
         [Required(ErrorMessage = "Title is required")]
         [StringLength(100, ErrorMessage = "Title cannot exceed 100 characters")]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Description is required")]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Start date and time is required")]
         [Display(Name = "Start Date & Time")]
@@ -31,11 +31,11 @@ namespace HomeownersAssociation.Models.ViewModels
 
         [Required(ErrorMessage = "Location is required")]
         [StringLength(50, ErrorMessage = "Location cannot exceed 50 characters")]
-        public string Location { get; set; }
+        public string Location { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Event type is required")]
         [Display(Name = "Event Type")]
-        public string EventType { get; set; }
+        public string EventType { get; set; } = string.Empty;
 
         [Display(Name = "All Day Event")]
         public bool IsAllDay { get; set; }
@@ -46,7 +46,7 @@ namespace HomeownersAssociation.Models.ViewModels
         [Display(Name = "Color")]
         [StringLength(7, ErrorMessage = "Color must be a valid hex code")]
         [RegularExpression("^#([A-Fa-f0-9]{6})$", ErrorMessage = "Must be a valid hex color code (e.g. #FF5733)")]
-        public string Color { get; set; }
+        public string Color { get; set; } = "#007bff";
 
         public string CreatedById { get; set; }
         

@@ -15,15 +15,15 @@ namespace HomeownersAssociation.Models.ViewModels
 
         [Required(ErrorMessage = "Title is required")]
         [StringLength(100, ErrorMessage = "Title cannot exceed 100 characters")]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Description is required")]
         [Display(Name = "Description/Details")]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Type is required")]
         [Display(Name = "Type")]
-        public string Type { get; set; } // Feedback, Complaint, Suggestion, Appreciation
+        public string Type { get; set; } = string.Empty; // Feedback, Complaint, Suggestion, Appreciation
 
         [Display(Name = "Status")]
         public string? Status { get; set; } // New, InProgress, Resolved, Closed

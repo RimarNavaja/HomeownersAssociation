@@ -5,7 +5,7 @@ namespace HomeownersAssociation.Models.ViewModels
     public class PollResultsViewModel
     {
         public int PollId { get; set; }
-        public string PollTitle { get; set; }
+        public string PollTitle { get; set; } = string.Empty;
         public string? PollDescription { get; set; }
         public int TotalVotes { get; set; }
         public List<PollOptionResultViewModel> OptionsWithVotes { get; set; }
@@ -24,7 +24,7 @@ namespace HomeownersAssociation.Models.ViewModels
     public class PollOptionResultViewModel
     {
         public int OptionId { get; set; }
-        public string OptionText { get; set; }
+        public string OptionText { get; set; } = string.Empty;
         public int VoteCount { get; set; }
         public double VotePercentage { get; set; }
     }

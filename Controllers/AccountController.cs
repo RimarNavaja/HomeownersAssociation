@@ -38,7 +38,7 @@ namespace HomeownersAssociation.Controllers
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Email = user.Email,
+                Email = user.Email ?? string.Empty,
                 Address = user.Address,
                 LotNumber = user.LotNumber,
                 BlockNumber = user.BlockNumber,

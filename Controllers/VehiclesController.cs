@@ -42,8 +42,8 @@ namespace HomeownersAssociation.Controllers
         {
             var vehicles = await _context.Vehicles
                 .Include(v => v.Owner)
-                .OrderBy(v => v.Owner.LastName)
-                .ThenBy(v => v.Owner.FirstName)
+                .OrderBy(v => v.Owner == null ? string.Empty : v.Owner.LastName)
+                .ThenBy(v => v.Owner == null ? string.Empty : v.Owner.FirstName)
                 .ToListAsync();
             
             return View(vehicles);
@@ -80,7 +80,7 @@ namespace HomeownersAssociation.Controllers
         {
             var viewModel = new VehicleViewModel
             {
-                OwnerId = _userManager.GetUserId(User),
+                OwnerId = _userManager.GetUserId(User) ?? string.Empty,
                 VehicleTypes = GetVehicleTypesList()
             };
             

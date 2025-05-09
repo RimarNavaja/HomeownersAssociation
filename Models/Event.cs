@@ -10,10 +10,10 @@ namespace HomeownersAssociation.Models
 
         [Required]
         [StringLength(100)]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         [Required]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Required]
         [Display(Name = "Start Date & Time")]
@@ -25,22 +25,22 @@ namespace HomeownersAssociation.Models
 
         [Required]
         [StringLength(50)]
-        public string Location { get; set; }
+        public string Location { get; set; } = string.Empty;
 
         [StringLength(20)]
-        public string EventType { get; set; } // Community, Maintenance, Meeting, etc.
+        public string EventType { get; set; } = string.Empty; // Community, Maintenance, Meeting, etc.
 
         public bool IsActive { get; set; } = true;
 
         public bool IsAllDay { get; set; }
 
         [StringLength(7)]
-        public string Color { get; set; } // Hex color code for calendar display
+        public string Color { get; set; } = "#007bff"; // Hex color code for calendar display
 
         [ForeignKey("CreatedBy")]
-        public string CreatedById { get; set; }
+        public string CreatedById { get; set; } = string.Empty;
         
-        public virtual ApplicationUser CreatedBy { get; set; }
+        public virtual ApplicationUser CreatedBy { get; set; } = null!;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }

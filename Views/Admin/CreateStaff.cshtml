@@ -7,73 +7,82 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow">
+            <div class="card shadow-2-strong rounded-6">
                 <div class="card-header bg-dark text-white oswald-heading">
                     <h5 class="mb-0">@ViewData["Title"]</h5>
                 </div>
                 <div class="card-body lora-body">
-                    <div class="mb-3">
-                        <a asp-action="StaffMembers" class="btn btn-secondary">
-                            <i class="bi bi-arrow-left"></i> Back to Staff List
+                    <div class="mb-4">
+                        <a asp-action="StaffMembers" class="btn btn-secondary ripple" data-mdb-ripple-color="dark">
+                            <i class="bi bi-arrow-left me-2"></i> Back to Staff List
                         </a>
                     </div>
 
                     <form asp-action="CreateStaff" enctype="multipart/form-data">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
 
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="FirstName" class="form-label"></label>
-                                <input asp-for="FirstName" class="form-control" />
-                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            <div class="col-md-6">
+                                <div class="form-outline mb-4">
+                                    <input asp-for="FirstName" class="form-control border" />
+                                    <label asp-for="FirstName" class="form-label"></label>
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="LastName" class="form-label"></label>
-                                <input asp-for="LastName" class="form-control" />
-                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            <div class="col-md-6">
+                                <div class="form-outline mb-4">
+                                    <input asp-for="LastName" class="form-control border" />
+                                    <label asp-for="LastName" class="form-label"></label>
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="form-outline mb-4">
+                            <input asp-for="Email" class="form-control border" />
                             <label asp-for="Email" class="form-label"></label>
-                            <input asp-for="Email" class="form-control" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="Password" class="form-label"></label>
-                                <input asp-for="Password" class="form-control" />
-                                <span asp-validation-for="Password" class="text-danger"></span>
+                            <div class="col-md-6">
+                                <div class="form-outline mb-4">
+                                    <input asp-for="Password" class="form-control border" />
+                                    <label asp-for="Password" class="form-label"></label>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="ConfirmPassword" class="form-label"></label>
-                                <input asp-for="ConfirmPassword" class="form-control" />
-                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            <div class="col-md-6">
+                                <div class="form-outline mb-4">
+                                    <input asp-for="ConfirmPassword" class="form-control border" />
+                                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="form-outline mb-4">
+                            <input asp-for="Address" class="form-control border" />
                             <label asp-for="Address" class="form-label"></label>
-                            <input asp-for="Address" class="form-control" />
                             <span asp-validation-for="Address" class="text-danger"></span>
                         </div>
 
                         <div class="mb-4">
                             <label asp-for="ProfilePicture" class="form-label"></label>
-                            <input asp-for="ProfilePicture" class="form-control" type="file" accept="image/*" />
+                            <input asp-for="ProfilePicture" class="form-control border" type="file" accept="image/*" />
                             <span asp-validation-for="ProfilePicture" class="text-danger"></span>
                             <div class="form-text">Upload a profile picture (optional)</div>
                         </div>
 
-                        <div class="alert alert-info mb-4">
+                        <div class="alert alert-info alert-dismissible fade show mb-4" role="alert">
                             <i class="bi bi-info-circle me-2"></i>
                             Staff members will have access to specific system features based on their role.
+                            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button type="submit" class="btn btn-dark">
-                                <i class="bi bi-person-plus"></i> Create Staff Account
+                            <button type="submit" class="btn btn-dark ripple" data-mdb-ripple-color="light">
+                                <i class="bi bi-person-plus me-2"></i> Create Staff Account
                             </button>
                         </div>
                     </form>
