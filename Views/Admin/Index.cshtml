@@ -4,7 +4,7 @@
 
 <div class="d-flex">
     <!-- Sidebar Toggle Button -->
-    <button class="btn btn-dark d-md-none" id="sidebarToggle" type="button">
+    <button class="btn btn-dark d-md-none ripple" id="sidebarToggle" type="button" data-mdb-ripple-color="light">
         <i class="bi bi-list"></i>
     </button>
 
@@ -15,51 +15,51 @@
             <div class="nav flex-column">
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">User Management</h6>
-                    <a asp-action="PendingApprovals" class="nav-link text-white"><i class="bi bi-person-plus me-2"></i>Pending Approvals</a>
-                    <a asp-action="AllUsers" class="nav-link text-white"><i class="bi bi-people me-2"></i>All Users</a>
+                    <a asp-action="PendingApprovals" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-person-plus me-2"></i>Pending Approvals</a>
+                    <a asp-action="AllUsers" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-people me-2"></i>All Users</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Announcements</h6>
-                    <a asp-controller="Announcements" asp-action="Index" class="nav-link text-white"><i class="bi bi-megaphone me-2"></i>Manage Announcements</a>
-                    <a asp-controller="Announcements" asp-action="Create" class="nav-link text-white"><i class="bi bi-plus-circle me-2"></i>Create Announcement</a>
+                    <a asp-controller="Announcements" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-megaphone me-2"></i>Manage Announcements</a>
+                    <a asp-controller="Announcements" asp-action="Create" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-plus-circle me-2"></i>Create Announcement</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Staff</h6>
-                    <a asp-action="StaffMembers" class="nav-link text-white"><i class="bi bi-person-badge me-2"></i>Manage Staff</a>
-                    <a asp-action="CreateStaff" class="nav-link text-white"><i class="bi bi-person-plus-fill me-2"></i>Add Staff</a>
+                    <a asp-action="StaffMembers" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-person-badge me-2"></i>Manage Staff</a>
+                    <a asp-action="CreateStaff" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-person-plus-fill me-2"></i>Add Staff</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Billing</h6>
-                    <a asp-controller="Billing" asp-action="Index" class="nav-link text-white"><i class="bi bi-cash me-2"></i>Manage Billing</a>
-                    <a asp-controller="Billing" asp-action="Create" class="nav-link text-white"><i class="bi bi-plus-circle me-2"></i>Create Bill</a>
-                    <a asp-controller="Billing" asp-action="Payments" class="nav-link text-white"><i class="bi bi-credit-card me-2"></i>View Payments</a>
-                    <a asp-controller="Billing" asp-action="GenerateMonthlyBills" class="nav-link text-white"><i class="bi bi-calendar-check me-2"></i>Generate Monthly Bills</a> 
+                    <a asp-controller="Billing" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-cash me-2"></i>Manage Billing</a>
+                    <a asp-controller="Billing" asp-action="Create" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-plus-circle me-2"></i>Create Bill</a>
+                    <a asp-controller="Billing" asp-action="Payments" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-credit-card me-2"></i>View Payments</a>
+                    <a asp-controller="Billing" asp-action="GenerateMonthlyBills" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-calendar-check me-2"></i>Generate Monthly Bills</a> 
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Facilities & Reservations</h6>
-                    <a asp-controller="Facilities" asp-action="Index" class="nav-link text-white"><i class="bi bi-building me-2"></i>Manage Facilities</a>
-                    <a asp-controller="Reservations" asp-action="Manage" class="nav-link text-white"><i class="bi bi-calendar-check me-2"></i>Manage Reservations</a>
+                    <a asp-controller="Facilities" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-building me-2"></i>Manage Facilities</a>
+                    <a asp-controller="Reservations" asp-action="Manage" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-calendar-check me-2"></i>Manage Reservations</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Service Requests</h6>
-                    <a asp-controller="ServiceRequests" asp-action="Manage" class="nav-link text-white"><i class="bi bi-tools me-2"></i>Manage Requests</a>
-                    <a asp-controller="ServiceCategories" asp-action="Index" class="nav-link text-white"><i class="bi bi-tags me-2"></i>Manage Categories</a>
+                    <a asp-controller="ServiceRequests" asp-action="Manage" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-tools me-2"></i>Manage Requests</a>
+                    <a asp-controller="ServiceCategories" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-tags me-2"></i>Manage Categories</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Document Management</h6>
-                    <a asp-controller="Documents" asp-action="Index" class="nav-link text-white"><i class="bi bi-folder me-2"></i>Manage Documents</a>
-                    <a asp-controller="Documents" asp-action="Upload" class="nav-link text-white"><i class="bi bi-upload me-2"></i>Upload Document</a>
+                    <a asp-controller="Documents" asp-action="Index" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-folder me-2"></i>Manage Documents</a>
+                    <a asp-controller="Documents" asp-action="Upload" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-upload me-2"></i>Upload Document</a>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="sidebar-heading text-muted px-2 oswald-heading">Reports</h6>
-                    <a href="#" class="nav-link text-white"><i class="bi bi-file-text me-2"></i>View Reports</a>
+                    <a href="#" class="nav-link text-white ripple" data-mdb-ripple-color="light"><i class="bi bi-file-text me-2"></i>View Reports</a>
                 </div>
             </div>
         </div>
@@ -67,11 +67,11 @@
 
     <!-- Main Content -->
     <div class="flex-grow-1 p-4">
-        <h1 class="mb-4">@ViewData["Title"]</h1>
+        <h1 class="mb-4 oswald-heading">@ViewData["Title"]</h1>
         <div class="row">
             <!-- Quick Stats Cards -->
             <div class="col-md-3 mb-4">
-                <div class="card bg-primary text-white">
+                <div class="card bg-primary text-white hover-shadow">
                     <div class="card-body">
                         <h5 class="card-title">Pending Approvals</h5>
                         <h2 class="mb-0">@ViewBag.PendingApprovalsCount</h2>
@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="col-md-3 mb-4">
-                <div class="card bg-success text-white">
+                <div class="card bg-success text-white hover-shadow">
                     <div class="card-body">
                         <h5 class="card-title">Active Users</h5>
                         <h2 class="mb-0">@ViewBag.ActiveUsersCount</h2>
@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div class="col-md-3 mb-4">
-                <div class="card bg-warning text-dark">
+                <div class="card bg-warning text-dark hover-shadow">
                     <div class="card-body">
                         <h5 class="card-title">Open Requests</h5>
                         <h2 class="mb-0">@ViewBag.OpenRequestsCount</h2>
@@ -95,7 +95,7 @@
                 </div>
             </div>
             <div class="col-md-3 mb-4">
-                <div class="card bg-info text-white">
+                <div class="card bg-info text-white hover-shadow">
                     <div class="card-body">
                         <h5 class="card-title">Recent Payments</h5>
                         <h2 class="mb-0">@ViewBag.RecentPaymentsCount</h2>
@@ -118,5 +118,12 @@
     .nav-link {
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
+    }
+    .hover-shadow {
+        transition: all 0.3s ease;
+    }
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     }
 </style>

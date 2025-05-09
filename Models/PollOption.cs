@@ -10,11 +10,11 @@ namespace HomeownersAssociation.Models
         [Required]
         public int PollId { get; set; }
         [ForeignKey("PollId")]
-        public virtual Poll Poll { get; set; }
+        public virtual Poll Poll { get; set; } = null!;
 
         [Required]
         [StringLength(200)]
         [Display(Name = "Option Text")]
-        public string OptionText { get; set; }
+        public string OptionText { get; set; } = string.Empty;
     }
 } 

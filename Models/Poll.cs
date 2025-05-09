@@ -11,7 +11,7 @@ namespace HomeownersAssociation.Models
 
         [Required]
         [StringLength(200)]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         public string? Description { get; set; }
 
@@ -24,7 +24,7 @@ namespace HomeownersAssociation.Models
         public DateTime EndDate { get; set; }
 
         [Required]
-        public string CreatedById { get; set; }
+        public string CreatedById { get; set; } = string.Empty;
         [ForeignKey("CreatedById")]
         public virtual ApplicationUser? CreatedBy { get; set; }
 

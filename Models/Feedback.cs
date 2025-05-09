@@ -10,18 +10,18 @@ namespace HomeownersAssociation.Models
 
         [Required]
         [StringLength(100)]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         [Required]
-        public string Description { get; set; }
-
-        [Required]
-        [StringLength(20)]
-        public string Type { get; set; } // Feedback, Complaint, Suggestion, Appreciation
+        public string Description { get; set; } = string.Empty;
 
         [Required]
         [StringLength(20)]
-        public string Status { get; set; } // New, InProgress, Resolved, Closed
+        public string Type { get; set; } = string.Empty; // Feedback, Complaint, Suggestion, Appreciation
+
+        [Required]
+        [StringLength(20)]
+        public string Status { get; set; } = string.Empty; // New, InProgress, Resolved, Closed
 
         [Required]
         public int Priority { get; set; } // 1-Low, 2-Medium, 3-High
@@ -31,17 +31,17 @@ namespace HomeownersAssociation.Models
         public DateTime? RespondedAt { get; set; }
 
         [ForeignKey("RespondedBy")]
-        public string RespondedById { get; set; }
+        public string? RespondedById { get; set; }
         
-        public virtual ApplicationUser RespondedBy { get; set; }
+        public virtual ApplicationUser? RespondedBy { get; set; }
 
         public bool IsPublic { get; set; } = false;
 
         [ForeignKey("SubmittedBy")]
-        public string SubmittedById { get; set; }
+        public string SubmittedById { get; set; } = string.Empty;
         
         [Required]
-        public virtual ApplicationUser SubmittedBy { get; set; }
+        public virtual ApplicationUser SubmittedBy { get; set; } = null!;
 
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.Now;

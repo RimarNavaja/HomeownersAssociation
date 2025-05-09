@@ -11,17 +11,17 @@ namespace HomeownersAssociation.Models
         [Required]
         public int PollId { get; set; }
         [ForeignKey("PollId")]
-        public virtual Poll Poll { get; set; }
+        public virtual Poll Poll { get; set; } = null!;
 
         [Required]
         public int PollOptionId { get; set; }
         [ForeignKey("PollOptionId")]
-        public virtual PollOption PollOption { get; set; }
+        public virtual PollOption PollOption { get; set; } = null!;
 
         [Required]
-        public string UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
         [ForeignKey("UserId")]
-        public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; } = null!;
 
         [Required]
         public DateTime VotedAt { get; set; }

@@ -96,13 +96,21 @@ namespace HomeownersAssociation.Controllers
                 }
 
                 // 4. Create Document entity
+                var userId = _userManager.GetUserId(User);
+                if (userId == null)
+                {
+                    // This should not happen if [Authorize] is effective
+                    ModelState.AddModelError("", "Unable to identify the current user.");
+                    return View(viewModel);
+                }
+
                 var document = new Document
                 {
                     Title = viewModel.Title,
                     Description = viewModel.Description,
                     Category = viewModel.Category,
                     FileUrl = Path.Combine("/uploads", "documents", uniqueFileName), // Store relative URL
-                    UploadedById = _userManager.GetUserId(User),
+                    UploadedById = userId, // Now assigned from a checked userId
                     UploadedAt = DateTime.Now,
                     IsPublic = viewModel.IsPublic
                 };

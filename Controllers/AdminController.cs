@@ -28,9 +28,10 @@ namespace HomeownersAssociation.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // You might want to pass some dashboard data to the view here
-            // Example: ViewBag.PendingApprovalsCount = await _userManager.Users.CountAsync(u => !u.IsApproved && u.UserType == UserType.Homeowner);
-            // Example: ViewBag.ActiveUsersCount = await _userManager.Users.CountAsync(u => u.IsApproved);
+            ViewBag.PendingApprovalsCount = await _context.Users.CountAsync(u => !u.IsApproved && u.UserType == UserType.Homeowner);
+            ViewBag.ActiveUsersCount = await _context.Users.CountAsync(u => u.IsApproved);
+            // Example: ViewBag.OpenRequestsCount = await _context.ServiceRequests.CountAsync(sr => sr.Status != "Closed");
+            // Example: ViewBag.RecentPaymentsCount = await _context.Payments.CountAsync(p => p.PaymentDate >= DateTime.Today.AddMonths(-1));
             return View();
         }
 
@@ -193,10 +194,10 @@ namespace HomeownersAssociation.Controllers
                 Id = staff.Id,
                 FirstName = staff.FirstName,
                 LastName = staff.LastName,
-                Email = staff.Email,
+                Email = staff.Email ?? string.Empty,
                 Address = staff.Address,
                 ProfilePictureUrl = staff.ProfilePictureUrl,
-                IsActive = staff.IsApproved
+                IsActive = staff.IsActive
             };
 
             return View(model);
@@ -220,7 +221,7 @@ namespace HomeownersAssociation.Controllers
             staff.FirstName = model.FirstName;
             staff.LastName = model.LastName;
             staff.Address = model.Address;
-            staff.IsApproved = model.IsActive;
+            staff.IsActive = model.IsActive;
 
             // Handle profile picture upload
             if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)

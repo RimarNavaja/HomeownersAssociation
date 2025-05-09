@@ -10,7 +10,7 @@ namespace HomeownersAssociation.Models.ViewModels
 
         [Required]
         [StringLength(200)]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         public string? Description { get; set; }
 
@@ -38,6 +38,6 @@ namespace HomeownersAssociation.Models.ViewModels
     public class PollOptionViewModel 
     {
         public int Id { get; set; }
-        public string OptionText { get; set; }
+        public string OptionText { get; set; } = string.Empty;
     }
 } 

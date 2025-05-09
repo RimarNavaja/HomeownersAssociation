@@ -78,7 +78,7 @@ namespace HomeownersAssociation.Controllers
         {
             var viewModel = new VisitorPassViewModel
             {
-                RequestedById = _userManager.GetUserId(User),
+                RequestedById = _userManager.GetUserId(User) ?? string.Empty,
                 VisitDate = DateTime.Today,
                 ExpectedTimeIn = DateTime.Today.AddHours(9),
                 ExpectedTimeOut = DateTime.Today.AddHours(17)

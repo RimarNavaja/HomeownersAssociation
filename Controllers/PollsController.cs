@@ -66,6 +66,12 @@ namespace HomeownersAssociation.Controllers
             if (ModelState.IsValid)
             {
                 var currentUser = await _userManager.GetUserAsync(User);
+                if (currentUser == null)
+                {
+                    ModelState.AddModelError("", "Unable to identify the current user.");
+                    return View(viewModel);
+                }
+
                 var poll = new Poll
                 {
                     Title = viewModel.Title,
@@ -74,7 +80,7 @@ namespace HomeownersAssociation.Controllers
                     EndDate = viewModel.EndDate,
                     CreatedById = currentUser.Id,
                     IsActive = viewModel.IsActive,
-                    Options = viewModel.Options
+                    Options = (viewModel.Options ?? new List<string>())
                                     .Where(o => !string.IsNullOrWhiteSpace(o))
                                     .Select(optionText => new PollOption { OptionText = optionText })
                                     .ToList()
@@ -160,7 +166,7 @@ namespace HomeownersAssociation.Controllers
                     var optionsToRemove = new List<PollOption>();
                     foreach (var existingOptionInDb in pollToUpdate.Options.ToList()) // ToList to allow modification
                     {
-                        var submittedOption = viewModel.ExistingOptions.FirstOrDefault(eo => eo.Id == existingOptionInDb.Id);
+                        var submittedOption = (viewModel.ExistingOptions ?? new List<PollOptionViewModel>()).FirstOrDefault(eo => eo.Id == existingOptionInDb.Id);
                         if (submittedOption == null || string.IsNullOrWhiteSpace(submittedOption.OptionText))
                         {
                             optionsToRemove.Add(existingOptionInDb);
@@ -319,6 +325,12 @@ namespace HomeownersAssociation.Controllers
         {
             var userId = _userManager.GetUserId(User);
             var poll = await _context.Polls.Include(p => p.Votes).FirstOrDefaultAsync(p => p.Id == pollId);
+
+            if (userId == null)
+            {
+                TempData["ErrorMessage"] = "Unable to identify the current user to record vote.";
+                return RedirectToAction(nameof(Index));
+            }
 
             if (poll == null)
             {
