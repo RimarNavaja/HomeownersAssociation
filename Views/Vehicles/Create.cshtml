@@ -1,0 +1,128 @@
+@model HomeownersAssociation.Models.ViewModels.VehicleViewModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Register New Vehicle";
+}
+
+<div class="container py-5 lora-body">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="oswald-heading">@ViewData["Title"]</h2>
+        <a asp-action="Index" class="btn btn-secondary" data-mdb-ripple-init>
+            <i class="fas fa-arrow-left me-2"></i> Back to My Vehicles
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="card rounded-6 shadow-2-strong">
+                <div class="card-header bg-primary text-white oswald-heading">
+                    <h5 class="mb-0"><i class="fas fa-car me-2"></i>Vehicle Registration Details</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger p-2" data-mdb-alert-init></div>
+                        <input type="hidden" asp-for="OwnerId" />
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input asp-for="LicensePlate" id="licensePlate" class="form-control border" />
+                                    <label asp-for="LicensePlate" class="form-label" for="licensePlate"></label>
+                                </div>
+                                <span asp-validation-for="LicensePlate" class="text-danger d-block mt-1"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="VehicleType" class="form-label visually-hidden">Vehicle Type</label> 
+                                <select asp-for="VehicleType" class="form-select border" data-mdb-select-init asp-items="Model.VehicleTypes">
+                                    <option value="">-- Select Vehicle Type --</option>
+                                </select>
+                                <span asp-validation-for="VehicleType" class="text-danger d-block mt-1"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input asp-for="Make" id="make" class="form-control border" />
+                                    <label asp-for="Make" class="form-label" for="make"></label>
+                                </div>
+                                <span asp-validation-for="Make" class="text-danger d-block mt-1"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input asp-for="Model" id="model" class="form-control border" />
+                                    <label asp-for="Model" class="form-label" for="model"></label>
+                                </div>
+                                <span asp-validation-for="Model" class="text-danger d-block mt-1"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input asp-for="Year" id="year" type="number" class="form-control border" />
+                                    <label asp-for="Year" class="form-label" for="year"></label>
+                                </div>
+                                <span asp-validation-for="Year" class="text-danger d-block mt-1"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input asp-for="Color" id="color" class="form-control border" />
+                                    <label asp-for="Color" class="form-label" for="color"></label>
+                                </div>
+                                <span asp-validation-for="Color" class="text-danger d-block mt-1"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            <input asp-for="RfidTag" id="rfidTag" class="form-control border" />
+                            <label asp-for="RfidTag" class="form-label" for="rfidTag">RFID Tag (Optional)</label>
+                        </div>
+                        <span asp-validation-for="RfidTag" class="text-danger d-block mb-3"></span>
+
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            <textarea asp-for="Notes" id="notes" class="form-control border" rows="3"></textarea>
+                            <label asp-for="Notes" class="form-label" for="notes">Notes (Optional)</label>
+                        </div>
+                        <span asp-validation-for="Notes" class="text-danger d-block mb-3"></span>
+
+                        @* IsActive is usually managed by admin or defaults, not set by user on creation *@
+                        @* <div class="form-check mb-3">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox" id="isActiveCheck" checked />
+                            <label class="form-check-label" asp-for="IsActive" for="isActiveCheck"></label>
+                            <span asp-validation-for="IsActive" class="text-danger"></span>
+                        </div> *@
+
+                        <hr class="my-4"/>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary btn-lg" data-mdb-ripple-init>
+                                <i class="fas fa-save me-2"></i> Register Vehicle
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize MDB select for VehicleType
+            const vehicleTypeSelect = document.querySelector('select[asp-for="VehicleType"][data-mdb-select-init]');
+            if (vehicleTypeSelect) {
+                new mdb.Select(vehicleTypeSelect);
+            }
+        });
+    </script>
+} 
