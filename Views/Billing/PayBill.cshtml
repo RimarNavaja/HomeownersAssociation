@@ -1,51 +1,59 @@
 @model HomeownersAssociation.Models.ViewModels.BillPaymentViewModel
+@using HomeownersAssociation.Models // Required for PaymentMethod enum
+
 @{
-    ViewData["Title"] = "Pay Bill";
+    ViewData["Title"] = $"Pay Bill - {Model.BillNumber}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <h1 class="display-4 text-primary">Pay Bill</h1>
-        </div>
-        <div class="col-md-6 text-end">
-            @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
-            {
-                <a asp-action="Details" asp-route-id="@Model.BillId" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left"></i> Back to Bill Details
-                </a>
-            }
-            else
-            {
-                <a asp-action="MyBills" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left"></i> Back to My Bills
-                </a>
-            }
+<!-- Hero Section -->
+<div class="container-fluid p-0 mb-5">
+    <div class="hero-section text-white text-center d-flex align-items-center justify-content-center"
+         style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/billing-pay-hero.jpg'); background-size: cover; background-position: center; min-height: 30vh;">
+        <div style="background-color: rgba(0, 0, 0, 0.5); padding: 2rem; border-radius: .5rem;">
+            <h1 class="display-4 fw-bold oswald-heading"><i class="fas fa-credit-card me-2"></i>@ViewData["Title"]</h1>
+            <p class="lead lora-body mb-0">Submit payment details for the selected bill.</p>
         </div>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="card">
-                <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">Payment Information</h5>
+<div class="container py-5 lora-body">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+            <div class="card rounded-6 shadow-2-strong">
+                <div class="card-header bg-success text-white oswald-heading d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-dollar-sign me-2"></i>Payment Information</h5>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                    {
+                        <a asp-action="Details" asp-route-id="@Model.BillId" class="btn btn-outline-light btn-sm" data-mdb-ripple-init data-mdb-ripple-color="light">
+                            <i class="fas fa-arrow-left me-2"></i> Back to Bill Details
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-action="MyBills" class="btn btn-outline-light btn-sm" data-mdb-ripple-init data-mdb-ripple-color="light">
+                            <i class="fas fa-arrow-left me-2"></i> Back to My Bills
+                        </a>
+                    }
                 </div>
-                <div class="card-body">
-                    <div class="alert alert-info mb-4">
+                <div class="card-body p-4">
+                    <div class="bg-body-tertiary p-3 rounded-3 mb-4 shadow-0-strong">
+                        <h6 class="oswald-heading text-success"><i class="fas fa-file-invoice me-2"></i>Bill Summary</h6>
                         <div class="row">
                             <div class="col-md-6">
                                 <p class="mb-1"><strong>Bill Number:</strong> @Model.BillNumber</p>
-                                <p class="mb-1"><strong>Description:</strong> @Model.Description</p>
+                                <p class="mb-0"><strong>Description:</strong> @Model.Description</p>
                             </div>
-                            <div class="col-md-6 text-md-end">
-                                <p class="mb-1"><strong>Total Amount:</strong> ₱@Model.TotalAmount.ToString("N2")</p>
-                                <p class="mb-1"><strong>Amount Due:</strong> ₱@Model.AmountDue.ToString("N2")</p>
+                            <div class="col-md-6 text-md-end mt-2 mt-md-0">
+                                <p class="mb-1"><strong>Total Amount:</strong> @Model.TotalAmount.ToString("C")</p>
+                                <p class="mb-0"><strong class="text-danger">Amount Due: @Model.AmountDue.ToString("C")</strong></p>
                             </div>
                         </div>
                     </div>
 
                     <form asp-action="PayBill" method="post">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger p-2" data-mdb-alert-init></div>
                         <input type="hidden" asp-for="BillId" />
                         <input type="hidden" asp-for="BillNumber" />
                         <input type="hidden" asp-for="Description" />
@@ -53,76 +61,59 @@
                         <input type="hidden" asp-for="AmountDue" />
 
                         <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label asp-for="AmountToPay" class="control-label">Amount to Pay</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">₱</span>
-                                        <input asp-for="AmountToPay" class="form-control" />
-                                    </div>
-                                    <span asp-validation-for="AmountToPay" class="text-danger"></span>
-                                    <small class="form-text text-muted">You can make a partial payment if
-                                        needed.</small>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label asp-for="PaymentMethod" class="control-label">Payment Method</label>
-                                    <select asp-for="PaymentMethod" class="form-select"
-                                        asp-items="Html.GetEnumSelectList<PaymentMethod>()">
-                                    </select>
-                                    <span asp-validation-for="PaymentMethod" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label asp-for="ReferenceNumber" class="control-label">Reference Number</label>
-                                    <input asp-for="ReferenceNumber" class="form-control" />
-                                    <span asp-validation-for="ReferenceNumber" class="text-danger"></span>
-                                    <small class="form-text text-muted">Transaction reference, check number, or other
-                                        payment identifier.</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label asp-for="Notes" class="control-label">Additional Notes</label>
-                                    <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
-                                    <span asp-validation-for="Notes" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-4">
-                            <div class="col-md-12">
-                                <div class="card bg-light">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Payment Instructions</h5>
-                                        <p>Please make your payment using one of the following methods:</p>
-                                        <ol>
-                                            <li><strong>Cash:</strong> Pay directly at the association office during
-                                                business hours.</li>
-                                            <li><strong>Check:</strong> Make checks payable to "Homeowners Association".
-                                            </li>
-                                            <li><strong>Bank Transfer:</strong> Transfer to our account [BANK ACCOUNT
-                                                DETAILS].</li>
-                                            <li><strong>Online Payment:</strong> Use our online payment gateway.</li>
-                                        </ol>
-                                        <p class="mb-0 text-muted"><small>* For electronic payments, please include your
-                                                bill number in the reference.</small></p>
+                            <div class="col-md-6 mb-4 mb-md-0">
+                                <label asp-for="AmountToPay" class="form-label">Amount to Pay</label>
+                                <div class="input-group">
+                                    <span class="input-group-text border">₱</span>
+                                    <div class="form-outline flex-fill" data-mdb-input-init>
+                                        <input asp-for="AmountToPay" type="number" step="0.01" id="amountToPay" class="form-control border" />
+                                        <label asp-for="AmountToPay" class="form-label" for="amountToPay"></label>
                                     </div>
                                 </div>
+                                <span asp-validation-for="AmountToPay" class="text-danger d-block mt-1"></span>
+                                <small class="form-text text-muted mt-1 d-block">You can make a partial payment if needed.</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="PaymentMethod" class="form-label">Payment Method</label>
+                                <select asp-for="PaymentMethod" class="form-select border" data-mdb-select-init asp-items="Html.GetEnumSelectList<PaymentMethod>()"></select>
+                                <span asp-validation-for="PaymentMethod" class="text-danger d-block mt-1"></span>
                             </div>
                         </div>
 
-                        <div class="form-group text-end mt-4">
-                            <button type="submit" class="btn btn-success">
-                                <i class="bi bi-cash-coin"></i> Submit Payment
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            <input asp-for="ReferenceNumber" id="referenceNumber" class="form-control border" />
+                            <label asp-for="ReferenceNumber" class="form-label" for="referenceNumber"></label>
+                        </div>
+                        <span asp-validation-for="ReferenceNumber" class="text-danger d-block mb-3"></span>
+                        <small class="form-text text-muted mb-3 d-block">E.g., Transaction ID, Check No., Online Payment Ref.</small>
+
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            <textarea asp-for="Notes" id="notes" class="form-control border" rows="3"></textarea>
+                            <label asp-for="Notes" class="form-label" for="notes">Additional Notes (Optional)</label>
+                        </div>
+                        <span asp-validation-for="Notes" class="text-danger d-block mb-3"></span>
+                        
+                        <hr class="my-4" />
+
+                        <div class="card rounded-6 shadow-1-strong bg-body-tertiary mb-4">
+                            <div class="card-header bg-light oswald-heading">
+                                <h5 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Payment Instructions</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Please make your payment using one of the following methods:</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-money-bill-wave me-2 text-success"></i><strong>Cash:</strong> Pay directly at the association office during business hours.</li>
+                                    <li><i class="fas fa-money-check-alt me-2 text-primary"></i><strong>Check:</strong> Make checks payable to "Homeowners Association".</li>
+                                    <li><i class="fas fa-university me-2 text-info"></i><strong>Bank Transfer:</strong> Transfer to [BANK ACCOUNT DETAILS].</li>
+                                    <li><i class="fas fa-laptop-code me-2 text-warning"></i><strong>Online Payment:</strong> Use our online payment gateway (if available).</li>
+                                </ul>
+                                <p class="mb-0 text-muted"><small><i class="fas fa-info-circle me-1"></i> For electronic payments, please include your bill number in the reference/description.</small></p>
+                            </div>
+                        </div>
+
+                        <div class="text-end mt-4">
+                            <button type="submit" class="btn btn-success btn-lg" data-mdb-ripple-init>
+                                <i class="fas fa-check-circle me-2"></i> Submit Payment
                             </button>
                         </div>
                     </form>
@@ -133,7 +124,5 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

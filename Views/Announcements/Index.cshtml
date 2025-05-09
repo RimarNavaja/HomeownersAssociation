@@ -1,5 +1,7 @@
 @model IEnumerable<HomeownersAssociation.Models.Announcement>
 @using HomeownersAssociation.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Announcements";
@@ -7,10 +9,10 @@
 
 <div class="container-fluid p-0">
     <!-- Hero Section -->
-    <div class="hero-section bg-dark text-white text-center d-flex align-items-center justify-content-center" style="height: 15vh;">
-        <div>
+    <div class="hero-section bg-dark text-white text-center d-flex align-items-center justify-content-center" style="min-height: 20vh; background-image: url('/images/announcements-hero.jpg'); background-size: cover; background-position: center;">
+        <div style="background-color: rgba(0, 0, 0, 0.5); padding: 2rem; border-radius: .5rem;">
             <h1 class="display-4 fw-bold oswald-heading">@ViewData["Title"]</h1>
-            <p class="lead lora-body">Stay informed with the latest community updates and notices</p>
+            <p class="lead lora-body mb-0">Stay informed with the latest community updates and notices</p>
         </div>
     </div>
 </div>
@@ -18,98 +20,111 @@
 <div class="container py-5 lora-body">
     @if (TempData["SuccessMessage"] != null)
     {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            @TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" data-mdb-alert-init data-mdb-autohide="true" data-mdb-delay="5000">
+            <i class="fas fa-check-circle me-2"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
         </div>
     }
 
-    @if (User.IsInRole("Admin"))
+    @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
     {
         <div class="mb-4 text-center">
-            <a asp-action="Create" class="btn btn-dark">
-                <i class="bi bi-plus-circle"></i> Create New Announcement
+            <a asp-action="Create" class="btn btn-primary btn-lg" data-mdb-ripple-init data-mdb-ripple-color="light">
+                <i class="fas fa-plus-circle me-2"></i> Create New Announcement
             </a>
         </div>
         
         <div class="mb-4">
             <div class="d-flex justify-content-center gap-3">
-                <div class="badge bg-info d-flex align-items-center p-2 mb-0">
-                    <i class="bi bi-globe me-1"></i> Public Announcement
-                </div>
-                <div class="badge bg-secondary d-flex align-items-center p-2 mb-0">
-                    <i class="bi bi-lock me-1"></i> Private Announcement
-                </div>
+                <span class="badge badge-info d-flex align-items-center p-2 mb-0 fs-6">
+                    <i class="fas fa-globe me-1"></i> Public Announcement
+                </span>
+                <span class="badge badge-secondary d-flex align-items-center p-2 mb-0 fs-6">
+                    <i class="fas fa-lock me-1"></i> Private Announcement
+                </span>
             </div>
         </div>
     }
 
     @if (!Model.Any())
     {
-        <div class="alert alert-info">
-            <i class="bi bi-info-circle"></i> There are no announcements at this time.
+        <div class="alert alert-info shadow-1-strong" role="alert">
+            <i class="fas fa-info-circle me-2"></i> There are no announcements at this time. Please check back later.
         </div>
     }
     else
     {
         <div class="row justify-content-center mb-5">
-            @foreach (var item in Model)
+            @foreach (var item in Model.OrderByDescending(a => a.DatePosted))
             {
-                <div class="col-md-8 mb-4">
-                    <div class="card h-100 shadow-sm @GetPriorityClass(item.Priority)" style="border-width: 2px; transition: transform 0.3s;">
-                        <div class="card-header d-flex justify-content-between align-items-center oswald-heading bg-dark text-white">
+                <div class="col-lg-9 col-md-10 mb-4">
+                    <div class="card rounded-6 shadow-2-strong hover-shadow @GetPriorityBorderClass(item.Priority)" style="transition: box-shadow 0.3s ease-in-out;">
+                        <div class="card-header d-flex justify-content-between align-items-center oswald-heading text-white @GetPriorityHeaderBackgroundClass(item.Priority)">
                             <div class="d-flex align-items-center">
-                                <h5 class="mb-0">@item.Title</h5>
+                                <h5 class="mb-0 fw-bold">@item.Title</h5>
                                 @if (item.IsPublic)
                                 {
-                                    <span class="badge bg-info ms-2" title="Public Announcement">
-                                        <i class="bi bi-globe"></i>
+                                    <span class="badge badge-light ms-2" title="Public Announcement">
+                                        <i class="fas fa-globe me-1"></i> Public
                                     </span>
                                 }
                                 else
                                 {
-                                    <span class="badge bg-secondary ms-2" title="Private Announcement (Residents Only)">
-                                        <i class="bi bi-lock"></i>
+                                    <span class="badge badge-dark ms-2" title="Private Announcement (Residents Only)">
+                                        <i class="fas fa-lock me-1"></i> Private
                                     </span>
                                 }
                             </div>
-                            <span class="badge @GetPriorityBadgeClass(item.Priority)">@item.Priority</span>
+                            <span class="badge @GetPriorityBadgeClass(item.Priority) fs-6">@item.Priority</span>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">@Html.Raw(item.Content.Length > 200 ? item.Content.Substring(0, 200) + "..." : item.Content)</p>
+                            <div class="card-text" style="max-height: 200px; overflow-y: auto;">@Html.Raw(item.Content)</div>
                             
                             @if (!string.IsNullOrEmpty(item.AttachmentUrl))
                             {
-                                <p><i class="bi bi-paperclip"></i> Attachment available</p>
+                                <hr class="my-3"/>
+                                <p class="mb-2">
+                                    <i class="fas fa-paperclip me-2"></i> 
+                                    <a href="@item.AttachmentUrl" target="_blank" class="text-primary" data-mdb-ripple-init>View Attachment</a>
+                                </p>
                             }
                             
-                            <div class="d-flex justify-content-between align-items-center mt-3" style="font-size: 0.9rem;">
-                                <small class="text-muted">
-                                    Posted by @(item.Author?.FirstName ?? "Unknown") on @item.DatePosted.ToString("MMM dd, yyyy")
+                            <hr class="my-3"/>
+                            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center" style="font-size: 0.9rem;">
+                                <small class="text-muted mb-2 mb-sm-0">
+                                    <i class="fas fa-user-edit me-1"></i> Posted by @(item.Author?.FirstName ?? "System") @(item.Author?.LastName ?? "")
                                 </small>
-                                
+                                <small class="text-muted">
+                                    <i class="far fa-calendar-alt me-1"></i> @item.DatePosted.ToString("MMM dd, yyyy, hh:mm tt")
+                                </small>
+                                @if (item.DateEdited.HasValue && item.DateEdited > item.DatePosted)
+                                {
+                                    <small class="text-muted fst-italic" title="Last updated">
+                                        <i class="far fa-clock me-1"></i> Edited: @item.DateEdited.Value.ToString("MMM dd, yyyy, hh:mm tt")
+                                    </small>
+                                }
                                 @if (item.ExpiryDate.HasValue)
                                 {
-                                    <small class="text-muted">Expires on @item.ExpiryDate.Value.ToString("MMM dd, yyyy")</small>
+                                    <small class="text-muted @(item.ExpiryDate.Value < DateTime.Now ? "text-danger" : "")">
+                                        <i class="far fa-calendar-times me-1"></i> Expires: @item.ExpiryDate.Value.ToString("MMM dd, yyyy")
+                                    </small>
                                 }
                             </div>
                         </div>
-                        <div class="card-footer bg-transparent">
-                            <div class="d-flex justify-content-between">
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-dark">
-                                    <i class="bi bi-eye"></i> View Details
+                        <div class="card-footer bg-light">
+                            <div class="d-flex justify-content-end">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm me-2" data-mdb-ripple-init>
+                                    <i class="fas fa-eye me-1"></i> View Details
                                 </a>
                                 
-                                @if (User.IsInRole("Admin"))
+                                @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
                                 {
-                                    <div>
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
-                                            <i class="bi bi-pencil"></i> Edit
-                                        </a>
-                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i> Delete
-                                        </a>
-                                    </div>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm me-2" data-mdb-ripple-init>
+                                        <i class="fas fa-pencil-alt me-1"></i> Edit
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm" data-mdb-ripple-init>
+                                        <i class="fas fa-trash-alt me-1"></i> Delete
+                                    </a>
                                 }
                             </div>
                         </div>
@@ -121,15 +136,27 @@
 </div>
 
 @functions {
-    string GetPriorityClass(HomeownersAssociation.Models.AnnouncementPriority priority)
+    string GetPriorityBorderClass(HomeownersAssociation.Models.AnnouncementPriority priority)
     {
         return priority switch
         {
-            HomeownersAssociation.Models.AnnouncementPriority.Urgent => "border-dark",
-            HomeownersAssociation.Models.AnnouncementPriority.High => "border-dark",
-            HomeownersAssociation.Models.AnnouncementPriority.Normal => "border-dark",
-            HomeownersAssociation.Models.AnnouncementPriority.Low => "border-dark",
-            _ => "border-dark"
+            AnnouncementPriority.Urgent => "border border-4 border-danger",
+            AnnouncementPriority.High => "border border-3 border-warning",
+            AnnouncementPriority.Normal => "border border-2 border-primary",
+            AnnouncementPriority.Low => "border border-info",
+            _ => "border"
+        };
+    }
+
+    string GetPriorityHeaderBackgroundClass(HomeownersAssociation.Models.AnnouncementPriority priority)
+    {
+        return priority switch
+        {
+            AnnouncementPriority.Urgent => "bg-danger",
+            AnnouncementPriority.High => "bg-warning text-dark", // Ensure text is readable on warning
+            AnnouncementPriority.Normal => "bg-primary",
+            AnnouncementPriority.Low => "bg-info text-dark", // Ensure text is readable on info
+            _ => "bg-dark"
         };
     }
 
@@ -137,11 +164,11 @@
     {
         return priority switch
         {
-            HomeownersAssociation.Models.AnnouncementPriority.Urgent => "bg-danger",
-            HomeownersAssociation.Models.AnnouncementPriority.High => "bg-warning text-dark",
-            HomeownersAssociation.Models.AnnouncementPriority.Normal => "bg-primary",
-            HomeownersAssociation.Models.AnnouncementPriority.Low => "bg-secondary",
-            _ => "bg-primary"
+            AnnouncementPriority.Urgent => "badge-danger",
+            AnnouncementPriority.High => "badge-warning text-dark",
+            AnnouncementPriority.Normal => "badge-primary",
+            AnnouncementPriority.Low => "badge-info text-dark",
+            _ => "badge-secondary"
         };
     }
 }

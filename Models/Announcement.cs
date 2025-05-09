@@ -19,6 +19,9 @@ namespace HomeownersAssociation.Models
         [Display(Name = "Date Posted")]
         public DateTime DatePosted { get; set; } = DateTime.Now;
 
+        [Display(Name = "Date Edited")]
+        public DateTime? DateEdited { get; set; }
+
         [Display(Name = "Expiry Date")]
         public DateTime? ExpiryDate { get; set; }
 

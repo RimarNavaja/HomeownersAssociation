@@ -7,133 +7,142 @@
 <div class="container-fluid p-0">
     <!-- Hero Section -->
     <div class="hero-section text-white text-center d-flex align-items-center justify-content-center"
-        style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/edit-announcement.jpg'); background-size: cover; height: 30vh;">
-        <div>
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/edit-announcement.jpg'); background-size: cover; min-height: 20vh;">
+        <div style="background-color: rgba(0, 0, 0, 0.5); padding: 2rem; border-radius: .5rem;">
             <h1 class="display-4 fw-bold oswald-heading">@ViewData["Title"]</h1>
-            <p class="lead lora-body">Update announcement information</p>
+            <p class="lead lora-body mb-0">Update the details for this announcement.</p>
         </div>
     </div>
 </div>
 
 <div class="container py-5 lora-body">
-    <div class="mb-3">
-        <a asp-action="Index" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Back to Announcements
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="oswald-heading">@Html.DisplayFor(model => model.Title)</h2>
+        <a asp-action="Index" class="btn btn-secondary" data-mdb-ripple-init>
+            <i class="fas fa-arrow-left me-2"></i> Back to Announcements
         </a>
     </div>
 
     <div class="row">
-        <div class="col-md-8">
-            <div class="card shadow">
+        <div class="col-lg-8 mb-4 mb-lg-0">
+            <div class="card rounded-6 shadow-2-strong">
                 <div class="card-header bg-primary text-white oswald-heading">
-                    <h5 class="mb-0">Announcement Details</h5>
+                    <h5 class="mb-0"><i class="fas fa-edit me-2"></i>Edit Announcement Details</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form asp-action="Edit" enctype="multipart/form-data">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger p-2" data-mdb-alert-init></div>
                         <input type="hidden" asp-for="Id" />
                         <input type="hidden" asp-for="ExistingAttachmentUrl" />
 
-                        <div class="mb-3">
-                            <label asp-for="Title" class="form-label"></label>
-                            <input asp-for="Title" class="form-control" />
-                            <span asp-validation-for="Title" class="text-danger"></span>
+                        <!-- Title -->
+                        <div class="form-outline mb-4 mt-2" data-mdb-input-init>
+                            <input asp-for="Title" id="title" class="form-control border" />
+                            <label asp-for="Title" class="form-label" for="title"></label>
                         </div>
+                        <span asp-validation-for="Title" class="text-danger d-block"></span>
 
-                        <div class="mb-3">
-                            <label asp-for="Content" class="form-label"></label>
-                            <textarea asp-for="Content" class="form-control" rows="10"></textarea>
-                            <span asp-validation-for="Content" class="text-danger"></span>
-                            <small class="form-text text-muted">You can use HTML formatting in the content.</small>
+                        <!-- Content -->
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            <textarea asp-for="Content" id="content" class="form-control border" rows="10"></textarea>
+                            <label asp-for="Content" class="form-label" for="content"></label>
                         </div>
+                        <span asp-validation-for="Content" class="text-danger d-block mb-3"></span>
+                        <small class="form-text text-muted mb-3 d-block">You can use basic HTML formatting in the content.</small>
 
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label asp-for="Priority" class="form-label"></label>
-                                    <select asp-for="Priority" class="form-select"
-                                        asp-items="Html.GetEnumSelectList<HomeownersAssociation.Models.AnnouncementPriority>()"></select>
-                                    <span asp-validation-for="Priority" class="text-danger"></span>
-                                </div>
+                            <!-- Priority -->
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="Priority" class="form-label">Priority</label>
+                                <select asp-for="Priority" class="form-select border" data-mdb-select-init asp-items="Html.GetEnumSelectList<HomeownersAssociation.Models.AnnouncementPriority>()"></select>
+                                <span asp-validation-for="Priority" class="text-danger d-block mt-1"></span>
                             </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label asp-for="ExpiryDate" class="form-label"></label>
-                                    <input asp-for="ExpiryDate" class="form-control" type="date" />
-                                    <span asp-validation-for="ExpiryDate" class="text-danger"></span>
-                                    <small class="form-text text-muted">Leave blank if the announcement doesn't
-                                        expire.</small>
+
+                            <!-- Expiry Date -->
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline datepicker" data-mdb-datepicker-init data-mdb-input-init>
+                                    <input asp-for="ExpiryDate" type="text" id="expiryDate" class="form-control border" />
+                                    <label asp-for="ExpiryDate" class="form-label" for="expiryDate">Expiry Date (Optional)</label>
                                 </div>
+                                <span asp-validation-for="ExpiryDate" class="text-danger d-block mt-1"></span>
+                                <small class="form-text text-muted mt-1 d-block">Leave blank if the announcement doesn't expire.</small>
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Attachment" class="form-label"></label>
-                            <input asp-for="Attachment" class="form-control" type="file" />
-                            <span asp-validation-for="Attachment" class="text-danger"></span>
+                        <!-- Attachment -->
+                        <div class="mb-4">
+                            <label asp-for="Attachment" class="form-label">New Attachment (Optional)</label>
+                            <input asp-for="Attachment" class="form-control border" type="file" id="attachment" />
+                            <span asp-validation-for="Attachment" class="text-danger d-block mt-1"></span>
 
                             @if (!string.IsNullOrEmpty(Model.ExistingAttachmentUrl))
                             {
-                                <div class="mt-2 p-2 bg-light rounded">
-                                    <p><i class="bi bi-paperclip"></i> Current attachment: <a
-                                            href="@Model.ExistingAttachmentUrl" target="_blank">View</a></p>
-                                    <small class="form-text text-muted">Upload a new file to replace the current
-                                        attachment.</small>
+                                <div class="alert alert-info mt-2 p-2 d-flex align-items-center">
+                                    <i class="fas fa-paperclip me-2"></i> 
+                                    Current attachment: <a href="@Model.ExistingAttachmentUrl" target="_blank" class="ms-1 fw-bold" data-mdb-ripple-init>View Current Attachment</a>
                                 </div>
+                                <small class="form-text text-muted mt-1 d-block">Upload a new file to replace the current attachment. If no new file is uploaded, the existing attachment will be kept.</small>
                             }
                             else
                             {
-                                <small class="form-text text-muted">Optional. Upload a file to attach to this
-                                    announcement.</small>
+                                <small class="form-text text-muted mt-1 d-block">Max file size: 5MB. Allowed types: PDF, DOC, DOCX, JPG, PNG.</small>
                             }
                         </div>
 
-                        <div class="mb-3 form-check">
-                            <input asp-for="IsActive" class="form-check-input" />
-                            <label asp-for="IsActive" class="form-check-label"></label>
+                        <!-- IsActive -->
+                        <div class="form-check mb-3">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox" id="isActiveCheck" />
+                            <label class="form-check-label" asp-for="IsActive" for="isActiveCheck"></label>
                             <span asp-validation-for="IsActive" class="text-danger"></span>
                         </div>
 
-                        <div class="mb-3 form-check">
-                            <input asp-for="IsPublic" class="form-check-input" />
-                            <label asp-for="IsPublic" class="form-check-label"></label>
+                        <!-- IsPublic -->
+                        <div class="form-check mb-4">
+                            <input asp-for="IsPublic" class="form-check-input" type="checkbox" id="isPublicCheck" />
+                            <label class="form-check-label" asp-for="IsPublic" for="isPublicCheck"></label>
                             <span asp-validation-for="IsPublic" class="text-danger"></span>
-                            <div class="form-text">If checked, this announcement will be visible to non-residents and
-                                the public.</div>
+                            <div class="form-text text-muted">If checked, this announcement will be visible to non-residents and the public.</div>
                         </div>
+                        
+                        <hr class="my-4"/>
 
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-save"></i> Save Changes
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary btn-lg" data-mdb-ripple-init>
+                                <i class="fas fa-save me-2"></i> Save Changes
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card shadow">
-                <div class="card-header bg-info text-white oswald-heading">
-                    <h5 class="mb-0">Tips</h5>
+        <div class="col-lg-4">
+            <div class="card rounded-6 shadow-1-strong">
+                <div class="card-header bg-light oswald-heading">
+                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Tips & Guidelines</h5>
                 </div>
-                <div class="card-body">
-                    <h6>Priority Levels</h6>
-                    <ul>
-                        <li><strong>Urgent</strong> - Critical announcements requiring immediate attention</li>
-                        <li><strong>High</strong> - Important announcements</li>
-                        <li><strong>Normal</strong> - Regular announcements</li>
-                        <li><strong>Low</strong> - Informational announcements</li>
+                <div class="card-body p-4">
+                    <h6 class="fw-bold">Priority Levels:</h6>
+                    <ul class="list-unstyled mb-4">
+                        <li><span class="badge badge-danger me-1">U</span> <strong>Urgent:</strong> Critical, immediate attention.</li>
+                        <li><span class="badge badge-warning me-1">H</span> <strong>High:</strong> Important updates.</li>
+                        <li><span class="badge badge-primary me-1">N</span> <strong>Normal:</strong> Regular announcements.</li>
+                        <li><span class="badge badge-info me-1">L</span> <strong>Low:</strong> General information.</li>
                     </ul>
 
-                    <h6>HTML Formatting</h6>
-                    <p>You can use basic HTML tags in the content:</p>
-                    <ul>
-                        <li><code>&lt;b&gt;Bold text&lt;/b&gt;</code></li>
-                        <li><code>&lt;i&gt;Italic text&lt;/i&gt;</code></li>
-                        <li><code>&lt;u&gt;Underlined text&lt;/u&gt;</code></li>
-                        <li><code>&lt;ul&gt;&lt;li&gt;List item&lt;/li&gt;&lt;/ul&gt;</code></li>
-                        <li><code>&lt;a href="..."&gt;Link&lt;/a&gt;</code></li>
+                    <h6 class="fw-bold">Content Formatting:</h6>
+                    <p class="small text-muted">Use basic HTML for rich text:</p>
+                    <ul class="list-unstyled small">
+                        <li><code>&lt;b&gt;Bold&lt;/b&gt;</code> or <code>&lt;strong&gt;Strong&lt;/strong&gt;</code></li>
+                        <li><code>&lt;i&gt;Italic&lt;/i&gt;</code> or <code>&lt;em&gt;Emphasis&lt;/em&gt;</code></li>
+                        <li><code>&lt;u&gt;Underline&lt;/u&gt;</code></li>
+                        <li><code>&lt;ul&gt;&lt;li&gt;List Item&lt;/li&gt;&lt;/ul&gt;</code> (Unordered List)</li>
+                        <li><code>&lt;ol&gt;&lt;li&gt;List Item&lt;/li&gt;&lt;/ol&gt;</code> (Ordered List)</li>
+                        <li><code>&lt;a href="URL"&gt;Link Text&lt;/a&gt;</code></li>
+                        <li><code>&lt;br&gt;</code> for line breaks.</li>
                     </ul>
+                    
+                    <h6 class="fw-bold mt-4">Attachments:</h6>
+                    <p class="small text-muted">If you upload a new attachment, it will replace the existing one. Otherwise, the current attachment will be retained.</p>
                 </div>
             </div>
         </div>
@@ -144,4 +153,17 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize MDB datepicker
+            document.querySelectorAll('.datepicker').forEach((datepicker) => {
+                new mdb.Datepicker(datepicker);
+            });
+
+            // Initialize MDB select
+            document.querySelectorAll('[data-mdb-select-init]').forEach((select) => {
+                new mdb.Select(select);
+            });
+        });
+    </script>
 }

@@ -1,132 +1,143 @@
 @model IEnumerable<HomeownersAssociation.Models.Bill>
+@using HomeownersAssociation.Models // For BillStatus enum
+
 @{
     ViewData["Title"] = "Billing Management";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Ensuring layout is applied
 }
 
-<div class="container mt-4">
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <h1 class="display-4 text-primary">Billing Management</h1>
+<!-- Hero Section -->
+<div class="container-fluid p-0 mb-5">
+    <div class="hero-section text-white text-center d-flex align-items-center justify-content-center"
+         style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/billing-hero.jpg'); background-size: cover; background-position: center; min-height: 30vh;">
+        <div style="background-color: rgba(0, 0, 0, 0.5); padding: 2rem; border-radius: .5rem;">
+            <h1 class="display-4 fw-bold oswald-heading"><i class="fas fa-file-invoice-dollar me-2"></i>@ViewData["Title"]</h1>
+            <p class="lead lora-body mb-0">Manage all community bills and payments efficiently.</p>
         </div>
-        <div class="col-md-6 text-end">
-            <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary me-2">
-                <i class="bi bi-arrow-left"></i> Back to Dashboard
-            </a>
-            <a asp-action="Create" class="btn btn-primary me-2">
-                <i class="bi bi-plus-circle"></i> Create New Bill
-            </a>
-            <a asp-action="GenerateMonthlyBills" class="btn btn-success me-2">
-                <i class="bi bi-calendar-check"></i> Generate Monthly Bills
-            </a>
-            <a asp-action="Payments" class="btn btn-info">
-                <i class="bi bi-credit-card"></i> View All Payments
-            </a>
-        </div>
+    </div>
+</div>
+
+<div class="container lora-body">
+
+    <!-- Action Buttons Bar -->
+    <div class="d-flex flex-wrap justify-content-center justify-content-md-end gap-2 mb-4">
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary" data-mdb-ripple-init>
+            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+        </a>
+        <a asp-action="Create" class="btn btn-primary" data-mdb-ripple-init>
+            <i class="fas fa-plus-circle me-2"></i> Create New Bill
+        </a>
+        <a asp-action="GenerateMonthlyBills" class="btn btn-success" data-mdb-ripple-init>
+            <i class="fas fa-calendar-check me-2"></i> Generate Monthly Bills
+        </a>
+        <a asp-action="Payments" class="btn btn-info" data-mdb-ripple-init>
+            <i class="fas fa-credit-card me-2"></i> View All Payments
+        </a>
     </div>
 
     @if (TempData["SuccessMessage"] != null)
     {
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                @TempData["SuccessMessage"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <div class="alert alert-success alert-dismissible fade show shadow-1-strong" role="alert" data-mdb-alert-init data-mdb-autohide="true" data-mdb-delay="5000">
+            <i class="fas fa-check-circle me-2"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>
     }
-
     @if (TempData["ErrorMessage"] != null)
     {
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                @TempData["ErrorMessage"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <div class="alert alert-danger alert-dismissible fade show shadow-1-strong" role="alert" data-mdb-alert-init>
+            <i class="fas fa-times-circle me-2"></i> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>
     }
-
     @if (TempData["InfoMessage"] != null)
     {
-            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                @TempData["InfoMessage"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <div class="alert alert-info alert-dismissible fade show shadow-1-strong" role="alert" data-mdb-alert-init>
+            <i class="fas fa-info-circle me-2"></i> @TempData["InfoMessage"]
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>
     }
 
     <!-- Dashboard Cards -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card bg-primary text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Total Bills</h5>
-                    <h2 class="card-text">@ViewBag.Stats.TotalBills</h2>
-                    <p class="card-text">Total Amount: ₱@ViewBag.Stats.TotalAmount.ToString("N2")</p>
+    <div class="row mb-4 g-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card rounded-6 shadow-2-strong hover-shadow bg-primary text-white h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-file-invoice fa-3x mb-3"></i>
+                    <h5 class="card-title oswald-heading">Total Bills</h5>
+                    <h2 class="card-text fw-bold">@ViewBag.Stats?.TotalBills</h2>
+                    <p class="card-text mb-0" style="font-size: 0.9rem;">Amount: @ViewBag.Stats?.TotalAmount.ToString("C")</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card bg-success text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Paid Bills</h5>
-                    <h2 class="card-text">@ViewBag.Stats.PaidBills</h2>
-                    <p class="card-text">Paid Amount: ₱@ViewBag.Stats.PaidAmount.ToString("N2")</p>
+        <div class="col-xl-3 col-md-6">
+            <div class="card rounded-6 shadow-2-strong hover-shadow bg-success text-white h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-check-circle fa-3x mb-3"></i>
+                    <h5 class="card-title oswald-heading">Paid Bills</h5>
+                    <h2 class="card-text fw-bold">@ViewBag.Stats?.PaidBills</h2>
+                    <p class="card-text mb-0" style="font-size: 0.9rem;">Amount: @ViewBag.Stats?.PaidAmount.ToString("C")</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card bg-warning text-dark">
-                <div class="card-body">
-                    <h5 class="card-title">Unpaid Bills</h5>
-                    <h2 class="card-text">@ViewBag.Stats.UnpaidBills</h2>
-                    <p class="card-text">Unpaid Amount: ₱@ViewBag.Stats.UnpaidAmount.ToString("N2")</p>
+        <div class="col-xl-3 col-md-6">
+            <div class="card rounded-6 shadow-2-strong hover-shadow bg-warning text-dark h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                    <h5 class="card-title oswald-heading">Unpaid Bills</h5>
+                    <h2 class="card-text fw-bold">@ViewBag.Stats?.UnpaidBills</h2>
+                    <p class="card-text mb-0" style="font-size: 0.9rem;">Amount: @ViewBag.Stats?.UnpaidAmount.ToString("C")</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card bg-danger text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Overdue Bills</h5>
-                    <h2 class="card-text">@ViewBag.Stats.OverdueBills</h2>
+        <div class="col-xl-3 col-md-6">
+            <div class="card rounded-6 shadow-2-strong hover-shadow bg-danger text-white h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-calendar-times fa-3x mb-3"></i>
+                    <h5 class="card-title oswald-heading">Overdue Bills</h5>
+                    <h2 class="card-text fw-bold">@ViewBag.Stats?.OverdueBills</h2>
+                    <p class="card-text mb-0" style="font-size: 0.9rem;">Amount: @ViewBag.Stats?.OverdueAmount.ToString("C")</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Filter Controls -->
-    <div class="card mb-4">
+    <div class="card rounded-6 shadow-1-strong mb-4">
+        <div class="card-header bg-light py-3">
+            <h5 class="mb-0 oswald-heading"><i class="fas fa-filter me-2"></i>Filter Bills</h5>
+        </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="statusFilter">Filter by Status</label>
-                        <select id="statusFilter" class="form-select">
-                            <option value="">All Statuses</option>
-                            <option value="Unpaid">Unpaid</option>
-                            <option value="PartiallyPaid">Partially Paid</option>
-                            <option value="Paid">Paid</option>
-                            <option value="Overdue">Overdue</option>
-                            <option value="Cancelled">Cancelled</option>
-                        </select>
+            <div class="row g-3 align-items-end">
+                <div class="col-md-6 col-lg-3">
+                    <label for="statusFilter" class="form-label">Status</label>
+                    <select id="statusFilter" class="form-select border" data-mdb-select-init>
+                        <option value="" selected>All Statuses</option>
+                        @foreach (var status in Enum.GetValues(typeof(BillStatus)))
+                        {
+                            <option value="@status">@status</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <label for="typeFilter" class="form-label">Type</label>
+                    <select id="typeFilter" class="form-select border" data-mdb-select-init>
+                        <option value="" selected>All Types</option>
+                        @foreach (var type in Enum.GetValues(typeof(BillType)))
+                        {
+                            <option value="@type">@type</option> // Assuming BillType enum exists
+                        }
+                    </select>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="form-outline datepicker" data-mdb-datepicker-init data-mdb-input-init data-mdb-format="yyyy-mm">
+                        <input type="text" id="monthFilter" class="form-control border" />
+                        <label for="monthFilter" class="form-label">Issue Month (YYYY-MM)</label>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="typeFilter">Filter by Type</label>
-                        <select id="typeFilter" class="form-select">
-                            <option value="">All Types</option>
-                            <option value="MonthlyDues">Monthly Dues</option>
-                            <option value="Utility">Utility</option>
-                            <option value="Maintenance">Maintenance</option>
-                            <option value="Special">Special Assessment</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="month">Month</label>
-                        <input type="month" id="monthFilter" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="searchFilter">Search</label>
-                        <input type="text" id="searchFilter" class="form-control" placeholder="Bill #, Homeowner, Description...">
+                <div class="col-md-6 col-lg-3">
+                    <div class="form-outline" data-mdb-input-init>
+                        <input type="text" id="searchFilter" class="form-control border" />
+                        <label for="searchFilter" class="form-label">Search Bill #, Name...</label>
                     </div>
                 </div>
             </div>
@@ -135,112 +146,141 @@
 
     @if (!Model.Any())
     {
-            <div class="alert alert-info">
-                <i class="bi bi-info-circle"></i> No bills have been created yet. Use the "Create New Bill" button to add a bill.
-            </div>
+        <div class="alert alert-info shadow-1-strong" role="alert">
+            <i class="fas fa-info-circle me-2"></i> No bills have been created yet. Use the "Create New Bill" button to add a bill.
+        </div>
     }
     else
     {
-            <div class="table-responsive">
-                <table class="table table-striped table-hover" id="billsTable">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>Bill #</th>
-                            <th>Homeowner</th>
-                            <th>Description</th>
-                            <th>Amount</th>
-                            <th>Issue Date</th>
-                            <th>Due Date</th>
-                            <th>Status</th>
-                            <th>Type</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var bill in Model)
+        <div class="table-responsive shadow-1-strong rounded-3">
+            <table class="table table-striped table-hover align-middle" id="billsTable">
+                <thead class="bg-dark text-white oswald-heading">
+                    <tr>
+                        <th>Bill #</th>
+                        <th>Homeowner</th>
+                        <th>Description</th>
+                        <th class="text-end">Amount</th>
+                        <th>Issue Date</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Type</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var bill in Model.OrderByDescending(b => b.IssueDate))
+                    {
+                        string statusClass = bill.Status switch
                         {
-                                string statusClass = bill.Status switch
-                                {
-                                        BillStatus.Paid => "bg-success text-white",
-                                        BillStatus.Unpaid => "bg-warning",
-                                        BillStatus.PartiallyPaid => "bg-info text-white",
-                                        BillStatus.Overdue => "bg-danger text-white",
-                                        BillStatus.Cancelled => "bg-secondary text-white",
-                                        _ => ""
-                                };
-                        
-                                <tr class="bill-row" 
-                                    data-status="@bill.Status" 
-                                    data-type="@bill.Type" 
-                                    data-month="@bill.IssueDate.ToString("yyyy-MM")"
-                                    data-search="@(bill.BillNumber.ToLower()) @(bill.Homeowner?.FirstName.ToLower()) @(bill.Homeowner?.LastName.ToLower()) @(bill.Description.ToLower())">
-                                    <td>@bill.BillNumber</td>
-                                    <td>@(bill.Homeowner != null ? $"{bill.Homeowner.FirstName} {bill.Homeowner.LastName}" : "Unknown")</td>
-                                    <td>@bill.Description</td>
-                                    <td>₱@bill.Amount.ToString("N2")</td>
-                                    <td>@bill.IssueDate.ToShortDateString()</td>
-                                    <td>@bill.DueDate.ToShortDateString()</td>
-                                    <td>
-                                        <span class="badge @statusClass">@bill.Status</span>
-                                    </td>
-                                    <td>@bill.Type</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a asp-action="Details" asp-route-id="@bill.Id" class="btn btn-sm btn-info">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-                                            <a asp-action="Edit" asp-route-id="@bill.Id" class="btn btn-sm btn-primary">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <a asp-action="PayBill" asp-route-id="@bill.Id" class="btn btn-sm btn-success">
-                                                <i class="bi bi-cash-coin"></i>
-                                            </a>
-                                            <a asp-action="Delete" asp-route-id="@bill.Id" class="btn btn-sm btn-danger">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                            BillStatus.Paid => "badge-success",
+                            BillStatus.Unpaid => "badge-warning text-dark",
+                            BillStatus.PartiallyPaid => "badge-info text-dark",
+                            BillStatus.Overdue => "badge-danger",
+                            BillStatus.Cancelled => "badge-secondary",
+                            _ => "badge-light text-dark"
+                        };
+                    
+                        <tr class="bill-row" 
+                            data-status="@bill.Status.ToString().ToLower()" 
+                            data-type="@bill.Type.ToString().ToLower()" 
+                            data-month="@bill.IssueDate.ToString("yyyy-MM")"
+                            data-search="@(bill.BillNumber?.ToLower()) @(bill.Homeowner?.FirstName?.ToLower()) @(bill.Homeowner?.LastName?.ToLower()) @(bill.Description?.ToLower())">
+                            <td>@bill.BillNumber</td>
+                            <td>@(bill.Homeowner != null ? $"{bill.Homeowner.FirstName} {bill.Homeowner.LastName}" : "N/A")</td>
+                            <td>@bill.Description</td>
+                            <td class="text-end">@bill.Amount.ToString("C")</td>
+                            <td>@bill.IssueDate.ToString("MMM dd, yyyy")</td>
+                            <td>@bill.DueDate.ToString("MMM dd, yyyy")</td>
+                            <td>
+                                <span class="badge @statusClass rounded-pill d-inline-block">@bill.Status</span>
+                            </td>
+                            <td>@bill.Type</td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a asp-action="Details" asp-route-id="@bill.Id" class="btn btn-sm btn-info" data-mdb-ripple-init title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@bill.Id" class="btn btn-sm btn-secondary" data-mdb-ripple-init title="Edit Bill">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    @if(bill.Status != BillStatus.Paid && bill.Status != BillStatus.Cancelled)
+                                    {
+                                        <a asp-action="PayBill" asp-route-id="@bill.Id" class="btn btn-sm btn-success" data-mdb-ripple-init title="Record Payment">
+                                            <i class="fas fa-cash-register"></i>
+                                        </a>
+                                    }
+                                    <button type="button" class="btn btn-sm btn-danger" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#deleteBillModal_@bill.Id" title="Delete Bill">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Delete Confirmation Modal for each bill -->
+                        <div class="modal fade" id="deleteBillModal_@bill.Id" tabindex="-1" aria-labelledby="deleteModalLabel_@bill.Id" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-danger text-white">
+                                        <h5 class="modal-title oswald-heading" id="deleteModalLabel_@bill.Id"><i class="fas fa-exclamation-triangle me-2"></i>Confirm Delete</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-mdb-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body lora-body">
+                                        <p>Are you sure you want to delete bill #<strong>@bill.BillNumber</strong> for @(bill.Homeowner != null ? $"{bill.Homeowner.FirstName} {bill.Homeowner.LastName}" : "N/A")?</p>
+                                        <p class="text-danger">This action cannot be undone.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-mdb-dismiss="modal" data-mdb-ripple-init>Cancel</button>
+                                        <form asp-action="Delete" asp-route-id="@bill.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-danger" data-mdb-ripple-init><i class="fas fa-trash-alt me-1"></i> Delete Bill</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
 </div>
 
 @section Scripts {
-        <script>
-            $(document).ready(function() {
-                // Filter functions
-                function applyFilters() {
-                    var statusFilter = $("#statusFilter").val().toLowerCase();
-                    var typeFilter = $("#typeFilter").val().toLowerCase();
-                    var monthFilter = $("#monthFilter").val();
-                    var searchFilter = $("#searchFilter").val().toLowerCase();
-                
-                    $(".bill-row").each(function() {
-                        var row = $(this);
-                        var status = row.data("status").toLowerCase();
-                        var type = row.data("type").toLowerCase();
-                        var month = row.data("month");
-                        var searchText = row.data("search");
-                    
-                        var statusMatch = statusFilter === "" || status === statusFilter;
-                        var typeMatch = typeFilter === "" || type === typeFilter;
-                        var monthMatch = monthFilter === "" || month === monthFilter;
-                        var searchMatch = searchFilter === "" || searchText.includes(searchFilter);
-                    
-                        if (statusMatch && typeMatch && monthMatch && searchMatch) {
-                            row.show();
-                        } else {
-                            row.hide();
-                        }
-                    });
-                }
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize MDB components if not already handled by global site.js
+            // Assuming Select, Datepicker, Modals are initialized in site.js or _Layout.cshtml if needed globally
+            // If not, initialize them here: 
+            // document.querySelectorAll('[data-mdb-select-init]').forEach((select) => { new mdb.Select(select); });
+            // document.querySelectorAll('.datepicker').forEach((dp) => { new mdb.Datepicker(dp); });
+            // document.querySelectorAll('.modal').forEach((modal) => { new mdb.Modal(modal); });
+
+            function applyFilters() {
+                var statusFilter = document.getElementById("statusFilter").value.toLowerCase();
+                var typeFilter = document.getElementById("typeFilter").value.toLowerCase();
+                var monthInput = document.getElementById("monthFilter");
+                // MDB Datepicker might store value differently or require instance to get value
+                var monthFilter = monthInput.value; // Basic input value, adjust if MDB Datepicker requires instance
+                var searchFilter = document.getElementById("searchFilter").value.toLowerCase();
             
-                // Attach event handlers
-                $("#statusFilter, #typeFilter, #monthFilter").on("change", applyFilters);
-                $("#searchFilter").on("keyup", applyFilters);
-            });
-        </script>
+                document.querySelectorAll(".bill-row").forEach(function(row) {
+                    var status = row.dataset.status.toLowerCase();
+                    var type = row.dataset.type.toLowerCase();
+                    var month = row.dataset.month;
+                    var searchText = row.dataset.search || ''; // Ensure searchText is not undefined
+                
+                    var statusMatch = statusFilter === "" || status === statusFilter;
+                    var typeMatch = typeFilter === "" || type === typeFilter;
+                    var monthMatch = monthFilter === "" || month === monthFilter;
+                    var searchMatch = searchFilter === "" || searchText.includes(searchFilter);
+                
+                    row.style.display = (statusMatch && typeMatch && monthMatch && searchMatch) ? "" : "none";
+                });
+            }
+        
+            document.getElementById("statusFilter")?.addEventListener("valueChange.mdb.select", applyFilters); // MDB Select event
+            document.getElementById("typeFilter")?.addEventListener("valueChange.mdb.select", applyFilters);
+            document.getElementById("monthFilter")?.addEventListener("dateChange.mdb.datepicker", applyFilters); // MDB Datepicker event
+            document.getElementById("searchFilter")?.addEventListener("keyup", applyFilters);
+        });
+    </script>
 }

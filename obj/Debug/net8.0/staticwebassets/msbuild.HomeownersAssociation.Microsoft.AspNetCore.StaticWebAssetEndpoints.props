@@ -28,13 +28,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\HomeownersAssociation.8d3wp7181q.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"8d3wp7181q"},{"Name":"integrity","Value":"sha256-9OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg="},{"Name":"label","Value":"_content/HomeownersAssociation/HomeownersAssociation.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 04:29:22 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 08:39:58 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/HomeownersAssociation.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\HomeownersAssociation.8d3wp7181q.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-9OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 04:29:22 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 08:39:58 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/images/0311.dgla08krpj.mp4">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\0311.mp4'))</AssetFile>
@@ -195,14 +195,14 @@
     <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/js/site.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-xLbBG727APF4b2qPmYcJNx6ZGC5tKqv3Nmt6DhYPtz0="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"711"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022xLbBG727APF4b2qPmYcJNx6ZGC5tKqv3Nmt6DhYPtz0=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 06:32:42 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Lg3\u002BAtffVSIxXEY06bPqel7xKESqZoS84\u002BkkfMPxcyE="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1326"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022Lg3\u002BAtffVSIxXEY06bPqel7xKESqZoS84\u002BkkfMPxcyE=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 09:25:22 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/js/site.onfqxddgvk.js">
+    <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/js/site.ucmk3nw7os.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"onfqxddgvk"},{"Name":"integrity","Value":"sha256-xLbBG727APF4b2qPmYcJNx6ZGC5tKqv3Nmt6DhYPtz0="},{"Name":"label","Value":"_content/HomeownersAssociation/js/site.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"711"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022xLbBG727APF4b2qPmYcJNx6ZGC5tKqv3Nmt6DhYPtz0=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 06:32:42 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"ucmk3nw7os"},{"Name":"integrity","Value":"sha256-Lg3\u002BAtffVSIxXEY06bPqel7xKESqZoS84\u002BkkfMPxcyE="},{"Name":"label","Value":"_content/HomeownersAssociation/js/site.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1326"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022Lg3\u002BAtffVSIxXEY06bPqel7xKESqZoS84\u002BkkfMPxcyE=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 09:25:22 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/lib/bootstrap/dist/css/bootstrap-grid.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.css'))</AssetFile>

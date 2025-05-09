@@ -3,6 +3,7 @@ using System;
 using HomeownersAssociation.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeownersAssociation.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250509085419_AddDateEditedToAnnouncements")]
+    partial class AddDateEditedToAnnouncements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.13");
@@ -146,10 +149,6 @@ namespace HomeownersAssociation.Data.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("UnitNumber")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -692,10 +691,6 @@ namespace HomeownersAssociation.Data.Migrations
                     b.Property<string>("ReferenceNumber")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BillId");
@@ -703,8 +698,6 @@ namespace HomeownersAssociation.Data.Migrations
                     b.HasIndex("HomeownerId");
 
                     b.HasIndex("ProcessedById");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Payments");
                 });
@@ -1249,19 +1242,11 @@ namespace HomeownersAssociation.Data.Migrations
                         .HasForeignKey("ProcessedById")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("HomeownersAssociation.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Bill");
 
                     b.Navigation("Homeowner");
 
                     b.Navigation("ProcessedBy");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HomeownersAssociation.Models.Poll", b =>

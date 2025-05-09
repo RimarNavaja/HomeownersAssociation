@@ -15,6 +15,10 @@ namespace HomeownersAssociation.Models
         public UserType UserType { get; set; } = UserType.Homeowner;
         public string Role { get; set; } = string.Empty;
         public bool IsActive { get; set; } = true;
+
+        // Custom properties
+        public string UnitNumber { get; set; } = string.Empty;
+        public string FullName => $"{FirstName} {LastName}";
     }
 
     public enum UserType

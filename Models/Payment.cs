@@ -32,6 +32,11 @@ namespace HomeownersAssociation.Models
 
         public virtual ApplicationUser? Homeowner { get; set; }
 
+        [Required]
+        public string UserId { get; set; } = null!;
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser User { get; set; } = null!;
+
         [Display(Name = "Payment Method")]
         public PaymentMethod PaymentMethod { get; set; }
 

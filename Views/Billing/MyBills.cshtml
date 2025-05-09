@@ -1,69 +1,105 @@
 @model IEnumerable<HomeownersAssociation.Models.Bill>
+@using HomeownersAssociation.Models // For BillStatus and BillType enums
+
 @{
     ViewData["Title"] = "My Bills";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string GetStatusBadgeClass(BillStatus status)
+    {
+        return status switch
+        {
+            BillStatus.Paid => "badge-success",
+            BillStatus.Unpaid => "badge-warning text-dark",
+            BillStatus.PartiallyPaid => "badge-info text-dark",
+            BillStatus.Overdue => "badge-danger",
+            BillStatus.Cancelled => "badge-secondary",
+            _ => "badge-light text-dark"
+        };
+    }
+    string GetStatusBorderClass(BillStatus status)
+    {
+        return status switch
+        {
+            BillStatus.Paid => "border-success",
+            BillStatus.Unpaid => "border-warning",
+            BillStatus.PartiallyPaid => "border-info",
+            BillStatus.Overdue => "border-danger",
+            BillStatus.Cancelled => "border-secondary",
+            _ => "border-light"
+        };
+    }
 }
 
-<div class="container mt-4">
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <h1 class="display-4 text-primary">My Bills</h1>
-            <p class="lead">View and manage your association bills and payments</p>
+<!-- Hero Section -->
+<div class="container-fluid p-0 mb-5">
+    <div class="hero-section text-white text-center d-flex align-items-center justify-content-center"
+         style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/billing-mybills-hero.jpg'); background-size: cover; background-position: center; min-height: 30vh;">
+        <div style="background-color: rgba(0, 0, 0, 0.5); padding: 2rem; border-radius: .5rem;">
+            <h1 class="display-4 fw-bold oswald-heading"><i class="fas fa-wallet me-2"></i>@ViewData["Title"]</h1>
+            <p class="lead lora-body mb-0">View and manage your association bills and payments.</p>
         </div>
-        <div class="col-md-6 text-end">
-            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary me-2">
-                <i class="bi bi-arrow-left"></i> Back to Dashboard
-            </a>
-            <a asp-action="MyPayments" class="btn btn-info">
-                <i class="bi bi-credit-card"></i> View My Payment History
-            </a>
-        </div>
+    </div>
+</div>
+
+<div class="container py-5 lora-body">
+    <!-- Action Buttons Bar -->
+    <div class="d-flex flex-wrap justify-content-center justify-content-md-end gap-2 mb-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary" data-mdb-ripple-init>
+            <i class="fas fa-home me-2"></i> My Dashboard
+        </a>
+        <a asp-action="MyPayments" class="btn btn-info" data-mdb-ripple-init>
+            <i class="fas fa-history me-2"></i> View My Payment History
+        </a>
     </div>
 
     @if (TempData["SuccessMessage"] != null)
     {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            @TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert alert-success alert-dismissible fade show shadow-1-strong" role="alert" data-mdb-alert-init data-mdb-autohide="true" data-mdb-delay="5000">
+            <i class="fas fa-check-circle me-2"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
         </div>
     }
-
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @TempData["ErrorMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert alert-danger alert-dismissible fade show shadow-1-strong" role="alert" data-mdb-alert-init>
+            <i class="fas fa-times-circle me-2"></i> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
         </div>
     }
 
     <!-- Dashboard Cards -->
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="card bg-primary text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Total Bills</h5>
-                    <h2 class="card-text">@ViewBag.Stats.TotalBills</h2>
-                    <p class="card-text">Total Amount: ₱@ViewBag.Stats.TotalAmount.ToString("N2")</p>
+    <div class="row mb-4 g-4">
+        <div class="col-lg-4 col-md-6">
+            <div class="card rounded-6 shadow-2-strong hover-shadow bg-primary text-white h-100">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-file-invoice-dollar fa-3x mb-3"></i>
+                    <h5 class="card-title oswald-heading">Total Bills</h5>
+                    <h2 class="card-text fw-bold">@ViewBag.Stats?.TotalBills</h2>
+                    <p class="card-text mb-0" style="font-size: 0.9rem;">Amount: @ViewBag.Stats?.TotalAmount.ToString("C")</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card bg-success text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Paid Bills</h5>
-                    <h2 class="card-text">@ViewBag.Stats.PaidBills</h2>
-                    <p class="card-text">Paid Amount: ₱@ViewBag.Stats.PaidAmount.ToString("N2")</p>
+        <div class="col-lg-4 col-md-6">
+            <div class="card rounded-6 shadow-2-strong hover-shadow bg-success text-white h-100">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-piggy-bank fa-3x mb-3"></i>
+                    <h5 class="card-title oswald-heading">Paid Bills</h5>
+                    <h2 class="card-text fw-bold">@ViewBag.Stats?.PaidBills</h2>
+                    <p class="card-text mb-0" style="font-size: 0.9rem;">Amount: @ViewBag.Stats?.PaidAmount.ToString("C")</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card bg-warning text-dark">
-                <div class="card-body">
-                    <h5 class="card-title">Unpaid Bills</h5>
-                    <h2 class="card-text">@(ViewBag.Stats.UnpaidBills + ViewBag.Stats.OverdueBills)</h2>
-                    <p class="card-text">Amount Due: ₱@ViewBag.Stats.UnpaidAmount.ToString("N2")</p>
-                    @if (ViewBag.Stats.OverdueBills > 0)
+        <div class="col-lg-4 col-md-12">
+            <div class="card rounded-6 shadow-2-strong hover-shadow bg-warning text-dark h-100">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-hourglass-half fa-3x mb-3"></i>
+                    <h5 class="card-title oswald-heading">Pending Bills</h5>
+                    <h2 class="card-text fw-bold">@((ViewBag.Stats?.UnpaidBills ?? 0) + (ViewBag.Stats?.OverdueBills ?? 0))</h2>
+                    <p class="card-text mb-0" style="font-size: 0.9rem;">Amount Due: @ViewBag.Stats?.UnpaidAmount.ToString("C")</p>
+                    @if ((ViewBag.Stats?.OverdueBills ?? 0) > 0)
                     {
-                        <p class="text-danger fw-bold">Overdue: @ViewBag.Stats.OverdueBills bills</p>
+                        <p class="text-danger fw-bold mt-2 mb-0"><i class="fas fa-exclamation-circle me-1"></i>Overdue: @ViewBag.Stats.OverdueBills bill(s)</p>
                     }
                 </div>
             </div>
@@ -71,38 +107,36 @@
     </div>
 
     <!-- Filter Controls -->
-    <div class="card mb-4">
+    <div class="card rounded-6 shadow-1-strong mb-4">
+        <div class="card-header bg-light py-3">
+            <h5 class="mb-0 oswald-heading"><i class="fas fa-filter me-2"></i>Filter My Bills</h5>
+        </div>
         <div class="card-body">
-            <div class="row">
+            <div class="row g-3 align-items-end">
                 <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="statusFilter">Filter by Status</label>
-                        <select id="statusFilter" class="form-select">
-                            <option value="">All Statuses</option>
-                            <option value="Unpaid">Unpaid</option>
-                            <option value="PartiallyPaid">Partially Paid</option>
-                            <option value="Paid">Paid</option>
-                            <option value="Overdue">Overdue</option>
-                        </select>
-                    </div>
+                    <label for="statusFilter" class="form-label">Status</label>
+                    <select id="statusFilter" class="form-select border" data-mdb-select-init>
+                        <option value="" selected>All Statuses</option>
+                        @foreach (var status in Enum.GetValues(typeof(BillStatus)).Cast<BillStatus>().Where(s => s != BillStatus.Cancelled)) // Exclude Cancelled for MyBills view
+                        {
+                            <option value="@status.ToString().ToLower()">@status</option>
+                        }
+                    </select>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="typeFilter">Filter by Type</label>
-                        <select id="typeFilter" class="form-select">
-                            <option value="">All Types</option>
-                            <option value="MonthlyDues">Monthly Dues</option>
-                            <option value="Utility">Utility</option>
-                            <option value="Maintenance">Maintenance</option>
-                            <option value="Special">Special Assessment</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
+                    <label for="typeFilter" class="form-label">Type</label>
+                    <select id="typeFilter" class="form-select border" data-mdb-select-init>
+                        <option value="" selected>All Types</option>
+                         @foreach (var type in Enum.GetValues(typeof(BillType)))
+                        {
+                            <option value="@type.ToString().ToLower()">@type</option>
+                        }
+                    </select>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="month">Month</label>
-                        <input type="month" id="monthFilter" class="form-control">
+                    <div class="form-outline datepicker" data-mdb-datepicker-init data-mdb-input-init data-mdb-format="yyyy-mm">
+                        <input type="text" id="monthFilter" class="form-control border" />
+                        <label for="monthFilter" class="form-label">Issue Month (YYYY-MM)</label>
                     </div>
                 </div>
             </div>
@@ -111,77 +145,49 @@
 
     @if (!Model.Any())
     {
-        <div class="alert alert-info">
-            <i class="bi bi-info-circle"></i> You don't have any bills at the moment.
+        <div class="alert alert-info shadow-1-strong text-center" role="alert">
+            <i class="fas fa-info-circle fa-2x mb-2 d-block"></i> You currently have no outstanding bills. Well done!
         </div>
     }
     else
     {
         <div class="row">
-            @foreach (var bill in Model)
+            @foreach (var bill in Model.OrderByDescending(b => b.DueDate))
             {
-                string statusClass = bill.Status switch
-                {
-                    BillStatus.Paid => "border-success",
-                    BillStatus.Unpaid => "border-warning",
-                    BillStatus.PartiallyPaid => "border-info",
-                    BillStatus.Overdue => "border-danger",
-                    BillStatus.Cancelled => "border-secondary",
-                    _ => ""
-                };
-
-                string statusBadgeClass = bill.Status switch
-                {
-                    BillStatus.Paid => "bg-success",
-                    BillStatus.Unpaid => "bg-warning text-dark",
-                    BillStatus.PartiallyPaid => "bg-info",
-                    BillStatus.Overdue => "bg-danger",
-                    BillStatus.Cancelled => "bg-secondary",
-                    _ => ""
-                };
-
-                <div class="col-md-6 col-lg-4 mb-4 bill-card" data-status="@bill.Status" data-type="@bill.Type"
-                    data-month="@bill.IssueDate.ToString("yyyy-MM")">
-                    <div class="card h-100 @statusClass">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">@bill.BillNumber</h5>
-                            <span class="badge @statusBadgeClass">@bill.Status</span>
+                <div class="col-md-6 col-lg-4 mb-4 bill-card"
+                     data-status="@bill.Status.ToString().ToLower()"
+                     data-type="@bill.Type.ToString().ToLower()"
+                     data-month="@bill.IssueDate.ToString("yyyy-MM")">
+                    <div class="card h-100 rounded-6 shadow-2-strong hover-shadow border-top @(GetStatusBorderClass(bill.Status)) border-3">
+                        <div class="card-header d-flex justify-content-between align-items-center @(GetStatusBorderClass(bill.Status).Replace("border-","bg-")) 
+                            @( (bill.Status == BillStatus.Unpaid || bill.Status == BillStatus.PartiallyPaid || bill.Status == BillStatus.Cancelled) ? "text-dark" : "text-white" ) oswald-heading">
+                            <h6 class="mb-0 text-truncate" title="@bill.Description">@bill.Description</h6>
+                            <span class="badge @GetStatusBadgeClass(bill.Status) rounded-pill">@bill.Status</span>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">@bill.Description</h5>
-                            <h3 class="card-text text-primary">₱@bill.Amount.ToString("N2")</h3>
-                            <div class="row mt-3">
-                                <div class="col-6">
-                                    <p class="text-muted mb-1">Issue Date:</p>
-                                    <p>@bill.IssueDate.ToShortDateString()</p>
-                                </div>
-                                <div class="col-6">
-                                    <p class="text-muted mb-1">Due Date:</p>
-                                    <p class="@(bill.Status == BillStatus.Overdue ? "text-danger fw-bold" : "")">
-                                        @bill.DueDate.ToShortDateString()
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <p class="text-muted mb-1">Type:</p>
-                                <p>@bill.Type</p>
-                            </div>
+                        <div class="card-body p-3">
+                            <h4 class="card-title text-primary fw-bold text-center mb-3">@bill.Amount.ToString("C")</h4>
+                            <p class="small text-muted mb-1"><i class="fas fa-hashtag me-2"></i>Bill Number: @bill.BillNumber</p>
+                            <p class="small text-muted mb-1"><i class="fas fa-calendar-alt me-2"></i>Issue Date: @bill.IssueDate.ToString("MMM dd, yyyy")</p>
+                            <p class="small mb-2 @(bill.Status == BillStatus.Overdue ? "text-danger fw-bold" : "text-muted")">
+                                <i class="fas fa-calendar-times me-2"></i>Due Date: @bill.DueDate.ToString("MMM dd, yyyy")
+                            </p>
+                            <p class="small text-muted mb-0"><i class="fas fa-tags me-2"></i>Type: @bill.Type</p>
+                            
                             @if (!string.IsNullOrEmpty(bill.Notes))
                             {
-                                <div class="mt-3">
-                                    <p class="text-muted mb-1">Notes:</p>
-                                    <p>@bill.Notes</p>
-                                </div>
+                                <hr class="my-2">
+                                <p class="small text-muted mb-1"><i class="far fa-sticky-note me-2"></i>Notes:</p>
+                                <p class="small fst-italic">@Html.Raw(bill.Notes.Replace("\n", "<br />"))</p>
                             }
                         </div>
-                        <div class="card-footer d-flex justify-content-between">
-                            <a asp-action="Details" asp-route-id="@bill.Id" class="btn btn-sm btn-info">
-                                <i class="bi bi-eye"></i> Details
+                        <div class="card-footer bg-light p-2 d-flex justify-content-around">
+                            <a asp-action="Details" asp-route-id="@bill.Id" class="btn btn-sm btn-outline-info" data-mdb-ripple-init>
+                                <i class="fas fa-eye me-1"></i> Details
                             </a>
                             @if (bill.Status != BillStatus.Paid && bill.Status != BillStatus.Cancelled)
                             {
-                                <a asp-action="PayBill" asp-route-id="@bill.Id" class="btn btn-sm btn-success">
-                                    <i class="bi bi-cash-coin"></i> Pay Now
+                                <a asp-action="PayBill" asp-route-id="@bill.Id" class="btn btn-sm btn-success" data-mdb-ripple-init>
+                                    <i class="fas fa-hand-holding-usd me-1"></i> Pay Now
                                 </a>
                             }
                         </div>
@@ -194,33 +200,38 @@
 
 @section Scripts {
     <script>
-        $(document).ready(function () {
-            // Filter functions
+        document.addEventListener('DOMContentLoaded', function () {
             function applyFilters() {
-                var statusFilter = $("#statusFilter").val().toLowerCase();
-                var typeFilter = $("#typeFilter").val().toLowerCase();
-                var monthFilter = $("#monthFilter").val();
+                var statusFilter = document.getElementById("statusFilter").value.toLowerCase();
+                var typeFilter = document.getElementById("typeFilter").value.toLowerCase();
+                var monthInput = document.getElementById("monthFilter");
+                var monthFilterValue = monthInput.value; // Basic input value
 
-                $(".bill-card").each(function () {
-                    var card = $(this);
-                    var status = card.data("status").toLowerCase();
-                    var type = card.data("type").toLowerCase();
-                    var month = card.data("month");
+                document.querySelectorAll(".bill-card").forEach(function (card) {
+                    var status = card.dataset.status.toLowerCase();
+                    var type = card.dataset.type.toLowerCase();
+                    var month = card.dataset.month;
 
                     var statusMatch = statusFilter === "" || status === statusFilter;
                     var typeMatch = typeFilter === "" || type === typeFilter;
-                    var monthMatch = monthFilter === "" || month === monthFilter;
+                    var monthMatch = monthFilterValue === "" || month === monthFilterValue;
 
-                    if (statusMatch && typeMatch && monthMatch) {
-                        card.show();
-                    } else {
-                        card.hide();
-                    }
+                    card.style.display = (statusMatch && typeMatch && monthMatch) ? "" : "none";
                 });
             }
 
-            // Attach event handlers
-            $("#statusFilter, #typeFilter, #monthFilter").on("change", applyFilters);
+            document.getElementById("statusFilter")?.addEventListener("valueChange.mdb.select", applyFilters);
+            document.getElementById("typeFilter")?.addEventListener("valueChange.mdb.select", applyFilters);
+            // For MDB Datepicker, listen to 'dateChange.mdb.datepicker'
+            const monthFilterElement = document.getElementById("monthFilter");
+            if(monthFilterElement) {
+                monthFilterElement.addEventListener('dateChange.mdb.datepicker', function(e) {
+                    // The event 'e' might contain the formatted date if needed, or just re-read input value
+                    applyFilters(); 
+                });
+                 // Also trigger on manual clear or input change if datepicker doesn't always fire dateChange
+                monthFilterElement.addEventListener('input', applyFilters);
+            }
         });
     </script>
 }

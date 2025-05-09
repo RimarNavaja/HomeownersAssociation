@@ -39,7 +39,8 @@ namespace HomeownersAssociation.Controllers
                 OverdueBills = bills.Count(b => b.Status == BillStatus.Overdue),
                 TotalAmount = bills.Sum(b => b.Amount),
                 PaidAmount = bills.Where(b => b.Status == BillStatus.Paid).Sum(b => b.Amount),
-                UnpaidAmount = bills.Where(b => b.Status == BillStatus.Unpaid || b.Status == BillStatus.Overdue).Sum(b => b.Amount)
+                UnpaidAmount = bills.Where(b => b.Status == BillStatus.Unpaid || b.Status == BillStatus.Overdue).Sum(b => b.Amount),
+                OverdueAmount = bills.Where(b => b.Status == BillStatus.Overdue).Sum(b => b.Amount)
             };
 
             ViewBag.Stats = stats;
@@ -73,7 +74,8 @@ namespace HomeownersAssociation.Controllers
                 OverdueBills = bills.Count(b => b.Status == BillStatus.Overdue),
                 TotalAmount = bills.Sum(b => b.Amount),
                 PaidAmount = bills.Where(b => b.Status == BillStatus.Paid).Sum(b => b.Amount),
-                UnpaidAmount = bills.Where(b => b.Status == BillStatus.Unpaid || b.Status == BillStatus.Overdue).Sum(b => b.Amount)
+                UnpaidAmount = bills.Where(b => b.Status == BillStatus.Unpaid || b.Status == BillStatus.Overdue).Sum(b => b.Amount),
+                OverdueAmount = bills.Where(b => b.Status == BillStatus.Overdue).Sum(b => b.Amount)
             };
 
             ViewBag.Stats = stats;
