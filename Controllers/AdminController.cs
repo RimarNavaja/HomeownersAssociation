@@ -151,7 +151,8 @@ namespace HomeownersAssociation.Controllers
                     BlockNumber = "N/A",
                     RegistrationDate = DateTime.Now,
                     IsApproved = true, // Staff is auto-approved
-                    UserType = UserType.Staff
+                    UserType = UserType.Staff,
+                    Role = "Staff" // Explicitly set the Role property
                 };
 
                 // Handle profile picture upload
@@ -242,6 +243,7 @@ namespace HomeownersAssociation.Controllers
             staff.LastName = model.LastName;
             staff.Address = model.Address;
             staff.IsActive = model.IsActive;
+            staff.Role = "Staff"; // Ensure Role is set on edit
 
             // Handle profile picture upload
             if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
@@ -302,6 +304,38 @@ namespace HomeownersAssociation.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ToggleStaffStatus(string userId)
+        {
+            if (!User.IsInRole("Admin"))
+            {
+                return Forbid();
+            }
+
+            var staffMember = await _userManager.FindByIdAsync(userId);
+
+            if (staffMember == null || staffMember.UserType != UserType.Staff)
+            {
+                TempData["ErrorMessage"] = "Staff member not found.";
+                return RedirectToAction(nameof(StaffMembers));
+            }
+
+            staffMember.IsActive = !staffMember.IsActive;
+            var result = await _userManager.UpdateAsync(staffMember);
+
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = $"Staff member {staffMember.Email} status has been updated to {(staffMember.IsActive ? "Active" : "Inactive")}.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Error updating staff member status.";
+            }
+
+            return RedirectToAction(nameof(StaffMembers));
         }
 
         [HttpPost]

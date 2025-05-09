@@ -352,14 +352,16 @@
                         if (data && data.length > 0) {
                             data.forEach(item => {
                                 const listItem = document.createElement('li');
-                                listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'lora-body');
+                                listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center', 'lora-body', 'py-3');
                                 listItem.innerHTML = `
                                     <div class="ms-2 me-auto">
                                         <div class="fw-bold oswald-subheading">${item.title}</div>
                                         <small class="text-muted">${item.datePosted}</small>
-                                        <p class="mb-1 small">${item.snippet}</p>
+                                        <p class="mb-1 small" style="max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${item.snippet}">${item.snippet}</p>
                                     </div>
-                                    <a href="${item.url}" class="btn btn-sm btn-outline-primary ripple" data-mdb-ripple-color="primary"><i class="fas fa-eye me-1"></i>View</a>
+                                    <div class="ms-3">
+                                        <a href="${item.url}" class="btn btn-sm btn-outline-primary ripple" data-mdb-ripple-color="primary"><i class="fas fa-eye me-1"></i>View</a>
+                                    </div>
                                 `;
                                 announcementsList.appendChild(listItem);
                             });

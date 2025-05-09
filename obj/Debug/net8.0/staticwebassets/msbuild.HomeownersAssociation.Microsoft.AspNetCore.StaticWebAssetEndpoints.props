@@ -28,13 +28,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\HomeownersAssociation.8d3wp7181q.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"8d3wp7181q"},{"Name":"integrity","Value":"sha256-9OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg="},{"Name":"label","Value":"_content/HomeownersAssociation/HomeownersAssociation.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 08:39:58 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 11:39:38 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/HomeownersAssociation.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\HomeownersAssociation.8d3wp7181q.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-9OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 08:39:58 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229OEToGHHL\u002BD4BOu6Du9dxeaI65ozsJRmVlJYOMnCKrg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 11:39:38 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/HomeownersAssociation/images/0311.dgla08krpj.mp4">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\0311.mp4'))</AssetFile>
