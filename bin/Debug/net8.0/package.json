@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@google/gemini-cli": "^0.23.0",
     "mdb-ui-kit": "^9.0.0"
   }
 }

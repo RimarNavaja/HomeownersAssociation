@@ -1,0 +1,8 @@
+**/.git
+**/.VS
+**/bin
+**/obj
+**/node_modules
+app.db
+appsettings.Development.json
+TestResults
