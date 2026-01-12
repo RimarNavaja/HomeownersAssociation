@@ -3,10 +3,32 @@ using Microsoft.EntityFrameworkCore;
 using HomeownersAssociation.Data;
 using HomeownersAssociation.Models;
 
+// Load .env file
+var root = Directory.GetCurrentDirectory();
+var dotenv = Path.Combine(root, ".env");
+DotNetEnv.Env.Load(dotenv);
+
+Console.WriteLine($"[DEBUG] Current Directory: {root}");
+Console.WriteLine($"[DEBUG] .env file exists: {File.Exists(dotenv)}");
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    Console.WriteLine("[DEBUG] ConnectionString not found in Configuration. Checking Env Vars directly...");
+    connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
+}
+
+Console.WriteLine($"[DEBUG] Connection String Found: {!string.IsNullOrEmpty(connectionString)}");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+}
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

@@ -2149,7 +2149,6 @@ C:\Users\ricar\source\repos\HomeownersAssociation\obj\Debug\net8.0\HomeownersAss
 C:\Users\ricar\source\repos\HomeownersAssociation\obj\Debug\net8.0\HomeownersAssociation.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\ricar\source\repos\HomeownersAssociation\obj\Debug\net8.0\HomeownersAssociation.RazorAssemblyInfo.cache
 C:\Users\ricar\source\repos\HomeownersAssociation\obj\Debug\net8.0\HomeownersAssociation.RazorAssemblyInfo.cs
-C:\Users\ricar\source\repos\HomeownersAssociation\obj\Debug\net8.0\HomeownersAssociation.sourcelink.json
 C:\Users\ricar\source\repos\HomeownersAssociation\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\ricar\source\repos\HomeownersAssociation\obj\Debug\net8.0\scopedcss\bundle\HomeownersAssociation.styles.css
 C:\Users\ricar\source\repos\HomeownersAssociation\obj\Debug\net8.0\scopedcss\projectbundle\HomeownersAssociation.bundle.scp.css
